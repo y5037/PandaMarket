@@ -5,6 +5,7 @@ import ItemsListNav from "../../components/app/ItemListNav";
 import PaginationComponents from "../../components/app/Pagination";
 import GeneralItemsList from "../../components/items/GeneralItemsList";
 import Head from "next/head";
+import Footer from "@/components/app/Footer";
 
 function ProductList() {
   const [page, setPage] = useState<number>(1);
@@ -32,6 +33,7 @@ function ProductList() {
           isDataCount={isDataCount}
         />
       </div>
+      <Footer />
     </>
   );
 }

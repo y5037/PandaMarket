@@ -2,8 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/items/[id]": "pages/items/[id].js",
-  "/": "pages/index.js",
+  "/items/additem": "pages/items/additem.js",
   "/items": "pages/items.js",
-  "/items/additem": "pages/items/additem.js"
+  "/": "pages/index.js",
+  "/login": "pages/login.js"
 }

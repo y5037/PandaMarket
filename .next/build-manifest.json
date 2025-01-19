@@ -32,15 +32,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/items.js"
     ],
-    "/items/[id]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/items/[id].js"
-    ],
     "/items/additem": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/items/additem.js"
+    ],
+    "/login": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/login.js"
     ]
   },
   "ampFirstPages": []
