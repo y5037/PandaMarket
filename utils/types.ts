@@ -1,5 +1,5 @@
 // calculatorPagination.tsx
-export interface Pagination {
+export interface PaginationProps {
     page: number;
     pageCount: number;
     isDataCount: number;
