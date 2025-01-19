@@ -2,7 +2,7 @@ import { CommentDataProps, ProductDataProps } from "./types";
 const BASE_URL = "https://panda-market-api.vercel.app";
 
 // 베스트/전체 상품 리스트
-export async function getProductData(params = {}): Promise<ProductDataProps> {
+export async function getProductData(params = {}) {
   const query = new URLSearchParams(params).toString();
   const response = await fetch(`${BASE_URL}/products?${query}`);
 
@@ -38,7 +38,7 @@ export async function getProductId(
 }
 
 // 디테일 댓글
-export async function getComments(
+export async function getCjkmnomments(
   productId: string | string[],
   setCommentsData: React.Dispatch<
     React.SetStateAction<CommentDataProps | undefined>
