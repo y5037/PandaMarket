@@ -38,7 +38,7 @@ export async function getProductId(
 }
 
 // 디테일 댓글
-export async function getCjkmnomments(
+export async function getComments(
   productId: string | string[],
   setCommentsData: React.Dispatch<
     React.SetStateAction<CommentDataProps | undefined>
