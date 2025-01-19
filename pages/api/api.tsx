@@ -2,7 +2,7 @@ import { TCommentDataProps, TProductDataProps } from "./types";
 const BASE_URL = "https://panda-market-api.vercel.app";
 
 // 베스트/전체 상품 리스트
-async function getProductData(params = {}) {
+export async function getProductData(params = {}) {
   const query = new URLSearchParams(params).toString();
   const response = await fetch(`${BASE_URL}/products?${query}`);
 
@@ -59,5 +59,3 @@ export async function getComments(
     throw new Error("정보를 불러오는 데 실패했습니다.");
   }
 }
-
-export default getProductData;
