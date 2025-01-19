@@ -9,7 +9,7 @@ export interface CommentUIProps {
 
 interface ListWriter {
   id: number;
-  image: string | StaticImport
+  image?: string | null;
   nickname: string;
 }
 
@@ -23,6 +23,7 @@ interface ListComment {
 
 export interface TCommentDataProps {
   list: ListComment[];
+  nextCursor: number;
 }
 
 // ProductDetailPage.tsx

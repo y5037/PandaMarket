@@ -154,7 +154,7 @@ function CommentContainer({
                             src={
                               isImgError || writer.image === null
                                 ? "/assets/images/items/default_profile.svg"
-                                : writer.image
+                                : `${writer.image}`
                             }
                             onError={() => setIsImgError(true)}
                             fill

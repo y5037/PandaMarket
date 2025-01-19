@@ -1,11 +1,11 @@
-import React from "react";
+import { StaticImport, StaticRequire } from "next/dist/shared/lib/get-img-props";
 
 export interface TProductDataProps {
   createdAt: string;
   description: string;
   favoriteCount: number;
   id: number;
-  images?: React.ImgHTMLAttributes<HTMLImageElement> | null;
+  images:string | StaticImport;
   isFavorite: boolean;
   name: string;
   ownerId: number;
