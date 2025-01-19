@@ -137,8 +137,8 @@ function SinUpForm() {
         if (passwordRequiredChk) {
           rePasswordErrorContext("비밀번호를 먼저 입력해주세요", true);
           setRePasswordErrorChk(true);
-          (isRePasswordInput.current as HTMLInputElement).value = "";
-          (isPasswordInput.current as HTMLInputElement).focus();
+          if (isRePasswordInput.current) isRePasswordInput.current.value = "";
+          if (isPasswordInput.current) isPasswordInput.current.focus();
         }
         break;
       default:
@@ -147,7 +147,7 @@ function SinUpForm() {
 
   // 비밀번호 변경시 비밀번호 확인 인풋 초기화
   useEffect(() => {
-    (isRePasswordInput.current as HTMLInputElement).value = "";
+    if (isRePasswordInput.current) isRePasswordInput.current.value = "";
     setRePasswordRequiredChk(true);
   }, [isPassword]);
 

@@ -50,8 +50,6 @@ export async function getComments(
   try {
     const body = await response.json();
     setCommentsData(body);
-
-    console.log(body);
   } catch (error) {
     console.log(error);
   }
