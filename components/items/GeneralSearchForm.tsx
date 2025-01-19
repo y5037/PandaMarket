@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "../../styles/items/productList.module.css";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
 import productSearchImg from "@/public/assets/images/items/pd_search.png";
-import getProductData from "@/pages/api/api";
+import {getProductData} from "@/pages/api/api";
 import calculatorMediaQuery from "../../utils/calculatormediaQuery";
 import { ApiOptions, SearchForm } from "./types";
 

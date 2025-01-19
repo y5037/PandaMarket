@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import styles from "../../../styles/items/productDetail.module.css";
 import ProfileDefaultImg from "@/public/assets/images/items/default_profile.svg";
 import FavoriteImg from "@/public/assets/images/items/favorite.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
+import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../../../styles/items/SelectBox";
 import { TProductDataProps } from "@/components/items/id/types";
 import ImgSkeleton from "./ImgSkeleton";
@@ -47,15 +49,21 @@ function ProductDetail({
           <ImgSkeleton />
         ) : (
           <div className={styles.productImg}>
-            <img
-              src={
-                isImgError
-                  ? "/assets/images/app/common/no_img.jpg"
-                  : productData?.images
-              }
-              onError={() => setIsImgError(true)}
-              alt={productData?.name}
-            />
+            {`${productData?.images}`.length === 0 ? (
+              <Image
+                src={NoImg}
+                onError={() => setIsImgError(true)}
+                fill
+                alt={productData!.name}
+              />
+            ) : (
+              <Image
+                src={`${productData?.images}`}
+                onError={() => setIsImgError(true)}
+                fill
+                alt={productData!.name}
+              />
+            )}
           </div>
         )}
 

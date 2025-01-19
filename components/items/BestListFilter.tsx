@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import getProductData from "@/pages/api/api";
+import { getProductData } from "@/pages/api/api";
 import calculatorMediaQuery from "../../utils/calculatormediaQuery";
 import { ApiOptions, Props } from "./types";
 

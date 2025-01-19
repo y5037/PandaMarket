@@ -21,22 +21,13 @@ export default function Home() {
           property="og:description"
           content="일상의 모든 물건을 거래해보세요"
         />
-        <meta
-          property="og:image"
-          content="/assets/images/meta/thumbnail.png"
-        />
+        <meta property="og:image" content="/assets/images/meta/thumbnail.png" />
         <meta
           property="og:image:type"
           content="/assets/images/meta/thumbnail.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <link rel="icon" href="/assets/images/meta/favicon.ico" />
-        <script
-        dangerouslySetInnerHTML={{
-          __html: `history.scrollRestoration = "manual"`,
-        }}
-      />
       </Head>
       <HomePage />
     </>

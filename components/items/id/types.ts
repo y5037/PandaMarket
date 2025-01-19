@@ -1,14 +1,15 @@
-import { ReactElement } from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import React from "react";
 
 // ProductDetail.tsx
 export interface CommentUIProps {
-  setShowEdit: (value: ReactElement<React.SetStateAction<number | null>>) => void;
-  setShowSelect: (value: ReactElement<React.SetStateAction<number | null>>) => void;
+  setShowEdit: (React.Dispatch<React.SetStateAction<number | null>>);
+  setShowSelect: (React.Dispatch<React.SetStateAction<number | null>>);
 }
 
 interface ListWriter {
   id: number;
-  image?: React.ImgHTMLAttributes<HTMLImageElement> | null;
+  image: string | StaticImport
   nickname: string;
 }
 
@@ -30,7 +31,7 @@ export interface TProductDataProps {
   description: string;
   favoriteCount: number;
   id: number;
-  images?: React.ImgHTMLAttributes<HTMLImageElement> | null;
+  images: string | StaticImport;
   isFavorite: boolean;
   name: string;
   ownerId: number;

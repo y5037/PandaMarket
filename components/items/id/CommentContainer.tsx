@@ -11,6 +11,7 @@ import BtnBackImg from "@/public/assets/images/app/button/btn_back.svg";
 import EmptyCommentImg from "@/public/assets/images/items/empty_comment.svg";
 import { TCommentDataProps, CommentUIProps } from "@/components/items/id/types";
 import CommentSkeleton from "./CommentSkeleton";
+import Image from "next/image";
 
 dayjs.extend(isLeapYear);
 dayjs.locale("ko");
@@ -149,13 +150,14 @@ function CommentContainer({
                       </div>
                       <div className={styles.author}>
                         <div className={styles.profileImg}>
-                          <img
+                          <Image
                             src={
                               isImgError || writer.image === null
                                 ? "/assets/images/items/default_profile.svg"
                                 : writer.image
                             }
                             onError={() => setIsImgError(true)}
+                            fill
                             alt="프로필 이미지"
                           />
                         </div>

@@ -1,10 +1,12 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 // BestItem.tsx
 export interface Props {
   createAt: string;
   description: string;
   favoriteCount: number;
   id: number;
-  images?: React.ImgHTMLAttributes<HTMLImageElement> | null;
+  images: string | StaticImport;
   name: string;
   ownerId: number;
   price: number;
