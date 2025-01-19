@@ -4,12 +4,12 @@ import ProductDetail from "../../components/items/id/ProductDetail";
 import ItemListNav from "../../components/app/ItemListNav";
 import CommentContainer from "../../components/items/id/CommentContainer";
 import { getComments, getProductId } from "@/pages/api/api";
-import { TCommentDataProps, TProductDataProps } from "@/pages/items/types";
+import { CommentDataProps, ProductDataProps } from "@/pages/items/types";
 import Head from "next/head";
 
 function ProductDetailPage() {
-  const [productData, setProductData] = useState<TProductDataProps>();
-  const [commentsData, setCommentsData] = useState<TCommentDataProps>();
+  const [productData, setProductData] = useState<ProductDataProps>();
+  const [commentsData, setCommentsData] = useState<CommentDataProps>();
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();

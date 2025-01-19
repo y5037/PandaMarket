@@ -9,7 +9,7 @@ import { SelectBox, SelectButton } from "../../../styles/items/SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import BtnBackImg from "@/public/assets/images/app/button/btn_back.svg";
 import EmptyCommentImg from "@/public/assets/images/items/empty_comment.svg";
-import { TCommentDataProps, CommentUIProps } from "@/components/items/id/types";
+import { CommentDataProps, CommentUIProps } from "@/components/items/id/types";
 import CommentSkeleton from "./CommentSkeleton";
 import Image from "next/image";
 
@@ -47,7 +47,7 @@ function CommentContainer({
   commentsData,
   loading,
 }: {
-  commentsData: TCommentDataProps | undefined;
+  commentsData: CommentDataProps | undefined;
   loading: boolean;
 }) {
   const { list } = commentsData || {};

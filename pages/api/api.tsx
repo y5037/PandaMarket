@@ -1,8 +1,8 @@
-import { TCommentDataProps, TProductDataProps } from "./types";
+import { CommentDataProps, ProductDataProps } from "./types";
 const BASE_URL = "https://panda-market-api.vercel.app";
 
 // 베스트/전체 상품 리스트
-export async function getProductData(params = {}): Promise<TProductDataProps> {
+export async function getProductData(params = {}): Promise<ProductDataProps> {
   const query = new URLSearchParams(params).toString();
   const response = await fetch(`${BASE_URL}/products?${query}`);
 
@@ -17,7 +17,7 @@ export async function getProductData(params = {}): Promise<TProductDataProps> {
 export async function getProductId(
   productId: string | string[],
   setProductData: React.Dispatch<
-    React.SetStateAction<TProductDataProps | undefined>
+    React.SetStateAction<ProductDataProps | undefined>
   >,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
@@ -41,7 +41,7 @@ export async function getProductId(
 export async function getComments(
   productId: string | string[],
   setCommentsData: React.Dispatch<
-    React.SetStateAction<TCommentDataProps | undefined>
+    React.SetStateAction<CommentDataProps | undefined>
   >
 ) {
   const response = await fetch(

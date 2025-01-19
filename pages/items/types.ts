@@ -4,7 +4,7 @@ export interface ParamsId {
   productId: string | undefined;
 }
 
-export interface TProductDataProps {
+export interface ProductDataProps {
   createdAt: string;
   description: string;
   favoriteCount: number;
@@ -33,7 +33,7 @@ interface ListComment {
   writer: ListWriter;
 }
 
-export interface TCommentDataProps {
+export interface CommentDataProps {
   list: ListComment[];
   nextCursor: number;
 }

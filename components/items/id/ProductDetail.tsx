@@ -6,7 +6,7 @@ import FavoriteImg from "@/public/assets/images/items/favorite.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../../../styles/items/SelectBox";
-import { TProductDataProps } from "@/components/items/id/types";
+import { ProductDataProps } from "@/components/items/id/types";
 import ImgSkeleton from "./ImgSkeleton";
 import TextSkeleton from "@/components/items/id/TextSkeleton";
 
@@ -14,7 +14,7 @@ function ProductDetail({
   productData,
   loading,
 }: {
-  productData: TProductDataProps | undefined;
+  productData: ProductDataProps | undefined;
   loading: boolean;
 }) {
   const formattedPrice = Number(productData?.price).toLocaleString();
