@@ -3,7 +3,7 @@ import { BestItemsList } from "../../components/items/BestItemsList";
 import styles from "../../styles/items/productList.module.css";
 import ItemsListNav from "../../components/app/ItemListNav";
 import PaginationComponents from "../../components/app/Pagination";
-import GeneralItemsList from "../../components/items/GeneralItemsList";
+import GeneralItemsList from "../../components/items/AllItemsList";
 import Head from "next/head";
 import Footer from "@/components/app/Footer";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/items/productList.module.css";
-import BestListFilter from "./BestListFilter";
+import BestListFilter from "./BestItemsContainer";
 import BestItem from "./BestItem";
 import { Props } from "./types";
 import Section1Skeleton from "./Section1Skeleton";
