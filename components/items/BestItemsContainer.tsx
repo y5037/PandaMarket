@@ -3,7 +3,7 @@ import { getProductData } from "@/api/api";
 import calculatorMediaQuery from "../../utils/calculatormediaQuery";
 import { ApiOptions, Props } from "./types";
 
-function BestListFilter({
+function BestItemsContainer({
   setProductList,
   setLoading,
 }: {
@@ -55,4 +55,4 @@ function BestListFilter({
   }, [orderBy, keyword, page, isItemCount]);
 }
 
-export default BestListFilter;
+export default BestItemsContainer;

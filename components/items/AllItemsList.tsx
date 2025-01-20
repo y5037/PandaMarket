@@ -3,8 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../../styles/items/productList.module.css";
 import notFoundImg from "@/public/assets/images/items/not_found.png";
-import GeneralSearchForm from "./AllItemsContainer";
-import GeneralItem from "./AllItem";
+import AllItemsContainer from "./AllItemsContainer";
+import AllItem from "./AllItem";
 import { ItemsList, Props } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
 
@@ -17,7 +17,7 @@ function EmptyPlaceholder() {
   );
 }
 
-function GeneralItemsList({
+function AllItemsList({
   page,
   setPage,
   setPageCount,
@@ -28,7 +28,7 @@ function GeneralItemsList({
 
   return (
     <div className={`${styles.productContents} ${styles.generalProduct}`}>
-      <GeneralSearchForm
+      <AllItemsContainer
         setProductContainer={setProductContainer}
         page={page}
         setPage={setPage}
@@ -46,7 +46,7 @@ function GeneralItemsList({
               return (
                 <li key={item.id} className={styles.item}>
                   <Link href={`/items/${item.id}`}>
-                    <GeneralItem item={item} />
+                    <AllItem item={item} />
                   </Link>
                 </li>
               );
@@ -57,4 +57,4 @@ function GeneralItemsList({
   );
 }
 
-export default GeneralItemsList;
+export default AllItemsList;

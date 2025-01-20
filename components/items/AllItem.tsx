@@ -5,7 +5,7 @@ import btnWishImg from "@/public/assets/images/items/btn_wish.png";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { Props } from "./types";
 
-function GeneralItem({ item }: { item: Props }) {
+function AllItem({ item }: { item: Props }) {
   const [isImgError, setIsImgError] = useState(false);
   const formattedPrice = item.price.toLocaleString();
 
@@ -44,4 +44,4 @@ function GeneralItem({ item }: { item: Props }) {
   );
 }
 
-export default GeneralItem;
+export default AllItem;

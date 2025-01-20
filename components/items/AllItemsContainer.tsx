@@ -8,7 +8,7 @@ import { getProductData } from "@/api/api";
 import calculatorMediaQuery from "../../utils/calculatormediaQuery";
 import { ApiOptions, SearchForm } from "./types";
 
-function GeneralSearchForm({
+function AllItemsContainer({
   setProductContainer,
   page,
   setPage,
@@ -132,4 +132,4 @@ function GeneralSearchForm({
   );
 }
 
-export default GeneralSearchForm;
+export default AllItemsContainer;

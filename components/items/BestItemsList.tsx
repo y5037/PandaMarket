@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/items/productList.module.css";
-import BestListFilter from "./BestItemsContainer";
+import BestItemsContainer from "./BestItemsContainer";
 import BestItem from "./BestItem";
 import { Props } from "./types";
 import Section1Skeleton from "./Section1Skeleton";
@@ -13,7 +13,7 @@ function BestItemsList() {
   return (
     <>
       {/* @ts-expect-error Async Server Component */}
-      <BestListFilter setProductList={setProductList} setLoading={setLoading} />
+      <BestItemsContainer setProductList={setProductList} setLoading={setLoading} />
       <div className={`${styles.productContents} ${styles.bestProduct}`}>
         <p className={styles.listTitle}>베스트 상품</p>
         {loading ? (
