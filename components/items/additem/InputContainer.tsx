@@ -5,7 +5,7 @@ import DeleteBtnImg from "@/public/assets/images/items/cancel.svg";
 import { InitialValues } from "./types";
 
 // 상품 정보 등록
-function RegisterInput({ setValues }: InitialValues) {
+function InputContainer({ setValues }: InitialValues) {
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState<string[]>([]);
   const [enteredNum, setEnterdNum] = useState<string | number>("");
@@ -162,4 +162,4 @@ function RegisterInput({ setValues }: InitialValues) {
   );
 }
 
-export default RegisterInput;
+export default InputContainer;

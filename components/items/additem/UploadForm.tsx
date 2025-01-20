@@ -1,9 +1,9 @@
 import { useState, useEffect, FormEvent } from "react";
 import styles from "../../../styles/items/additem.module.css";
-import RegisterInput from "./RegisterInput";
-import RegisterImgFile from "./RegisterImgFile";
+import InputContainer from "./InputContainer";
+import ChooseImgFile from "./ChooseImgFile";
 
-function RegisterForm() {
+function UploadForm() {
   const INITIAL_VALUES = {
     title: "",
     description: "",
@@ -58,11 +58,11 @@ function RegisterForm() {
             등록
           </button>
         </div>
-        <RegisterImgFile imgFile={imgFile} setImgFile={setImgFile} />
-        <RegisterInput setValues={setValues} />
+        <ChooseImgFile imgFile={imgFile} setImgFile={setImgFile} />
+        <InputContainer setValues={setValues} />
       </form>
     </div>
   );
 }
 
-export default RegisterForm;
+export default UploadForm;

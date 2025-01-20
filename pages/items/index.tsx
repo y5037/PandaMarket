@@ -7,7 +7,7 @@ import AllItemsList from "../../components/items/AllItemsList";
 import Head from "next/head";
 import Footer from "@/components/app/Footer";
 
-function ProductList() {
+function ProductListPage() {
   const [page, setPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(1);
   const [isDataCount, setIsDataCount] = useState<number>(0);
@@ -38,4 +38,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductListPage;

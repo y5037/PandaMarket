@@ -5,7 +5,7 @@ import ImgPreview from "./ImgPreview";
 import { ImgFileProps } from "./types";
 
 // 상품 이미지 등록
-function RegisterImgFile({ imgFile, setImgFile }: ImgFileProps) {
+function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
   const [preview, setPreview] = useState("");
   const [isImgChk, setIsImgChk] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -80,4 +80,4 @@ function RegisterImgFile({ imgFile, setImgFile }: ImgFileProps) {
   );
 }
 
-export default RegisterImgFile;
+export default ChooseImgFile;
