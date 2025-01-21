@@ -4,7 +4,7 @@ import ProductDetail from "../../components/items/id/ProductDetail";
 import ItemListNav from "../../components/app/ItemListNav";
 import CommentContainer from "../../components/items/id/CommentContainer";
 import { getComments, getProductId } from "@/api/api";
-import { CommentDataProps, ProductDataProps } from "@/pages/items/types";
+import { CommentDataProps, ProductDataProps } from "@/types/items/types";
 import Head from "next/head";
 
 function ProductDetailPage() {

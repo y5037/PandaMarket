@@ -5,7 +5,7 @@ import styles from "../../styles/boards/postList.module.css";
 import BestPostsList from "@/components/boards/BestPostsList";
 import AllPostsList from "@/components/boards/AllPostsList";
 import { useQueryArticles } from "@/hook/useQueryBoard";
-import { Item } from "./types";
+import { Item } from "@/types/boards/types";
 
 function PostListPage() {
   const [order, setOrder] = useState("recent");

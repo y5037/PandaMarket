@@ -1,16 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/boards": "pages/boards.js",
-  "/boards/types": "pages/boards/types.js",
-  "/home": "pages/home.js",
-  "/": "pages/index.js",
-  "/items/[id]": "pages/items/[id].js",
-  "/items/additem": "pages/items/additem.js",
-  "/items": "pages/items.js",
-  "/items/types": "pages/items/types.js",
-  "/login": "pages/login.js",
-  "/signup": "pages/signup.js",
-  "/api/axiosInstance": "pages/api/axiosInstance.js"
-}
+{"/_app":"pages/_app.js","/_document":"pages/_document.js","/boards":"pages/boards.html","/home":"pages/home.html","/":"pages/index.html","/items/[id]":"pages/items/[id].html","/items/additem":"pages/items/additem.html","/items":"pages/items.html","/login":"pages/login.html","/signup":"pages/signup.html","/_error":"pages/_error.js","/api/axiosInstance":"pages/api/axiosInstance.js","/404":"pages/404.html"}
