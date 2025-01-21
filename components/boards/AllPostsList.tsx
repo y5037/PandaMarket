@@ -4,23 +4,41 @@ import styles from "../../styles/boards/postList.module.css";
 import searchImg from "@/public/assets/images/boards/ic_search.png";
 import SelectArrowImg from "@/public/assets/images/boards/select_down.svg";
 import AllPost from "./AllPost";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Item } from "./types";
 
-function AllPostsList({ recentPost, setKeyword, setOrder }) {
+type Destructuring = {
+  list: Item[];
+  totalCount: number;
+};
+
+type AllPostsListProps = {
+  recentPost: Destructuring | null;
+  setKeyword: Dispatch<SetStateAction<string>>;
+  setOrder: Dispatch<SetStateAction<string>>;
+}
+
+function AllPostsList({
+  recentPost,
+  setKeyword,
+  setOrder,
+}: AllPostsListProps) {
   const [isFilter, setIsFilter] = useState("최신순");
   const [isSelectbox, setIsSelecBox] = useState(false);
   const outRef = useRef<HTMLDivElement | null>(null);
   const { list } = recentPost || {};
 
+  console.log(recentPost)
+
   const handleSelectDropDown = () => {
     isSelectbox ? setIsSelecBox(false) : setIsSelecBox(true);
   };
 
-  const handleOrderChange = (order) => {
+  const handleOrderChange = (order: string) => {
     setOrder(order);
   };
 
-  const handleValueChange = (e) => {
+  const handleValueChange = (e:ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 

@@ -1,7 +1,17 @@
 import styles from "../../styles/boards/postList.module.css";
 import BestPost from "./BestPost";
+import { Item } from "./types";
 
-function BestPostsList({ likePost }) {
+type Destructuring = {
+  list: Item[];
+  totalCount: number;
+};
+
+type ItemListProps = {
+  likePost: Destructuring;
+};
+
+function BestPostsList({ likePost }: ItemListProps) {
   const { list } = likePost || {};
 
   return (

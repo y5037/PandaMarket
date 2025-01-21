@@ -6,18 +6,23 @@ type UseQueryProps = {
   disabled?: boolean;
 };
 
-export const useQueryArticles = ({
+type useQueryResult<T> = {
+  data: T | null;
+  loading: boolean;
+};
+
+export const useQueryArticles = <T>({
   queryUrl,
   disabled = false,
-}: UseQueryProps) => {
-  const [data, setData] = useState(null);
+}: UseQueryProps): useQueryResult<T> => {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const query = async () => {
       setLoading(true);
       try {
-        const response = await axiosIntance.get(queryUrl);
+        const response = await axiosIntance.get<T>(queryUrl);
         setData(response.data);
       } catch (err) {
         console.error(err);

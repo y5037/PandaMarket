@@ -3,8 +3,9 @@ import styles from "../../styles/boards/postList.module.css";
 import noImg from "@/public/assets/images/app/common/no_img.jpg";
 import WishHeartImg from "@/public/assets/images/boards/ic_heart.svg";
 import { useState } from "react";
+import { Item } from "./types";
 
-function AllPost({ item }) {
+function AllPost({ item }:{item:Item}) {
   const [isImgError, setIsImgError] = useState(false);
 
   return (

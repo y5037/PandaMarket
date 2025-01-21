@@ -1,6 +1,6 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-export interface ItemWriter {
+interface ItemWriter {
   id: number;
   nickname: string;
 }
