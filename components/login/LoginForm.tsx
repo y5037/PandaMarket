@@ -79,7 +79,7 @@ function LoginForm() {
         break;
       default:
     }
-  }, [isEmail, isPassword]);
+  }, [isEmail, isPassword, getId]);
 
   useEffect(() => {
     if (emailRequiredChk !== true && passwordRequiredChk !== true) {

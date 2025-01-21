@@ -21,7 +21,7 @@ function ProductDetailPage() {
     if (!router.isReady) return;
     getProductId(productId, setProductData, setLoading);
     getComments(productId, setCommentsData);
-  }, [router.isReady]);
+  }, [router.isReady, productId]);
 
   return (
     <>

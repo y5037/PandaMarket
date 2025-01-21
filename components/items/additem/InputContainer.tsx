@@ -26,7 +26,7 @@ function InputContainer({ setValues }: InitialValues) {
       ...prevValue,
       ["price"]: price,
     }));
-  }, [enteredNum]);
+  }, [enteredNum, price, setValues]);
 
   const handleChange = (name: string, value: string | number | string[]) => {
     setValues((prevValue) => ({

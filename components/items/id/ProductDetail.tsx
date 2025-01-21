@@ -39,7 +39,7 @@ function ProductDetail({
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, [handleOptionClick]);
+  }, []);
 
   return (
     <div className={`${styles.pagiContainer} ${styles.emptyTopBox}`}>

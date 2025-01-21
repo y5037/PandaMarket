@@ -19,16 +19,6 @@ function BestItemsContainer({
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
 
-  const handleLoad = async (options: ApiOptions) => {
-    try {
-      const { list } = await getProductData(options);
-      setProductList(list);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
     const handleResize = () => {
       setIsResponsive(window.innerWidth);
@@ -43,16 +33,26 @@ function BestItemsContainer({
       // cleanup
       window.removeEventListener("resize", handleResize);
     };
-  }, [isResponsive]);
+  }, [isResponsive, isMobile, isTablet]);
 
   useEffect(() => {
+    const handleLoad = async (options: ApiOptions) => {
+      try {
+        const { list } = await getProductData(options);
+        setProductList(list);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+
     handleLoad({
       page,
       orderBy,
       pageSize: isItemCount,
       keyword,
     });
-  }, [orderBy, keyword, page, isItemCount]);
+  }, [orderBy, keyword, page, isItemCount, setLoading, setProductList]);
 }
 
 export default BestItemsContainer;

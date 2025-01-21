@@ -143,7 +143,7 @@ function SinUpForm() {
         break;
       default:
     }
-  }, [isEmail, isPassword, isName, isRePassword]);
+  }, [isEmail, isPassword, isName, isRePassword, getId, passwordRequiredChk]);
 
   // 비밀번호 변경시 비밀번호 확인 인풋 초기화
   useEffect(() => {

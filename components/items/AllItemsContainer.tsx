@@ -30,7 +30,7 @@ function AllItemsContainer({
   // 첫 렌더링 시 현재 유저의 디바이스 크기를 계산해 페이지네이션 출력
   useEffect(() => {
     setIsDataCount(isItemCount);
-  }, []);
+  }, [isItemCount, setIsDataCount]);
 
   const handleFilterToggle = () => {
     toggle ? setToggle(false) : setToggle(true);
@@ -52,17 +52,6 @@ function AllItemsContainer({
     setPage(1);
   };
 
-  const handleLoad = async (options: ApiOptions) => {
-    try {
-      const { list, totalCount } = await getProductData(options);
-      setProductContainer(list);
-      setPageCount(totalCount);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
     const handleResize = () => {
       setIsResponsive(window.innerWidth);
@@ -75,21 +64,41 @@ function AllItemsContainer({
       // 페이지 창 크기 조절 시 pagination 1로 초기화(추후 불필요하단 판단 시 아래 코드만 삭제)
       setPage(1);
     };
+    
     window.addEventListener("resize", handleResize);
     return () => {
       // cleanup
       window.removeEventListener("resize", handleResize);
     };
-  }, [isResponsive]);
+  }, [isItemCount, isResponsive, isMobile, isTablet, setIsDataCount, setPage]);
 
   useEffect(() => {
+    const handleLoad = async (options: ApiOptions) => {
+      try {
+        const { list, totalCount } = await getProductData(options);
+        setProductContainer(list);
+        setPageCount(totalCount);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+
     handleLoad({
       page,
       orderBy,
       pageSize: isItemCount,
       keyword: keyword,
     });
-  }, [orderBy, keyword, page, isItemCount]);
+  }, [
+    orderBy,
+    keyword,
+    page,
+    isItemCount,
+    setLoading,
+    setPageCount,
+    setProductContainer,
+  ]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

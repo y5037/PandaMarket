@@ -62,7 +62,7 @@ function AllPostsList({
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, [handleSelectDropDown]);
+  }, []);
 
   return (
     <>
