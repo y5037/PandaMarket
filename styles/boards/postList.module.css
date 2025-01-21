@@ -35,6 +35,7 @@
   border-radius: 8px;
   background: var(--gray-50);
   max-width: 33.33333%;
+  cursor: pointer;
 
   /* Tablet */
   @media (max-width: 1199px) {
@@ -43,6 +44,7 @@
   /* Mobile */
   @media (max-width: 768px) {
     max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -321,6 +323,7 @@
   padding: 10px 15px 20px;
   border-radius: 8px;
   background: var(--gray-50);
+  cursor: pointer;
 }
 
 .allPost .contentsCover {
