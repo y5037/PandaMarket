@@ -6,7 +6,7 @@ import NavLogoImg from "@/public/assets/images/app/navi/logo.svg";
 import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.png";
 
 const menuData = [
-  { id: 1, name: "자유게시판", path: "/board" },
+  { id: 1, name: "자유게시판", path: "/boards" },
   { id: 2, name: "중고마켓", path: "/items" },
 ];
 

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "../../../styles/items/productDetail.module.css";
-import ProfileDefaultImg from "@/public/assets/images/items/default_profile.svg";
 import FavoriteImg from "@/public/assets/images/items/favorite.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
@@ -110,7 +109,11 @@ function ProductDetail({
             <div className={styles.cover}>
               <div className={styles.owner}>
                 <div className={styles.profileImg}>
-                  <ProfileDefaultImg />
+                  <Image
+                    src="/assets/images/items/default_profile.svg"
+                    alt="프로필 이미지"
+                    fill
+                  />
                 </div>
                 <div className={styles.postInfo}>
                   <p className={styles.nickName}>
