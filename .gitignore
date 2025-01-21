@@ -56,7 +56,6 @@ logs
 **/*.backup.*
 **/*.back.*
 
-dist
 node_modules
 node_modules/
 node_modules/.cache
@@ -67,5 +66,8 @@ bower_components
 psd
 thumb
 sketch
+
+### next ###
+.next
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,git,react
