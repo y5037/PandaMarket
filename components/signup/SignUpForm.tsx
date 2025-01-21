@@ -173,7 +173,7 @@ function SinUpForm() {
       <div className={styles.containWrap}>
         <div className={styles.signInLayout}>
           <div className={styles.logo}>
-            <Link href="/">
+            <Link href="/" prefetch={true}>
               <Image src={logoImg} alt="판다마켓" className={styles.logoImg} />
               <p className={styles.companyName}>판다마켓</p>
             </Link>
@@ -297,7 +297,7 @@ function SinUpForm() {
             </div>
           </div>
           <div className={styles.returnLink}>
-            이미 회원이신가요? <Link href="/login">로그인</Link>
+            이미 회원이신가요? <Link href="/login" prefetch={true}>로그인</Link>
           </div>
         </div>
       </div>

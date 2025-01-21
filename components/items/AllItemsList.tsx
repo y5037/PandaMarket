@@ -45,7 +45,7 @@ function AllItemsList({
             productContainer.map((item) => {
               return (
                 <li key={item.id} className={styles.item}>
-                  <Link href={`/items/${item.id}`}>
+                  <Link href={`/items/${item.id}`} prefetch={true}>
                     <AllItem item={item} />
                   </Link>
                 </li>

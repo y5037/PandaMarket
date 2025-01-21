@@ -17,7 +17,7 @@ function ItemListNav() {
     <div className={styles.fixContainer}>
       <nav className={styles.navCover}>
         <div className={styles.pageControl}>
-          <Link href="/">
+          <Link href="/" prefetch={true}>
             <div className={styles.btnLogo}>
               <NavLogoImg />
               <p className={styles.companyName}>판다마켓</p>
@@ -29,6 +29,7 @@ function ItemListNav() {
                 <Link
                   key={menu.id}
                   href={menu.path}
+                  prefetch={true}
                   className={`${styles.btnNavMenu} ${
                     menu.path === router.pathname ? styles.isActive : ""
                   }`}

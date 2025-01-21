@@ -94,7 +94,7 @@ function LoginForm() {
       <div className={styles.containWrap}>
         <div className={styles.signInLayout}>
           <div className={styles.logo}>
-            <Link href="/">
+            <Link href="/" prefetch={true}>
               <Image src={logoImg} alt="판다마켓" className={styles.logoImg} />
               <p className={styles.companyName}>판다마켓</p>
             </Link>
@@ -177,7 +177,10 @@ function LoginForm() {
             </div>
           </div>
           <div className={styles.returnLink}>
-            판다마켓이 처음이신가요? <Link href="/signup">회원가입</Link>
+            판다마켓이 처음이신가요?{" "}
+            <Link href="/signup" prefetch={true}>
+              회원가입
+            </Link>
           </div>
         </div>
       </div>

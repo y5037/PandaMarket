@@ -120,7 +120,7 @@ function AllItemsContainer({
                   onChange={handleSearch}
                 />
               </div>
-              <Link href="/items/additem">
+              <Link href="/items/additem" prefetch={true}>
                 <button type="button">상품 등록하기</button>
               </Link>
             </div>

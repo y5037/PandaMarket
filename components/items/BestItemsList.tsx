@@ -13,7 +13,10 @@ function BestItemsList() {
   return (
     <>
       {/* @ts-expect-error Async Server Component */}
-      <BestItemsContainer setProductList={setProductList} setLoading={setLoading} />
+      <BestItemsContainer
+        setProductList={setProductList}
+        setLoading={setLoading}
+      />
       <div className={`${styles.productContents} ${styles.bestProduct}`}>
         <p className={styles.listTitle}>베스트 상품</p>
         {loading ? (
@@ -23,7 +26,7 @@ function BestItemsList() {
             {productList.map((item) => {
               return (
                 <li key={item.id} className={styles.item}>
-                  <Link href={`/items/${item.id}`}>
+                  <Link href={`/items/${item.id}`} prefetch={true}>
                     <BestItem item={item} />
                   </Link>
                 </li>
