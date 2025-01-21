@@ -31,11 +31,12 @@ function PostListPage() {
       <ItemListNav />
       {likePost && (
         <div className={styles.pagiContainer}>
-          <BestPostsList likePost={likePost} />
+          <BestPostsList likePost={likePost} likeLoading={likeLoading} />
           <AllPostsList
             recentPost={recentPost}
             setOrder={setOrder}
             setKeyword={setKeyword}
+            recentLoading={recentLoading}
           />
         </div>
       )}

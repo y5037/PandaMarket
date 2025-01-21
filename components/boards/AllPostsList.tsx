@@ -4,8 +4,16 @@ import styles from "../../styles/boards/postList.module.css";
 import searchImg from "@/public/assets/images/boards/ic_search.png";
 import SelectArrowImg from "@/public/assets/images/boards/select_down.svg";
 import AllPost from "./AllPost";
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Item } from "./types";
+import Section2Skeleton from "./Section2Skeleton";
 
 type Destructuring = {
   list: Item[];
@@ -16,19 +24,19 @@ type AllPostsListProps = {
   recentPost: Destructuring | null;
   setKeyword: Dispatch<SetStateAction<string>>;
   setOrder: Dispatch<SetStateAction<string>>;
-}
+  recentLoading: boolean;
+};
 
 function AllPostsList({
   recentPost,
   setKeyword,
   setOrder,
+  recentLoading,
 }: AllPostsListProps) {
   const [isFilter, setIsFilter] = useState("최신순");
   const [isSelectbox, setIsSelecBox] = useState(false);
   const outRef = useRef<HTMLDivElement | null>(null);
   const { list } = recentPost || {};
-
-  console.log(recentPost)
 
   const handleSelectDropDown = () => {
     isSelectbox ? setIsSelecBox(false) : setIsSelecBox(true);
@@ -38,7 +46,7 @@ function AllPostsList({
     setOrder(order);
   };
 
-  const handleValueChange = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
@@ -113,16 +121,21 @@ function AllPostsList({
             </div>
           </form>
         </div>
-        <ul className={styles.postCover}>
-          {list &&
-            list.map((item) => {
-              return (
-                <li key={item.id} className={styles.item}>
-                  <AllPost item={item} />
-                </li>
-              );
-            })}
-        </ul>
+        {/* 무한스크롤 기능 필요. 현재는 최대 10개만 불러오고 있음 */}
+        {recentLoading ? (
+          <Section2Skeleton />
+        ) : (
+          <ul className={styles.postCover}>
+            {list &&
+              list.map((item) => {
+                return (
+                  <li key={item.id} className={styles.item}>
+                    <AllPost item={item} />
+                  </li>
+                );
+              })}
+          </ul>
+        )}
       </div>
     </>
   );
