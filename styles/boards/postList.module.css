@@ -99,6 +99,7 @@
 }
 
 .bestPost .thumbnailImg {
+  position: relative;
   width: calc(100vw * (72 / 640));
   height: calc(100vw * (72 / 640));
   min-width: 72px;
@@ -341,6 +342,7 @@
 }
 
 .allPost .thumbnailImg {
+  position: relative;
   width: calc(100vw * (72 / 640));
   height: calc(100vw * (72 / 640));
   min-width: 72px;

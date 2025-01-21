@@ -1,15 +1,21 @@
 import styles from "../../styles/boards/postList.module.css";
 import BestPost from "./BestPost";
 
-function BestPostsList() {
+function BestPostsList({ likePost }) {
+  const { list } = likePost || {};
+
   return (
     <>
       <div className={`${styles.postContents} ${styles.bestPost}`}>
         <p className={styles.listTitle}>베스트 게시글</p>
         <ul className={styles.postCover}>
-          <li className={styles.item}>
-            <BestPost />
-          </li>
+          {list?.map((item) => {
+            return (
+              <li key={item.id} className={styles.item}>
+                <BestPost item={item} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>

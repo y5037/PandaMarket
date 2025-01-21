@@ -4,8 +4,40 @@ import styles from "../../styles/boards/postList.module.css";
 import searchImg from "@/public/assets/images/boards/ic_search.png";
 import SelectArrowImg from "@/public/assets/images/boards/select_down.svg";
 import AllPost from "./AllPost";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
-function AllPostsList() {
+function AllPostsList({ recentPost, setKeyword, setOrder }) {
+  const [isFilter, setIsFilter] = useState("최신순");
+  const [isSelectbox, setIsSelecBox] = useState(false);
+  const outRef = useRef<HTMLDivElement | null>(null);
+  const { list } = recentPost || {};
+
+  const handleSelectDropDown = () => {
+    isSelectbox ? setIsSelecBox(false) : setIsSelecBox(true);
+  };
+
+  const handleOrderChange = (order) => {
+    setOrder(order);
+  };
+
+  const handleValueChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: { target: any }) => {
+      // 해당 이벤트가 영역 밖이라면 케밥 버튼 비활성화
+      if (outRef.current && !outRef.current.contains(e.target)) {
+        setIsSelecBox(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [handleSelectDropDown]);
+
   return (
     <>
       <div className={`${styles.postContents} ${styles.allPost}`}>
@@ -21,28 +53,57 @@ function AllPostsList() {
               <div className={styles.searchCover}>
                 <div className={styles.inputBox}>
                   <Image src={searchImg} alt="검색하기" />
-                  <input name="search" placeholder="검색어를 입력해주세요" />
+                  <input
+                    name="search"
+                    onChange={handleValueChange}
+                    placeholder="검색어를 입력해주세요"
+                  />
                 </div>
               </div>
               <div className={styles.selectBox}>
-                <div className={styles.option}>
-                  <p className={styles.text}>최신순</p>
-                  {/* on 여부에 따라 화살표 rotate */}
-                  <SelectArrowImg />
+                <div
+                  onClick={handleSelectDropDown}
+                  ref={outRef}
+                  className={styles.option}
+                >
+                  <p className={styles.text}>{isFilter}</p>
+                  <SelectArrowImg className={isSelectbox ? styles.on : ""} />
                 </div>
-                {/* active 여부에 따라 DropDown */}
-                <ul className={styles.optionChoose}>
-                  <li>최신순</li>
-                  <li>좋아요순</li>
+                <ul
+                  className={`${styles.optionChoose} ${
+                    isSelectbox ? styles.active : ""
+                  }`}
+                >
+                  <li
+                    onClick={() => {
+                      handleOrderChange("recent");
+                      setIsFilter("최신순");
+                    }}
+                  >
+                    최신순
+                  </li>
+                  <li
+                    onClick={() => {
+                      handleOrderChange("like");
+                      setIsFilter("좋아요순");
+                    }}
+                  >
+                    좋아요순
+                  </li>
                 </ul>
               </div>
             </div>
           </form>
         </div>
         <ul className={styles.postCover}>
-          <li className={styles.item}>
-            <AllPost />
-          </li>
+          {list &&
+            list.map((item) => {
+              return (
+                <li key={item.id} className={styles.item}>
+                  <AllPost item={item} />
+                </li>
+              );
+            })}
         </ul>
       </div>
     </>
