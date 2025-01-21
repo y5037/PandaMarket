@@ -1,7 +1,7 @@
 .pagiContainer {
   margin-top: 69px;
   /* Default */
-  padding: 0 200px calc(env(safe-area-inset-bottom) + 100px);
+  padding: 0 200px;
 
   /* 1920 이상 */
   @media (min-width: 1920px) {
@@ -202,7 +202,7 @@
 }
 
 .allPost {
-  padding-top: 16px;
+  padding: 16px 0 calc(env(safe-area-inset-bottom) + 100px);
 }
 
 .allPost .titleCover {
