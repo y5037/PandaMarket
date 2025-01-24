@@ -48,7 +48,7 @@ function ProductDetail({
           <ImgSkeleton />
         ) : (
           <div className={styles.productImg}>
-            {`${productData?.images}`.length === 0 ? (
+            {`${productData?.images}`.length === 0 || isImgError ? (
               <Image
                 src={NoImg}
                 onError={() => setIsImgError(true)}

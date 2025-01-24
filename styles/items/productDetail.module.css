@@ -146,6 +146,7 @@
   color: var(--gray-600);
   white-space: pre-line;
   word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .tagsCover ul {
