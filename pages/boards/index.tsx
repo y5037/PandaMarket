@@ -4,7 +4,7 @@ import ItemListNav from "@/components/app/ItemListNav";
 import styles from "../../styles/boards/postList.module.css";
 import BestPostsList from "@/components/boards/BestPostsList";
 import AllPostsList from "@/components/boards/AllPostsList";
-import { useQueryArticles } from "@/hook/useQueryBoard";
+import { useQueryArticles } from "@/hooks/useQueryBoard";
 import { Item } from "@/types/boards/types";
 
 function PostListPage() {
