@@ -11,7 +11,7 @@ type useQueryResult<T> = {
   loading: boolean;
 };
 
-export const useQueryArticles = <T>({
+export const useQueryBoard = <T>({
   queryUrl,
   disabled = false,
 }: UseQueryProps): useQueryResult<T> => {
