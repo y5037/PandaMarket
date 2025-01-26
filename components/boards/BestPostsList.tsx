@@ -9,7 +9,7 @@ type Destructuring = {
 };
 
 type BestPostsList = {
-  likePost: Destructuring;
+  likePost: Destructuring | null;
   likeLoading: boolean;
 };
 

@@ -29,17 +29,15 @@ function PostListPage() {
         <title>자유게시판 - 판다마켓</title>
       </Head>
       <ItemListNav />
-      {likePost && (
-        <div className={styles.pagiContainer}>
-          <BestPostsList likePost={likePost} likeLoading={likeLoading} />
-          <AllPostsList
-            recentPost={recentPost}
-            setOrder={setOrder}
-            setKeyword={setKeyword}
-            recentLoading={recentLoading}
-          />
-        </div>
-      )}
+      <div className={styles.pagiContainer}>
+        <BestPostsList likePost={likePost} likeLoading={likeLoading} />
+        <AllPostsList
+          recentPost={recentPost}
+          setOrder={setOrder}
+          setKeyword={setKeyword}
+          recentLoading={recentLoading}
+        />
+      </div>
     </>
   );
 }
