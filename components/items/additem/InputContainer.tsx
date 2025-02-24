@@ -55,13 +55,13 @@ function InputContainer({ setValues }: InitialValues) {
 
   // onKeyDown 이벤트 키가 Enter와 일치하면 실행
   const activeEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    const regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\+┼<>@\#$%&\'\"\\\(\=]/gi;
+    const specialCharRegex = /[ \{\}\[\]\/?.,;:|\)*~`!^\+┼<>@\#$%&\'\"\\\(\=]/gi;
     // onKeyDown 이벤트의 한글 입력 시 이벤트가 두 번 호출 되는 버그 방지
     if (e.nativeEvent.isComposing) {
       return;
     }
     // 특수문자 및 스페이스바 입력 방지
-    if (regExp.test(e.key)) {
+    if (specialCharRegex.test(e.key)) {
       e.preventDefault();
     }
     if (e.key === "Enter") {
