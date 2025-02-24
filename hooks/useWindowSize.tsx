@@ -1,6 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 
-function calculatorMediaQuery() {
+function useWindowSize() {
   const isTablet = useMediaQuery({
     query: "(max-width: 1200px)",
   });
@@ -10,4 +10,4 @@ function calculatorMediaQuery() {
   return { isTablet, isMobile };
 }
 
-export default calculatorMediaQuery;
+export default useWindowSize;

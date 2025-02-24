@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProductData } from "@/api/api";
-import calculatorMediaQuery from "../../utils/calculatormediaQuery";
+import calculatorMediaQuery from "../../hooks/useWindowSize";
 import { ApiOptions, Props } from "./types";
 
 function BestItemsContainer({

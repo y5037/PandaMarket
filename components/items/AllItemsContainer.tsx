@@ -5,7 +5,7 @@ import styles from "../../styles/items/productList.module.css";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
 import productSearchImg from "@/public/assets/images/items/pd_search.png";
 import { getProductData } from "@/api/api";
-import calculatorMediaQuery from "../../utils/calculatormediaQuery";
+import useWindowSize from "../../hooks/useWindowSize";
 import { ApiOptions, SearchForm } from "./types";
 
 function AllItemsContainer({
@@ -16,7 +16,7 @@ function AllItemsContainer({
   setIsDataCount,
   setLoading,
 }: SearchForm) {
-  const { isTablet, isMobile } = calculatorMediaQuery();
+  const { isTablet, isMobile } = useWindowSize();
   const [isResponsive, setIsResponsive] = useState(0);
   const [isItemCount, setIsItemCount] = useState(
     isMobile ? 4 : isTablet ? 6 : 10
@@ -64,7 +64,7 @@ function AllItemsContainer({
       // 페이지 창 크기 조절 시 pagination 1로 초기화(추후 불필요하단 판단 시 아래 코드만 삭제)
       setPage(1);
     };
-    
+
     window.addEventListener("resize", handleResize);
     return () => {
       // cleanup
