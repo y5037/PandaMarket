@@ -34,12 +34,12 @@ function AllPostsList({
   recentLoading,
 }: AllPostsListProps) {
   const [isFilter, setIsFilter] = useState("최신순");
-  const [isSelectbox, setIsSelecBox] = useState(false);
+  const [isSelectbox, setIsSelectBox] = useState(false);
   const outRef = useRef<HTMLDivElement | null>(null);
   const { list } = recentPost || {};
 
   const handleSelectDropDown = () => {
-    isSelectbox ? setIsSelecBox(false) : setIsSelecBox(true);
+    setIsSelectBox((prev) => !prev);
   };
 
   const handleOrderChange = (order: string) => {
@@ -54,7 +54,7 @@ function AllPostsList({
     const handleClickOutside = (e: { target: any }) => {
       // 해당 이벤트가 영역 밖이라면 케밥 버튼 비활성화
       if (outRef.current && !outRef.current.contains(e.target)) {
-        setIsSelecBox(false);
+        setIsSelectBox(false);
       }
     };
 
