@@ -4,19 +4,19 @@ import ItemListNav from "@/components/app/ItemListNav";
 import styles from "../../styles/boards/postList.module.css";
 import BestPostsList from "@/components/boards/BestPostsList";
 import AllPostsList from "@/components/boards/AllPostsList";
-import { useQueryBoard } from "@/hooks/useQueryBoard";
+import { useQuery } from "@/hooks/useQuery";
 import { Item } from "@/types/boards/types";
 
 function PostListPage() {
   const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
-  const { data: likePost, loading: likeLoading } = useQueryBoard<{
+  const { data: likePost, loading: likeLoading } = useQuery<{
     list: Item[];
     totalCount: number;
   }>({
     queryUrl: "articles?orderBy=like&pageSize=3",
   });
-  const { data: recentPost, loading: recentLoading } = useQueryBoard<{
+  const { data: recentPost, loading: recentLoading } = useQuery<{
     list: Item[];
     totalCount: number;
   }>({
