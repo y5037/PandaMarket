@@ -25,11 +25,18 @@ function LoginForm() {
     handlePasswordVisible,
   } = useLogin();
 
-  const { postLogin, showModal } = useLoginProps();
+  const { postLogin, showModal, setShowModal, isModalMessage } =
+    useLoginProps();
 
   return (
     <>
-      {showModal && <Modal />}
+      {showModal && (
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage={isModalMessage}
+        />
+      )}
       <div className={styles.containWrap}>
         <div className={styles.signInLayout}>
           <div className={styles.logo}>

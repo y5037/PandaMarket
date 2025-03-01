@@ -1,5 +1,6 @@
 import Head from "next/head";
-import RegistrationForm from "../../components/signup/SignUpForm";
+import SignupForm from "../../components/signup/SignupForm";
+import { SignupProvider } from "@/src/context/SignupProvider";
 
 function RegistrationPage() {
   return (
@@ -7,7 +8,9 @@ function RegistrationPage() {
       <Head>
         <title>회원가입 - 판다마켓</title>
       </Head>
-      <RegistrationForm />;
+      <SignupProvider>
+        <SignupForm />
+      </SignupProvider>
     </>
   );
 }
