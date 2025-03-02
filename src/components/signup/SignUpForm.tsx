@@ -60,7 +60,7 @@ function SignUpForm() {
       <div className={styles.containWrap}>
         <div className={styles.signInLayout}>
           <div className={styles.logo}>
-            <Link href="/" prefetch={true}>
+            <Link href="/">
               <Image src={logoImg} alt="판다마켓" className={styles.logoImg} />
               <p className={styles.companyName}>판다마켓</p>
             </Link>
@@ -186,7 +186,7 @@ function SignUpForm() {
           </div>
           <div className={styles.returnLink}>
             이미 회원이신가요?{" "}
-            <Link href="/login" prefetch={true}>
+            <Link href="/login">
               로그인
             </Link>
           </div>

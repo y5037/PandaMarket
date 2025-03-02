@@ -7,9 +7,13 @@ import homeContent2Img from "@/public/assets/images/app/home/Img_home_02.png";
 import homeContent3Img from "@/public/assets/images/app/home/Img_home_03.png";
 import banner1Img from "@/public/assets/images/app/home/Img_home_top.png";
 import banner2Img from "@/public/assets/images/app/home/Img_home_bottom.png";
+import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.png";
 import Footer from "@/src/components/app/Footer";
+import { useAuth } from "@/src/hooks/useAuth";
 
 function HomePage() {
+  const { accessToken } = useAuth();
+
   return (
     <>
       <div className={styles.fixContainer}>
@@ -20,9 +24,17 @@ function HomePage() {
               <p className={styles.companyName}>판다마켓</p>
             </Link>
           </div>
-          <Link href="/login">
-            <div className={styles.btnLogin}>로그인</div>
-          </Link>
+          {accessToken ? (
+            <div className={styles.userControl}>
+              <div className={styles.circle}>
+                <Image src={profileDefaultImg} alt="기본프로필이미지" />
+              </div>
+            </div>
+          ) : (
+            <Link href="/login">
+              <div className={styles.btnLogin}>로그인</div>
+            </Link>
+          )}
         </nav>
       </div>
       <main>

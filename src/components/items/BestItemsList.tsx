@@ -26,7 +26,7 @@ function BestItemsList() {
             {productList.map((item) => {
               return (
                 <li key={item.id} className={styles.item}>
-                  <Link href={`/items/${item.id}`} prefetch={true}>
+                  <Link href={`/items/${item.id}`}>
                     <BestItem item={item} />
                   </Link>
                 </li>
