@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { modalController } from "../utils/modalController";
-import axiosInstance from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 import axios from "axios";
 
 const SignupContext = createContext({
@@ -75,7 +75,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         isModalMessage,
         setIsModalMessage,
         isRoute,
-        setIsRoute
+        setIsRoute,
       }}
     >
       {children}

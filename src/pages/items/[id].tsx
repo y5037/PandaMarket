@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import ProductDetail from "@/src/components/items/id/ProductDetail";
 import ItemListNav from "@/src/components/app/ItemListNav";
 import CommentContainer from "@/src/components/items/id/CommentContainer";
-import { getComments, getProductId } from "@/src/api/api";
+import { getComments, getProductId } from "@/src/api/ProductAPI";
 import { CommentDataProps, ProductDataProps } from "./types";
 import Head from "next/head";
 

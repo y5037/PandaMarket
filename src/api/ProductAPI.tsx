@@ -1,4 +1,4 @@
-import axiosInstance from "./axios";
+import axiosInstance from "./axiosInstance";
 import { CommentDataProps, ProductDataProps } from "./types";
 
 // 베스트/전체 상품 리스트
