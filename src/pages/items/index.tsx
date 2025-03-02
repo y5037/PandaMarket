@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BestItemsList } from "@/src/components/items/BestItemsList";
 import styles from "@/styles/items/productList.module.css";
-import ItemListNav from "@/src/components/app/ItemListNav";
+import NavBar from "@/src/components/app/NavBar";
 import PaginationComponents from "@/src/components/app/Pagination";
 import AllItemsList from "@/src/components/items/AllItemsList";
 import Head from "next/head";
@@ -17,7 +17,7 @@ function ProductListPage() {
       <Head>
         <title>중고마켓 - 판다마켓</title>
       </Head>
-      <ItemListNav />
+      <NavBar />
       <div className={styles.pagiContainer}>
         <BestItemsList />
         <AllItemsList

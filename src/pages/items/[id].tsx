@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ProductDetail from "@/src/components/items/id/ProductDetail";
-import ItemListNav from "@/src/components/app/ItemListNav";
+import NavBar from "@/src/components/app/NavBar";
 import CommentContainer from "@/src/components/items/id/CommentContainer";
 import { getComments, getProductId } from "@/src/api/ProductAPI";
 import { CommentDataProps, ProductDataProps } from "./types";
@@ -28,7 +28,7 @@ function ProductDetailPage() {
       <Head>
         <title>{productData?.name} - 판다마켓</title>
       </Head>
-      <ItemListNav />
+      <NavBar />
       <ProductDetail productData={productData} loading={loading} />
       <CommentContainer commentsData={commentsData} loading={loading} />
     </>

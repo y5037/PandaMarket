@@ -1,5 +1,5 @@
 import Head from "next/head";
-import ItemsListNav from "../../components/app/ItemListNav";
+import ItemsListNav from "../../components/app/NavBar";
 import UploadForm from "../../components/items/additem/UploadForm";
 
 function addItemPage() {

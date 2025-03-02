@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import ItemListNav from "@/src/components/app/ItemListNav";
+import NavBar from "@/src/components/app/NavBar";
 import styles from "@/styles/boards/postList.module.css";
 import BestPostsList from "@/src/components/boards/BestPostsList";
 import AllPostsList from "@/src/components/boards/AllPostsList";
@@ -28,7 +28,7 @@ function PostListPage() {
       <Head>
         <title>자유게시판 - 판다마켓</title>
       </Head>
-      <ItemListNav />
+      <NavBar />
       <div className={styles.pagiContainer}>
         <BestPostsList likePost={likePost} likeLoading={likeLoading} />
         <AllPostsList

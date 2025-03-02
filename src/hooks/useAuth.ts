@@ -1,11 +1,16 @@
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export function useAuth() {
-  const accessToken =
-    typeof window !== "undefined"
-      ? sessionStorage.getItem("accessToken")
-      : null;
-  const router = useRouter();
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("accessToken")
+        : null;
+
+    setAccessToken(accessToken);
+  }, [accessToken]);
 
   return { accessToken };
 }
