@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export function useAuth() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const accessToken =
       typeof window !== "undefined"
         ? sessionStorage.getItem("accessToken")
         : null;
 
     setAccessToken(accessToken);
-  }, [accessToken]);
+  }, []);
 
   return { accessToken };
 }

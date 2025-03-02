@@ -11,7 +11,7 @@ const menuData = [
   { id: 2, name: "중고마켓", path: "/items" },
 ];
 
-function NavBar() {
+function NavBar({ $error }: { $error?: boolean }) {
   const { accessToken } = useAuth();
   const router = useRouter();
 
@@ -27,7 +27,7 @@ function NavBar() {
               <p className={styles.companyName}>판다마켓</p>
             </div>
           </Link>
-          {router.route !== "/" && (
+          {!$error && router.route !== "/" && (
             <div className={styles.btnWrap}>
               {menuData.map((menu) => {
                 return (
@@ -46,17 +46,18 @@ function NavBar() {
           )}
         </div>
         {/* 사용자 정보를 담은 프로필 또는 아바타이므로 이 기능만 제공해주는 콤포넌트를 분리하는 것도 추후 고려 */}
-        {accessToken ? (
-          <div className={styles.userControl}>
-            <div className={styles.circle}>
-              <Image src={profileDefaultImg} alt="기본프로필이미지" />
+        {!$error &&
+          (accessToken ? (
+            <div className={styles.userControl}>
+              <div className={styles.circle}>
+                <Image src={profileDefaultImg} alt="기본프로필이미지" />
+              </div>
             </div>
-          </div>
-        ) : (
-          <Link href="/login">
-            <div className={styles.btnLogin}>로그인</div>
-          </Link>
-        )}
+          ) : (
+            <Link href="/login">
+              <div className={styles.btnLogin}>로그인</div>
+            </Link>
+          ))}
       </nav>
     </div>
   );
