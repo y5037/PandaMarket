@@ -45,15 +45,20 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         password: isPassword,
         passwordConfirmation: isRePassword,
       });
-
-      setShowModal(true);
       setIsModalMessage("가입이 완료되어 로그인 페이지로 이동됩니다");
+      setShowModal(true);
       setIsRoute(true);
     } catch (err) {
-      setShowModal(true);
-
       if (axios.isAxiosError(err)) {
-        setIsModalMessage(err.response?.data.message);
+        if (err.response?.data.message === "Validation Failed") {
+          setIsModalMessage(
+            "닉네임의 최대 글자수는 공백 포함 20 글자수 입니다"
+          );
+        } else {
+          setIsModalMessage(err.response?.data.message);
+        }
+        setShowModal(true);
+        setIsRoute(false);
       }
     }
   }

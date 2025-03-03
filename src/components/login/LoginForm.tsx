@@ -46,7 +46,12 @@ function LoginForm() {
             </Link>
           </div>
           <div className={styles.formWrap}>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                postLogin();
+              }}
+            >
               <div className={styles.inputBox}>
                 <label htmlFor="useremail">이메일</label>
                 <div className={styles.cover}>
@@ -88,7 +93,7 @@ function LoginForm() {
               </div>
               <div className={styles.btnBox}>
                 <button
-                  type="button"
+                  type="submit"
                   className={styles.btnSubmit}
                   disabled={isSubmit ? false : true}
                   onClick={postLogin}
@@ -124,10 +129,7 @@ function LoginForm() {
             </div>
           </div>
           <div className={styles.returnLink}>
-            판다마켓이 처음이신가요?{" "}
-            <Link href="/signup">
-              회원가입
-            </Link>
+            판다마켓이 처음이신가요? <Link href="/signup">회원가입</Link>
           </div>
         </div>
       </div>

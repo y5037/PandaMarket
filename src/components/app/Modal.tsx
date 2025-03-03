@@ -1,4 +1,3 @@
-import { useLoginProps } from "@/src/context/LoginProvider";
 import ModalContainer from "./ModalContainer";
 import styles from "@/styles/app/modal.module.css";
 import { useRouter } from "next/router";
