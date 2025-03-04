@@ -126,6 +126,7 @@
 .formWrap .btnBox button {
   width: 100%;
   height: 56px;
+  justify-items: center;
   border-radius: 40px;
   font-size: 2em;
   font-weight: 600;

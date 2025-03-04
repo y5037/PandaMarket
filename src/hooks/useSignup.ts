@@ -45,12 +45,12 @@ export function useSignup() {
 
   const getNameEmailInfo = (e: ChangeEvent<HTMLInputElement>) => {
     setGetId(e.target.id);
-    setIsName(e.target.value);
+    setIsName?.(e.target.value);
   };
 
   const getRePasswordInfo = (e: ChangeEvent<HTMLInputElement>) => {
     setGetId(e.target.id);
-    setIsRePassword(e.target.value);
+    setIsRePassword?.(e.target.value);
   };
 
   const emailErrorContext = (txt: string, flag: boolean) => {

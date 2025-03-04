@@ -1,7 +1,6 @@
 import {
   createContext,
   ReactNode,
-  SetStateAction,
   useContext,
   useState,
 } from "react";
@@ -9,28 +8,21 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
 import { modalController } from "../utils/modalController";
+import { ContextType } from "./types";
 
-const LoginContext = createContext({
-  postLogin: () => {},
-  isEmail: "",
-  setIsEmail: (value: SetStateAction<string>) => {},
-  isPassword: "",
-  setIsPassword: (value: SetStateAction<string>) => {},
-  showModal: false,
-  setShowModal: (value: SetStateAction<boolean>) => {},
-  isModalMessage: "",
-  setIsModalMessage: (value: SetStateAction<string>) => {},
-});
+const LoginContext = createContext<ContextType | null>(null);
 
 export function LoginProvider({ children }: { children: ReactNode }) {
   const [isEmail, setIsEmail] = useState("");
   const [isPassword, setIsPassword] = useState("");
+  const [isLoader, setIsLoader] = useState(false);
   const router = useRouter();
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     modalController();
 
   async function postLogin() {
+    setIsLoader(true);
     try {
       const response = await axiosInstance.post("/auth/signIn", {
         email: isEmail,
@@ -46,6 +38,8 @@ export function LoginProvider({ children }: { children: ReactNode }) {
       if (axios.isAxiosError(err)) {
         setIsModalMessage(err.response?.data.message);
       }
+    } finally {
+      setIsLoader(false);
     }
   }
 
@@ -61,6 +55,7 @@ export function LoginProvider({ children }: { children: ReactNode }) {
         setShowModal,
         isModalMessage,
         setIsModalMessage,
+        isLoader,
       }}
     >
       {children}

@@ -1,43 +1,24 @@
-import {
-  createContext,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { modalController } from "../utils/modalController";
 import axiosInstance from "../api/axiosInstance";
 import axios from "axios";
+import { ContextType } from "./types";
 
-const SignupContext = createContext({
-  postSignup: () => {},
-  isEmail: "",
-  setIsEmail: (value: SetStateAction<string>) => {},
-  isName: "",
-  setIsName: (value: SetStateAction<string>) => {},
-  isPassword: "",
-  setIsPassword: (value: SetStateAction<string>) => {},
-  isRePassword: "",
-  setIsRePassword: (value: SetStateAction<string>) => {},
-  showModal: false,
-  setShowModal: (value: SetStateAction<boolean>) => {},
-  isModalMessage: "",
-  setIsModalMessage: (value: SetStateAction<string>) => {},
-  isRoute: false,
-  setIsRoute: (value: SetStateAction<boolean>) => {},
-});
+const SignupContext = createContext<ContextType | null>(null);
 
 export function SignupProvider({ children }: { children: ReactNode }) {
   const [isEmail, setIsEmail] = useState("");
   const [isName, setIsName] = useState("");
   const [isPassword, setIsPassword] = useState("");
   const [isRePassword, setIsRePassword] = useState("");
+  const [isLoader, setIsLoader] = useState(false);
   const [isRoute, setIsRoute] = useState(false);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     modalController();
 
   async function postSignup() {
+    setIsLoader(true);
     try {
       await axiosInstance.post("/auth/signUp", {
         email: isEmail,
@@ -45,6 +26,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         password: isPassword,
         passwordConfirmation: isRePassword,
       });
+
       setIsModalMessage("가입이 완료되어 로그인 페이지로 이동됩니다");
       setShowModal(true);
       setIsRoute(true);
@@ -60,6 +42,8 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         setShowModal(true);
         setIsRoute(false);
       }
+    } finally {
+      setIsLoader(false);
     }
   }
 
@@ -81,6 +65,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         setIsModalMessage,
         isRoute,
         setIsRoute,
+        isLoader,
       }}
     >
       {children}

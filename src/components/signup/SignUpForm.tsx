@@ -6,6 +6,7 @@ import GoogleImg from "@/public/assets/images/loginSignup/google.svg";
 import KaKaoImg from "@/public/assets/images/loginSignup/kakao.svg";
 import InVisibleImg from "@/public/assets/images/loginSignup/btn_invisible.svg";
 import VisibleImg from "@/public/assets/images/loginSignup/btn_visible.svg";
+import IconLoader from "@/public/assets/images/app/button/loader.gif";
 import { useSignup } from "@/src/hooks/useSignup";
 import { useSignupProps } from "@/src/context/SignupProvider";
 import { Modal } from "../app/Modal";
@@ -44,6 +45,7 @@ function SignUpForm() {
     isModalMessage,
     isRoute,
     setIsRoute,
+    isLoader,
   } = useSignupProps();
 
   return (
@@ -69,7 +71,7 @@ function SignUpForm() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                postSignup();
+                postSignup?.();
               }}
             >
               <div className={styles.inputBox}>
@@ -157,9 +159,12 @@ function SignUpForm() {
                   type="submit"
                   className={styles.btnSubmit}
                   disabled={isSubmit ? false : true}
-                  onClick={postSignup}
                 >
-                  회원가입
+                  {isLoader ? (
+                    <Image src={IconLoader} alt="Loading" width={50} />
+                  ) : (
+                    "회원가입"
+                  )}
                 </button>
               </div>
             </form>

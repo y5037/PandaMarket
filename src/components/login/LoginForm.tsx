@@ -6,6 +6,7 @@ import GoogleImg from "@/public/assets/images/loginSignup/google.svg";
 import KaKaoImg from "@/public/assets/images/loginSignup/kakao.svg";
 import InVisibleImg from "@/public/assets/images/loginSignup/btn_invisible.svg";
 import VisibleImg from "@/public/assets/images/loginSignup/btn_visible.svg";
+import IconLoader from "@/public/assets/images/app/button/loader.gif";
 import { useLogin } from "@/src/hooks/useLogin";
 import { useLoginProps } from "@/src/context/LoginProvider";
 import { Modal } from "../app/Modal";
@@ -25,7 +26,7 @@ function LoginForm() {
     handlePasswordVisible,
   } = useLogin();
 
-  const { postLogin, showModal, setShowModal, isModalMessage } =
+  const { postLogin, showModal, setShowModal, isModalMessage, isLoader } =
     useLoginProps();
 
   return (
@@ -49,7 +50,7 @@ function LoginForm() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                postLogin();
+                postLogin?.();
               }}
             >
               <div className={styles.inputBox}>
@@ -96,9 +97,12 @@ function LoginForm() {
                   type="submit"
                   className={styles.btnSubmit}
                   disabled={isSubmit ? false : true}
-                  onClick={postLogin}
                 >
-                  로그인
+                  {isLoader ? (
+                    <Image src={IconLoader} alt="Loading" width={50} />
+                  ) : (
+                    "로그인"
+                  )}
                 </button>
               </div>
             </form>
