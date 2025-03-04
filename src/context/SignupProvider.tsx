@@ -12,7 +12,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
   const [isPassword, setIsPassword] = useState("");
   const [isRePassword, setIsRePassword] = useState("");
   const [isLoader, setIsLoader] = useState(false);
-  const [isRoute, setIsRoute] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     modalController();
@@ -29,7 +29,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
 
       setIsModalMessage("가입이 완료되어 로그인 페이지로 이동됩니다");
       setShowModal(true);
-      setIsRoute(true);
+      setIsSignup(true);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.data.message === "Validation Failed") {
@@ -40,7 +40,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
           setIsModalMessage(err.response?.data.message);
         }
         setShowModal(true);
-        setIsRoute(false);
+        setIsSignup(false);
       }
     } finally {
       setIsLoader(false);
@@ -63,8 +63,8 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         setShowModal,
         isModalMessage,
         setIsModalMessage,
-        isRoute,
-        setIsRoute,
+        isSignup,
+        setIsSignup,
         isLoader,
       }}
     >

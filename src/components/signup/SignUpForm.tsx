@@ -43,8 +43,8 @@ function SignUpForm() {
     showModal,
     setShowModal,
     isModalMessage,
-    isRoute,
-    setIsRoute,
+    isSignup,
+    setIsSignup,
     isLoader,
   } = useSignupProps();
 
@@ -52,8 +52,8 @@ function SignUpForm() {
     <>
       {showModal && (
         <Modal
-          isRoute={isRoute}
-          setIsRoute={setIsRoute}
+          isSignup={isSignup}
+          setIsSignup={setIsSignup}
           showModal={showModal}
           setShowModal={setShowModal}
           isModalMessage={isModalMessage}

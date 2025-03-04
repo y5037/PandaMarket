@@ -13,7 +13,7 @@ export interface ContextType {
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
   setIsModalMessage: (value: string) => void;
-  isRoute?: boolean;
-  setIsRoute?: (value: boolean) => void;
+  isSignup?: boolean;
+  setIsSignup?: (value: boolean) => void;
   isLoader: boolean;
 }

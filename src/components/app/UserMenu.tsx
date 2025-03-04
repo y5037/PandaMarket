@@ -1,10 +1,32 @@
 import styles from "@/styles/app/navi.module.css";
+import { Modal } from "./Modal";
+import { modalController } from "@/src/utils/modalController";
 
 export function UserMenu() {
+  const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
+    modalController();
+
+  const handleLogout = () => {
+    setIsModalMessage("로그아웃 하시겠습니까?");
+    setShowModal(true);
+  };
+
   return (
-    <ul className={styles.menuContainer}>
-      <li className={styles.menu}>마이페이지</li>
-      <li className={styles.menu}>로그아웃</li>
-    </ul>
+    <>
+      {showModal && (
+        <Modal
+          isLogout
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage={isModalMessage}
+        />
+      )}
+      <ul className={styles.menuContainer}>
+        <li className={styles.menu}>마이페이지</li>
+        <li className={styles.menu} onClick={handleLogout}>
+          로그아웃
+        </li>
+      </ul>
+    </>
   );
 }
