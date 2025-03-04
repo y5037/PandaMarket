@@ -1,3 +1,4 @@
+/* NavBar */
 .fixContainer {
   position: fixed;
   top: 0;
@@ -33,6 +34,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   height: 100%;
   padding: 0 200px;
 
@@ -144,5 +146,42 @@
 }
 
 .navCover .userControl {
+  position: relative;
   cursor: pointer;
+}
+
+/* UserMenu */
+.dropdownMenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0;
+}
+.dropdownMenu.active {
+  max-height: 200px; /* 드롭다운의 최대 높이 설정 */
+  opacity: 1;
+}
+.menuContainer {
+  min-width: 100px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 1.4em;
+  box-shadow: 0 0 0 1px var(--gray-100);
+}
+.menu {
+  transition: 0.2s;
+  cursor: pointer;
+}
+.menu:hover {
+  background: var(--gray-50);
+}
+.menu:first-child {
+  padding: 13px 20px 10px 20px;
+}
+.menu:last-child {
+  padding: 10px 20px 13px 20px;
 }

@@ -7,6 +7,7 @@ import productSearchImg from "@/public/assets/images/items/pd_search.png";
 import { getProductData } from "@/src/api/ProductAPI";
 import useWindowSize from "../../hooks/useWindowSize";
 import { ApiOptions, SearchForm } from "./types";
+import { useDropdown } from "@/src/hooks/useDropdown";
 
 function AllItemsContainer({
   setProductContainer,
@@ -27,14 +28,12 @@ function AllItemsContainer({
   const [filter, setFilter] = useState("최신순");
   const [toggle, setToggle] = useState(true);
 
+  const { dropdown, setDropdown, dropdownRef } = useDropdown();
+
   // 첫 렌더링 시 현재 유저의 디바이스 크기를 계산해 페이지네이션 출력
   useEffect(() => {
     setIsDataCount(isItemCount);
   }, [isItemCount, setIsDataCount]);
-
-  const handleFilterToggle = () => {
-    toggle ? setToggle(false) : setToggle(true);
-  };
 
   const handleNewsetClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const filterText = (e?.target as HTMLLIElement).textContent!;
@@ -125,15 +124,20 @@ function AllItemsContainer({
               </Link>
             </div>
           </form>
-          <div className={styles.selectBox}>
-            <div className={styles.btnSelectBox} onClick={handleFilterToggle}>
+          <div className={styles.selectBox} ref={dropdownRef}>
+            <div
+              className={styles.btnSelectBox}
+              onClick={() => setDropdown((prev) => !prev)}
+            >
               <p className={styles.text}>{filter}</p>
-              <ArrowDownImg className={`${!toggle && styles.on}`} />
+              <ArrowDownImg className={`${dropdown && styles.on}`} />
             </div>
-            <ul className={`${styles.btnChoose} ${!toggle && styles.active}`}>
-              <li onClick={handleNewsetClick}>최신순</li>
-              <li onClick={handleBestClick}>좋아요순</li>
-            </ul>
+            {dropdown && (
+              <ul className={styles.btnChoose}>
+                <li onClick={handleNewsetClick}>최신순</li>
+                <li onClick={handleBestClick}>좋아요순</li>
+              </ul>
+            )}
           </div>
         </div>
       </div>

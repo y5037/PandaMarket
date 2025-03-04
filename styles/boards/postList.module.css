@@ -105,7 +105,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 25px;
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: 500;
 
   @media (max-width: 1199px) {
@@ -301,7 +301,6 @@
 }
 
 .optionChoose {
-  display: none;
   border-radius: 12px;
   border: 1px solid var(--gray-200);
   min-width: 125px;
@@ -314,14 +313,16 @@
   text-align: center;
   color: var(--gray-800);
   cursor: pointer;
-}
-
-.optionChoose.active {
-  display: block;
+  overflow: hidden;
 }
 
 .optionChoose li {
   padding: 13px 15px;
+  transition: 0.2s;
+}
+
+.optionChoose li:hover {
+  background: var(--gray-50);
 }
 
 .optionChoose li:first-child {
@@ -337,7 +338,7 @@
 .allPost .postCover .item {
   border-bottom: 1px solid var(--gray-200);
   padding: 10px 15px 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--gray-50);
   cursor: pointer;
 }
@@ -348,7 +349,7 @@
   -webkit-flex-direction: row;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: 500;
 
   @media (max-width: 768px) {

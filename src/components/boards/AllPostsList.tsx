@@ -14,6 +14,7 @@ import {
 } from "react";
 import { Item } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
+import { useDropdown } from "@/src/hooks/useDropdown";
 
 type Destructuring = {
   list: Item[];
@@ -37,6 +38,8 @@ function AllPostsList({
   const [isSelectbox, setIsSelectBox] = useState(false);
   const outRef = useRef<HTMLDivElement | null>(null);
   const { list } = recentPost || {};
+
+  const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
   const handleSelectDropDown = () => {
     setIsSelectBox((prev) => !prev);
@@ -86,37 +89,34 @@ function AllPostsList({
                   />
                 </div>
               </div>
-              <div className={styles.selectBox}>
+              <div className={styles.selectBox} ref={dropdownRef}>
                 <div
-                  onClick={handleSelectDropDown}
-                  ref={outRef}
                   className={styles.option}
+                  onClick={() => setDropdown((prev) => !prev)}
                 >
                   <p className={styles.text}>{isFilter}</p>
-                  <SelectArrowImg className={isSelectbox ? styles.on : ""} />
+                  <SelectArrowImg className={dropdown ? styles.on : ""} />
                 </div>
-                <ul
-                  className={`${styles.optionChoose} ${
-                    isSelectbox ? styles.active : ""
-                  }`}
-                >
-                  <li
-                    onClick={() => {
-                      handleOrderChange("recent");
-                      setIsFilter("최신순");
-                    }}
-                  >
-                    최신순
-                  </li>
-                  <li
-                    onClick={() => {
-                      handleOrderChange("like");
-                      setIsFilter("좋아요순");
-                    }}
-                  >
-                    좋아요순
-                  </li>
-                </ul>
+                {dropdown && (
+                  <ul className={styles.optionChoose}>
+                    <li
+                      onClick={() => {
+                        handleOrderChange("recent");
+                        setIsFilter("최신순");
+                      }}
+                    >
+                      최신순
+                    </li>
+                    <li
+                      onClick={() => {
+                        handleOrderChange("like");
+                        setIsFilter("좋아요순");
+                      }}
+                    >
+                      좋아요순
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           </form>

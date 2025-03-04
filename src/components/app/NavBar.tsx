@@ -5,6 +5,8 @@ import styles from "@/styles/app/navi.module.css";
 import NavLogoImg from "@/public/assets/images/app/navi/logo.svg";
 import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.png";
 import { useAuth } from "@/src/hooks/useAuth";
+import { UserMenu } from "./UserMenu";
+import { useDropdown } from "@/src/hooks/useDropdown";
 
 const menuData = [
   { id: 1, name: "자유게시판", path: "/boards" },
@@ -12,10 +14,10 @@ const menuData = [
 ];
 
 function NavBar({ $error }: { $error?: boolean }) {
+  const { dropdown, setDropdown, dropdownRef } = useDropdown();
+
   const { accessToken } = useAuth();
   const router = useRouter();
-
-  console.log(accessToken);
 
   return (
     <div className={styles.fixContainer}>
@@ -48,9 +50,20 @@ function NavBar({ $error }: { $error?: boolean }) {
         {/* 사용자 정보를 담은 프로필 또는 아바타이므로 이 기능만 제공해주는 콤포넌트를 분리하는 것도 추후 고려 */}
         {!$error &&
           (accessToken ? (
-            <div className={styles.userControl}>
-              <div className={styles.circle}>
+            <div className={styles.userControl} ref={dropdownRef}>
+              <div
+                className={styles.circle}
+                onClick={() => setDropdown((prev) => !prev)}
+              >
                 <Image src={profileDefaultImg} alt="기본프로필이미지" />
+              </div>
+
+              <div
+                className={`${styles.dropdownMenu} ${
+                  dropdown ? styles.active : ""
+                }`}
+              >
+                {dropdown && <UserMenu />}
               </div>
             </div>
           ) : (
