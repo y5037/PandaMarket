@@ -29,7 +29,7 @@ export const Modal = ({
       router.push("/login");
       setIsSignup?.(false);
     } else if (isLogout) {
-      sessionStorage.removeItem("accessToken");
+      localStorage.removeItem("accessToken");
       if (router.route === "/") {
         window.location.reload();
       } else {

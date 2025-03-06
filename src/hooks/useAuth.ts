@@ -10,7 +10,7 @@ export function useAuth() {
   useLayoutEffect(() => {
     const accessToken =
       typeof window !== "undefined"
-        ? sessionStorage.getItem("accessToken")
+        ? localStorage.getItem("accessToken")
         : null;
 
     setAccessToken(accessToken);

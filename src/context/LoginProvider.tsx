@@ -30,7 +30,7 @@ export function LoginProvider({ children }: { children: ReactNode }) {
       });
 
       const { accessToken } = response.data;
-      sessionStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("accessToken", accessToken);
 
       router.push("/items");
     } catch (err) {

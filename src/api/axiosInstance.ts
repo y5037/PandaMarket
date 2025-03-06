@@ -13,7 +13,7 @@ export function setupInterceptors() {
   axiosInstance.interceptors.request.use(
     (config) => {
       if (typeof window !== "undefined") {
-        const token = sessionStorage.getItem("accessToken");
+        const token = localStorage.getItem("accessToken");
         if (token) {
           config.headers["Authorization"] = `Bearer ${token}`;
         } else {
@@ -36,7 +36,7 @@ export function setupInterceptors() {
         originalRequest._retry = true; // 중복 요청 방지
 
         try {
-          const refreshToken = sessionStorage.getItem("refreshToken"); // refreshToken 가져오기
+          const refreshToken = localStorage.getItem("refreshToken"); // refreshToken 가져오기
           if (!refreshToken) {
             setShowModal(true);
             console.warn("인증이 만료되어 로그인 화면으로 이동합니다.");
@@ -49,7 +49,7 @@ export function setupInterceptors() {
           });
 
           // 새로운 accessToken 저장
-          sessionStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("accessToken", data.accessToken);
 
           originalRequest.header[
             "Authorization"
