@@ -6,6 +6,7 @@ import { useEffect } from "react";
 interface Props {
   isLogout?: boolean;
   isSignup?: boolean;
+  effectiveData?: boolean;
   setIsSignup?: (value: boolean) => void;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
@@ -15,6 +16,7 @@ interface Props {
 export const Modal = ({
   isLogout,
   isSignup,
+  effectiveData,
   setIsSignup,
   showModal,
   setShowModal,
@@ -33,6 +35,8 @@ export const Modal = ({
       } else {
         router.push("/");
       }
+    } else if (effectiveData) {
+      router.push("/login");
     }
 
     setShowModal(false);
@@ -44,7 +48,14 @@ export const Modal = ({
         <div className={styles.contents}>
           <div className={styles.message}>{isModalMessage}</div>
           <div className={styles.buttonContainer}>
-            {isLogout && <button className={styles.cancel}>취소</button>}
+            {isLogout && (
+              <button
+                className={styles.cancel}
+                onClick={() => setShowModal(false)}
+              >
+                취소
+              </button>
+            )}
             <button
               type="submit"
               onClick={handleCloseModal}

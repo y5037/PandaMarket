@@ -15,7 +15,6 @@ export default function ModalContainer({
   children,
   className,
 }: ModalProps) {
-  if (typeof window === "undefined") return null;
   if (!isOpen) return null;
 
   return createPortal(
