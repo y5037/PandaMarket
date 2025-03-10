@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuth } from "../hooks/useAuth";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -7,9 +6,8 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-export function setupInterceptors() {
-  const {setShowModal} = useAuth();
 
+export function setupInterceptors(setShowModal: (value: boolean) => void) {
   axiosInstance.interceptors.request.use(
     (config) => {
       if (typeof window !== "undefined") {
@@ -39,6 +37,7 @@ export function setupInterceptors() {
           const refreshToken = localStorage.getItem("refreshToken"); // refreshToken 가져오기
           if (!refreshToken) {
             setShowModal(true);
+            localStorage.removeItem("accessToken");
             console.warn("인증이 만료되어 로그인 화면으로 이동합니다.");
             return Promise.reject(error);
           }

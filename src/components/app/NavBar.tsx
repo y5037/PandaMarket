@@ -7,6 +7,7 @@ import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.p
 import { useAuth } from "@/src/hooks/useAuth";
 import { UserMenu } from "./UserMenu";
 import { useDropdown } from "@/src/hooks/useDropdown";
+import { useUser } from "@/src/hooks/useUser";
 
 const menuData = [
   { id: 1, name: "자유게시판", path: "/boards" },
@@ -18,6 +19,9 @@ function NavBar({ $error }: { $error?: boolean }) {
 
   const { accessToken } = useAuth();
   const router = useRouter();
+
+  // const { isUserData } = useUser();
+  // const { image } = isUserData;
 
   return (
     <div className={styles.fixContainer}>

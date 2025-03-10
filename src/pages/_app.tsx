@@ -4,22 +4,16 @@ import Loading from "@/src/components/app/Loading";
 import ScrollToTop from "@/src/components/app/ScrollToTop";
 import Head from "next/head";
 import { useLoading } from "@/src/hooks/useLoading";
-import { useAuth } from "../hooks/useAuth";
 import { Modal } from "../components/app/Modal";
-import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useRefreshToken } from "../hooks/useRefreshToken";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
+
   const { loading } = useLoading();
-  const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
-    useAuth();
 
-  useEffect(() => {
-    if (!showModal) return;
-
-    if (showModal) {
-      setIsModalMessage("인증이 만료되어 로그인 화면으로 이동합니다.");
-    }
-  }, [showModal]);
+  const { showModal, setShowModal, isModalMessage } = useRefreshToken();
 
   return (
     <>
@@ -27,15 +21,17 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/assets/images/meta/favicon.ico" />
       </Head>
       <ScrollToTop />
-      {loading ? <Loading /> : <Component {...pageProps} />}
-      {showModal && (
-        <Modal
-          effectiveData
-          showModal={showModal}
-          setShowModal={setShowModal}
-          isModalMessage={isModalMessage}
-        />
-      )}
+      <QueryClientProvider client={queryClient}>
+        {loading ? <Loading /> : <Component {...pageProps} />}
+        {showModal && (
+          <Modal
+            effectiveData
+            showModal={showModal}
+            setShowModal={setShowModal}
+            isModalMessage={isModalMessage}
+          />
+        )}
+      </QueryClientProvider>
     </>
   );
 }
