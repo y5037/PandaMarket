@@ -1,11 +1,11 @@
 import { useLayoutEffect, useState } from "react";
-import { modalController } from "../utils/modalController";
+import { useModalController } from "./useModalController";
 
 export function useAuth() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
-    modalController();
+    useModalController();
 
   useLayoutEffect(() => {
     const accessToken =

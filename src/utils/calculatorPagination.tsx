@@ -1,11 +1,16 @@
-import { PaginationProps } from "./types";
+interface PaginationProps {
+  page: number;
+  pageCount: number;
+  isDataCount: number;
+  ITEMS_PER_PAGINATION: number;
+}
 
 function calculatorPagination({
   page,
   pageCount,
   isDataCount,
   ITEMS_PER_PAGINATION: itemsPerPagination,
-}:PaginationProps) {
+}: PaginationProps) {
   const totalPages = Math.ceil(pageCount / isDataCount);
   const currentSet = Math.ceil(page / itemsPerPagination);
   const startPage = (currentSet - 1) * itemsPerPagination + 1;
@@ -14,4 +19,4 @@ function calculatorPagination({
   return { totalPages, currentSet, startPage, endPage };
 }
 
-export default calculatorPagination
+export default calculatorPagination;

@@ -14,7 +14,7 @@ import {
 } from "react";
 import { Item } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
-import { useDropdown } from "@/src/hooks/useDropdown";
+import { useDropdown } from "@/src/utils/useDropdown";
 
 type Destructuring = {
   list: Item[];

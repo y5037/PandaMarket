@@ -7,7 +7,7 @@ import KaKaoImg from "@/public/assets/images/loginSignup/kakao.svg";
 import InVisibleImg from "@/public/assets/images/loginSignup/btn_invisible.svg";
 import VisibleImg from "@/public/assets/images/loginSignup/btn_visible.svg";
 import IconLoader from "@/public/assets/images/app/button/loader.gif";
-import { useSignup } from "@/src/hooks/useSignup";
+import { useSignup } from "@/src/utils/useSignup";
 import { useSignupProps } from "@/src/context/SignupProvider";
 import { Modal } from "../app/Modal";
 

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { modalController } from "../utils/modalController";
+import { useModalController } from "../utils/useModalController";
 import axiosInstance from "../api/axiosInstance";
 import axios from "axios";
 import { ContextType } from "./types";
@@ -15,7 +15,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
   const [isSignup, setIsSignup] = useState(false);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
-    modalController();
+    useModalController();
 
   async function postSignup() {
     setIsLoader(true);

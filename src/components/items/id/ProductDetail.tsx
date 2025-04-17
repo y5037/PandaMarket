@@ -53,14 +53,14 @@ function ProductDetail({
                 src={NoImg}
                 onError={() => setIsImgError(true)}
                 fill
-                alt={productData!.name}
+                alt="상품 이미지"
               />
             ) : (
               <Image
                 src={`${productData?.images}`}
                 onError={() => setIsImgError(true)}
                 fill
-                alt={productData!.name}
+                alt="상품 이미지"
               />
             )}
           </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/home/home.module.css";
 import banner1Img from "@/public/assets/images/app/home/Img_home_top.png";
-import { useAuth } from "@/src/hooks/useAuth";
+import { useAuth } from "@/src/utils/useAuth";
 
 export function Section1() {
   const { accessToken } = useAuth();

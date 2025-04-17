@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import emailValidation from "../utils/emailValidation";
+import emailValidation from "./emailValidation";
 import { useLoginProps } from "@/src/context/LoginProvider";
 
 export function useLogin() {

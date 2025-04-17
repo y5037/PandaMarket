@@ -4,10 +4,10 @@ import Image from "next/image";
 import styles from "@/styles/app/navi.module.css";
 import NavLogoImg from "@/public/assets/images/app/navi/logo.svg";
 import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.png";
-import { useAuth } from "@/src/hooks/useAuth";
+import { useAuth } from "@/src/utils/useAuth";
 import { UserMenu } from "./UserMenu";
-import { useDropdown } from "@/src/hooks/useDropdown";
-import { useUser } from "@/src/hooks/useUser";
+import { useDropdown } from "@/src/utils/useDropdown";
+import { useEffect, useState } from "react";
 
 const menuData = [
   { id: 1, name: "자유게시판", path: "/boards" },
@@ -15,14 +15,17 @@ const menuData = [
 ];
 
 function NavBar({ $error }: { $error?: boolean }) {
+  const [isHydrated, setIsHydrated] = useState(false);
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
   const { accessToken } = useAuth();
   const router = useRouter();
 
-  // const { isUserData } = useUser();
-  // const { image } = isUserData;
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
+  if (!isHydrated) return null;
   return (
     <div className={styles.fixContainer}>
       <nav className={styles.navCover}>
@@ -51,7 +54,6 @@ function NavBar({ $error }: { $error?: boolean }) {
             </div>
           )}
         </div>
-        {/* 사용자 정보를 담은 프로필 또는 아바타이므로 이 기능만 제공해주는 콤포넌트를 분리하는 것도 추후 고려 */}
         {!$error &&
           (accessToken ? (
             <div className={styles.userControl} ref={dropdownRef}>

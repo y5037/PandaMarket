@@ -4,13 +4,16 @@ import ProductDetail from "@/src/components/items/id/ProductDetail";
 import NavBar from "@/src/components/app/NavBar";
 import CommentContainer from "@/src/components/items/id/CommentContainer";
 import { getComments, getProductId } from "@/src/api/ProductAPI";
-import { CommentDataProps, ProductDataProps } from "./types";
+import { CommentDataProps, ProductDataProps } from "@/src/types/itemTypes";
 import Head from "next/head";
+import useProtectedPage from "@/src/utils/useProtectedPage";
 
 function ProductDetailPage() {
   const [productData, setProductData] = useState<ProductDataProps>();
   const [commentsData, setCommentsData] = useState<CommentDataProps>();
   const [loading, setLoading] = useState(true);
+
+  useProtectedPage();
 
   const router = useRouter();
   const productId = router.query.id!;

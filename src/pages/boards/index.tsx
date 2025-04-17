@@ -4,8 +4,9 @@ import NavBar from "@/src/components/app/NavBar";
 import styles from "@/styles/boards/postList.module.css";
 import BestPostsList from "@/src/components/boards/BestPostsList";
 import AllPostsList from "@/src/components/boards/AllPostsList";
-import { useQuery } from "@/src/hooks/useQuery";
-import { Item } from "@/src/pages/boards/types";
+import { useQuery } from "@/src/utils/useQuery";
+import { Item } from "@/src/types/boardTypes";
+import useProtectedPage from "@/src/utils/useProtectedPage";
 
 function PostListPage() {
   const [order, setOrder] = useState("recent");
@@ -22,6 +23,8 @@ function PostListPage() {
   }>({
     queryUrl: `articles?orderBy=${order}&keyword=${keyword}`,
   });
+
+  useProtectedPage();
 
   return (
     <>

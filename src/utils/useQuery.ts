@@ -33,7 +33,7 @@ export const useQuery = <T>({
     if (!disabled) {
       query();
     }
-  }, [queryUrl]);
+  }, [queryUrl, disabled]);
 
   return { data, loading };
 };

@@ -1,13 +1,8 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
-import { modalController } from "../utils/modalController";
+import { useModalController } from "../utils/useModalController";
 import { ContextType } from "./types";
 
 const LoginContext = createContext<ContextType | null>(null);
@@ -19,7 +14,7 @@ export function LoginProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
-    modalController();
+    useModalController();
 
   async function postLogin() {
     setIsLoader(true);

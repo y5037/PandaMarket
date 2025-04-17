@@ -12,7 +12,7 @@ export function useRefreshToken() {
     if (showModal) {
       setIsModalMessage("인증이 만료되어 로그인 화면으로 이동합니다.");
     }
-  }, [showModal]);
+  }, [showModal, setIsModalMessage]);
 
   useEffect(() => {
     setupInterceptors(setShowModal);
