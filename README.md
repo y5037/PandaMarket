@@ -24,11 +24,11 @@
 
 | 기술명          | 로고                                                                                                       | 버전    |
 | --------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| **React**       | <img src="https://raw.githubusercontent.com/github/explore/main/topics/react/react.png" width="30"/>       | 19.0.0  |
-| **Next.js**     | <img src="https://raw.githubusercontent.com/github/explore/main/topics/nextjs/nextjs.png" width="30"/>     | 15.2.11 |
-| **CSS Modules** | 💅                                                                                                         | 6.7.1   |
-| **React Query** | <img src="https://raw.githubusercontent.com/tanstack/query/main/media/logo.png" width="30"/>               | 5.67.3  |
-| **Vercel**      | <img src="https://assets.vercel.com/image/upload/v1662130559/front/vercel/dps/logo-black.svg" width="30"/> | 41.4.0  |
+| **React**       | <img src="https://raw.githubusercontent.com/github/explore/main/topics/react/react.png" width="150"/>       | 19.0.0  |
+| **Next.js**     | <img src="https://raw.githubusercontent.com/github/explore/main/topics/nextjs/nextjs.png" width="150"/>     | 15.2.11 |
+| **CSS Modules** | <img src="https://github.com/user-attachments/assets/84408ff7-d779-4a54-95ec-8c51a22d39ac" width="150" />   | 6.7.1   |
+| **React Query** | <img src="https://github.com/user-attachments/assets/1826dc7f-eae2-4d82-92dc-23c352b6f0ba" width="150" />  | 5.67.3  |
+| **Vercel**      | <img src="https://github.com/user-attachments/assets/cba098d4-a1c7-45db-a080-be8c77f193ae" width="150"/> | 41.4.0  |
 
 ---
 
