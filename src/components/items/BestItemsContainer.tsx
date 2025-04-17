@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProductData } from "@/src/api/ProductAPI";
+import { getProductData } from "@/src/api/productApi";
 import calculatorMediaQuery from "../../utils/useWindowSize";
 import { ApiOptions, Props } from "./types";
 
