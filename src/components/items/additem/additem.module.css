@@ -221,7 +221,7 @@
   width: 100%;
   position: absolute;
   top: 0;
-  object-fit: contain;
+  object-fit: cover;
   position-area: center;
 }
 
