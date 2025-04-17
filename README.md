@@ -42,6 +42,25 @@
 
 ## 📁 프로젝트 구조 예시
 
+```plaintext
+project/
+├── public/
+│   ├── assets               # 이미지, 폰트 등 정적 파일 및 메타 태그와 파비콘 관련 파일 모음
+├── src/
+│   ├── api/                 # Axios API 요청
+│   ├── components/          # 재사용 가능한 UI 컴포넌트 및 페이지 작업 컴포넌트
+│   ├── context/             # 전역 Provider 관리
+│   ├── hooks/               # 커스텀 훅 모음
+│   ├── pages/               # 각 페이지별 컴포넌트
+│   ├── types/               # 타입 모음
+│   ├── utils/               # 유틸리티성 함수 및 커스텀 훅 모음
+│   styles/                  # Global Reset Styled
+│   package-lock.json        # 정확한 종속성 버전이 기록된 파일로, 일관된 빌드를 보장
+│   package.json             # 프로젝트 종속성 및 스크립트 정의
+├── .gitignore               # Git 무시 파일 목록
+└── README.md                # 프로젝트 개요 및 사용법
+```
+
 ---
 
 ## 👩‍💻 개발자
