@@ -82,7 +82,7 @@ function ProductDetail({
                   <OptionMenuImg />
                   {selectBox && (
                     <SelectBox>
-                      <SelectButton>수정하기</SelectButton>
+                      {/* <SelectButton>수정하기</SelectButton> */}
                       <SelectButton>삭제하기</SelectButton>
                     </SelectBox>
                   )}
