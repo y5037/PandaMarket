@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useModalController } from "./useModalController";
 
 export function useAuth() {
@@ -7,7 +7,7 @@ export function useAuth() {
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     useModalController();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const accessToken =
       typeof window !== "undefined"
         ? localStorage.getItem("accessToken")
