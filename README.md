@@ -50,7 +50,7 @@ project/
 │   ├── api/                 # Axios API 요청
 │   ├── components/          # 재사용 가능한 UI 컴포넌트 및 페이지 작업 컴포넌트
 │   ├── context/             # 전역 Provider 관리
-│   ├── hooks/               # 커스텀 훅 모음
+│   ├── hooks/               # react-query 훅 모음
 │   ├── pages/               # 각 페이지별 컴포넌트
 │   ├── types/               # 타입 모음
 │   ├── utils/               # 유틸리티성 함수 및 커스텀 훅 모음
