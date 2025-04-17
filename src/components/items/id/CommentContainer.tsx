@@ -4,8 +4,7 @@ import { getTimeDiff } from "@/src/components/app/Dayjs";
 import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
 import "dayjs/locale/ko";
-import styles from "@/styles/items/productDetail.module.css";
-import { SelectBox, SelectButton } from "@/styles/items/SelectBox";
+import { SelectBox, SelectButton } from "@/src/components/items/SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import BtnBackImg from "@/public/assets/images/app/button/btn_back.svg";
 import EmptyCommentImg from "@/public/assets/images/items/empty_comment.svg";
@@ -15,6 +14,7 @@ import {
 } from "@/src/components/items/id/types";
 import CommentSkeleton from "./CommentSkeleton";
 import Image from "next/image";
+import styles from "./productDetail.module.css";
 
 dayjs.extend(isLeapYear);
 dayjs.locale("ko");

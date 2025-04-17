@@ -1,6 +1,6 @@
 import Image from "next/image";
-import styles from "@/styles/home/home.module.css";
 import banner2Img from "@/public/assets/images/app/home/Img_home_bottom.png";
+import styles from "./home.module.css";
 
 export function Section3() {
   return (

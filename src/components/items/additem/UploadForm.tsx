@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
-import styles from "@/styles/items/additem.module.css";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "./ChooseImgFile";
+import styles from "./additem.module.css";
 
 function UploadForm() {
   const INITIAL_VALUES = {

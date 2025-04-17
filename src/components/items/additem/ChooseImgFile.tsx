@@ -1,8 +1,8 @@
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import styles from "@/styles/items/additem.module.css";
 import UploadImg from "@/public/assets/images/items/upload.svg";
 import ImgPreview from "./ImgPreview";
 import { ImgFileProps } from "./types";
+import styles from "./additem.module.css";
 
 // 상품 이미지 등록
 function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {

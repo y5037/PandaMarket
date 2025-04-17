@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
-import styles from "@/styles/items/productList.module.css";
 import BestItemsContainer from "./BestItemsContainer";
 import BestItem from "./BestItem";
 import { Props } from "./types";
 import Section1Skeleton from "./Section1Skeleton";
+import styles from "./productList.module.css";
 
 function BestItemsList() {
   const [productList, setProductList] = useState<Props[]>([]);

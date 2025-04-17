@@ -1,7 +1,7 @@
-import styles from "@/styles/items/additem.module.css";
 import DeleteBtnImg from "@/public/assets/images/items/cancel.svg";
 import { PreviewProps } from "./types";
 import Image from "next/image";
+import styles from "./additem.module.css";
 
 function ImgPreview({ preview, handleDeleteClick }: PreviewProps) {
   return (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
-import styles from "@/styles/items/productList.module.css";
 import btnWishImg from "@/public/assets/images/items/btn_wish.png";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { Props } from "./types";
+import styles from "./productList.module.css";
 
 function BestItem({ item }: { item: Props }) {
   const [isImgError, setIsImgError] = useState(false);

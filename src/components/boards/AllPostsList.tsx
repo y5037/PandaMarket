@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "@/styles/boards/postList.module.css";
 import searchImg from "@/public/assets/images/boards/ic_search.png";
 import SelectArrowImg from "@/public/assets/images/boards/select_down.svg";
 import AllPost from "./AllPost";
+import styles from "./postList.module.css";
 import {
   ChangeEvent,
   Dispatch,

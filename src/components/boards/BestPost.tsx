@@ -1,10 +1,10 @@
 import Image from "next/image";
-import styles from "@/styles/boards/postList.module.css";
 import noImg from "@/public/assets/images/app/common/no_img.jpg";
 import BestBadgeImg from "@/public/assets/images/boards/ic_medal.svg";
 import WishHeartImg from "@/public/assets/images/boards/ic_heart.svg";
 import { useState } from "react";
 import { Item } from "./types";
+import styles from "./postList.module.css";
 
 function BestPost({ item }: { item: Item }) {
   const [isImgError, setIsImgError] = useState(false);

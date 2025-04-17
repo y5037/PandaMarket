@@ -1,8 +1,8 @@
 import Image from "next/image";
-import styles from "@/styles/home/home.module.css";
 import homeContent1Img from "@/public/assets/images/app/home/Img_home_01.png";
 import homeContent2Img from "@/public/assets/images/app/home/Img_home_02.png";
 import homeContent3Img from "@/public/assets/images/app/home/Img_home_03.png";
+import styles from "./home.module.css";
 
 export function Section2() {
   return (

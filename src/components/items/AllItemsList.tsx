@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "@/styles/items/productList.module.css";
 import notFoundImg from "@/public/assets/images/items/not_found.png";
 import AllItemsContainer from "./AllItemsContainer";
 import AllItem from "./AllItem";
 import { ItemsList, Props } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
+import styles from "./productList.module.css";
 
 function EmptyPlaceholder() {
   return (

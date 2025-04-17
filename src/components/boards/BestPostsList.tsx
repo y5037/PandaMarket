@@ -1,7 +1,7 @@
-import styles from "@/styles/boards/postList.module.css";
 import BestPost from "./BestPost";
 import Section1Skeleton from "./Section1Skeleton";
 import { Item } from "./types";
+import styles from "./postList.module.css";
 
 type Destructuring = {
   list: Item[];

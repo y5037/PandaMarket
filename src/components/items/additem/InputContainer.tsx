@@ -1,8 +1,7 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-// import { NumericFormat } from "react-number-format";
-import styles from "@/styles/items/additem.module.css";
 import DeleteBtnImg from "@/public/assets/images/items/cancel.svg";
 import { InitialValues } from "./types";
+import styles from "./additem.module.css";
 
 // 상품 정보 등록
 function InputContainer({ setValues }: InitialValues) {

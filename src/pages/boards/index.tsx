@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Head from "next/head";
 import NavBar from "@/src/components/app/NavBar";
-import styles from "@/styles/boards/postList.module.css";
 import BestPostsList from "@/src/components/boards/BestPostsList";
 import AllPostsList from "@/src/components/boards/AllPostsList";
 import { useQuery } from "@/src/utils/useQuery";
 import { Item } from "@/src/types/boardTypes";
 import useProtectedPage from "@/src/utils/useProtectedPage";
+import styles from "@/src/components/boards/postList.module.css";
 
 function PostListPage() {
   const [order, setOrder] = useState("recent");

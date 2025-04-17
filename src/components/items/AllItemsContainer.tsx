@@ -1,13 +1,13 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "@/styles/items/productList.module.css";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
 import productSearchImg from "@/public/assets/images/items/pd_search.png";
 import { getProductData } from "@/src/api/productApi";
 import useWindowSize from "../../utils/useWindowSize";
 import { ApiOptions, SearchForm } from "./types";
 import { useDropdown } from "@/src/utils/useDropdown";
+import styles from "./productList.module.css";
 
 function AllItemsContainer({
   setProductContainer,
