@@ -18,7 +18,10 @@ function ProductDetailPage() {
   useProtectedPage();
 
   const router = useRouter();
-  const productId = router.query.id!;
+  const rawProductId = router.query.id!;
+  const productId = Array.isArray(rawProductId)
+    ? rawProductId[0]
+    : rawProductId;
 
   const {
     data: comment,
@@ -26,6 +29,7 @@ function ProductDetailPage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useGetProductComments(productId);
 
   const commentsData = comment?.pages.flatMap((page) => page.comments) ?? [];
@@ -62,7 +66,14 @@ function ProductDetailPage() {
       </Head>
       <NavBar />
       <ProductDetail productData={productData} loading={loading} />
-      <CommentContainer commentsData={commentsData} loading={isLoading} isFetchingNextPage={isFetchingNextPage} hasNextPage={hasNextPage}/>
+      <CommentContainer
+        productId={productId}
+        commentsData={commentsData}
+        loading={isLoading}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+        refetch={refetch}
+      />
     </>
   );
 }

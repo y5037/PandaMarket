@@ -23,7 +23,7 @@ export function getTimeDiff(timeToCompare: string) {
     return `${hourDiff}시간 전`;
   } else if (minuteDiff > 0) {
     return `${minuteDiff}분 전`;
-  } else if (secondDiff > 0) {
+  } else if (secondDiff >= 0) {
     return `${secondDiff}초 전`;
   } else {
     return "";

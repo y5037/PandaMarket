@@ -30,15 +30,17 @@ const fetchProductComments = async ({
   }
 };
 
-const useGetProductComments = (productId: string | string[]) => {
+const useGetProductComments = (productIdParam: string | string[]) => {
+  const productId = Array.isArray(productIdParam)
+    ? productIdParam[0]
+    : productIdParam;
+
   return useInfiniteQuery({
     queryKey: ["productComment", productId],
     queryFn: ({ pageParam = 1 }) =>
       fetchProductComments({ pageParam, productId }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      return lastPage.nextPage ?? undefined;
-    },
+    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
     staleTime: 1000 * 60 * 5,
   });
 };
