@@ -19,6 +19,7 @@ const fetchProductComments = async ({
     return response.data;
   } catch (err) {
     console.error("API 요청 실패:", err);
+    throw err;
   }
 };
 

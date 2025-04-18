@@ -6,6 +6,7 @@ import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import styles from "./productDetail.module.css";
 import { useEffect, useRef, useState } from "react";
 import { CommentUIProps } from "./types";
+import { useGetUser } from "@/src/hooks/useGetUser";
 
 const CommentEditUI: React.FC<CommentUIProps> = ({
   setShowEdit,
@@ -36,6 +37,8 @@ function CommentList({ commentsData }: Props) {
   const [isImgError, setIsImgError] = useState(false);
 
   const outRef = useRef<HTMLDivElement | null>(null);
+
+  const { data: userData } = useGetUser();
 
   useEffect(() => {
     const handleClickOutside = (e: { target: any }) => {
@@ -68,19 +71,24 @@ function CommentList({ commentsData }: Props) {
           ) : (
             <>
               <p>{comment.content}</p>
-              <div className={styles.btnMore}>
-                <OptionMenuImg onClick={() => setShowSelect(i)} />
-                {showSelect === i && (
-                  <>
-                    <SelectBox>
-                      <SelectButton onClick={() => setShowEdit(i)} ref={outRef}>
-                        수정하기
-                      </SelectButton>
-                      <SelectButton>삭제하기</SelectButton>
-                    </SelectBox>
-                  </>
-                )}
-              </div>
+              {userData?.id === writer.id && (
+                <div className={styles.btnMore}>
+                  <OptionMenuImg onClick={() => setShowSelect(i)} />
+                  {showSelect === i && (
+                    <>
+                      <SelectBox>
+                        <SelectButton
+                          onClick={() => setShowEdit(i)}
+                          ref={outRef}
+                        >
+                          수정하기
+                        </SelectButton>
+                        <SelectButton>삭제하기</SelectButton>
+                      </SelectBox>
+                    </>
+                  )}
+                </div>
+              )}
             </>
           )}
         </div>
