@@ -32,8 +32,3 @@ export interface ListComment {
   updatedAt: string;
   writer: ListWriter;
 }
-
-export interface CommentDataProps {
-  list: ListComment[];
-  nextCursor: number;
-}
