@@ -2,7 +2,7 @@ import axiosInstance from "../api/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../utils/useAuth";
 
-export function getUser<T>() {
+export function useGetUser<T>() {
   const { accessToken } = useAuth();
 
   const {
