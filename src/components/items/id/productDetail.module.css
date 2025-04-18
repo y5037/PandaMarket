@@ -283,6 +283,7 @@
 }
 
 .commentList {
+  position: relative;
   clear: both;
   min-height: 230px;
 }
@@ -395,4 +396,11 @@
   border-radius: 8px;
   background: var(--primary);
   color: var(--white);
+}
+
+.loading {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
 }

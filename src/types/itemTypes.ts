@@ -25,7 +25,7 @@ interface ListWriter {
   nickname: string;
 }
 
-interface ListComment {
+export interface ListComment {
   content: string;
   createdAt: string;
   id: number;
