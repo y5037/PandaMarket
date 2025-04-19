@@ -5,7 +5,7 @@ import styles from "./additem.module.css";
 
 function UploadForm() {
   const INITIAL_VALUES = {
-    title: "",
+    name: "",
     description: "",
     price: 0,
     tag: [],
@@ -13,28 +13,29 @@ function UploadForm() {
 
   // file input 제외한 모든 input
   const [values, setValues] = useState<{
-    title: string;
+    name: string;
     description: string;
     price: number | string;
     tag: string[];
   }>(INITIAL_VALUES);
 
-  const [imgFile, setImgFile] = useState<Blob | MediaSource | null>(null);
+  const [imgFile, setImgFile] = useState("");
   const [isDisableChk, setIsDisableChk] = useState(true);
 
-  // 데이터 전송 구현 보류
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", values.title);
+
+    formData.append("name", values.name);
     formData.append("description", values.description);
-    formData.append("price", values.price as string | Blob);
+    formData.append("price", values.price as string);
     formData.append("tag", values.tag as any as string);
+    formData.append("images", imgFile);
   };
 
   useEffect(() => {
     if (
-      values.title !== "" &&
+      values.name !== "" &&
       values.description !== "" &&
       Number(values.price) > 0 &&
       values.tag.length > 0

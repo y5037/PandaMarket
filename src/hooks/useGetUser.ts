@@ -12,9 +12,9 @@ const fetchUser = async () => {
   }
 };
 
-export function useGetUser() {
+export const useGetUser = () => {
   return useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
   });
-}
+};
