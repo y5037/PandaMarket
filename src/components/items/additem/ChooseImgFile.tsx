@@ -3,19 +3,46 @@ import UploadImg from "@/public/assets/images/items/upload.svg";
 import ImgPreview from "./ImgPreview";
 import { ImgFileProps } from "./types";
 import styles from "./additem.module.css";
+import { usePostProductImg } from "@/src/hooks/usePostProductImg";
 
 // 상품 이미지 등록
 function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
-  const [preview, setPreview] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<Blob>();
+  const [previewImg, setPreviewImg] = useState("");
   const [isImgChk, setIsImgChk] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleGetImg = async (e: ChangeEvent<HTMLInputElement>) => {
     const nextValue = (e?.target as HTMLInputElement).files![0];
-    setImgFile(nextValue);
+    setPreviewUrl(nextValue);
+
     // 같은 파일을 재업로드 할 경우 event가 trigger되지 않는 버그 방지
     e.target.value = "";
   };
+
+  // 이미지 미리보기
+  useEffect(() => {
+    if (!previewUrl) return;
+
+    const nextPreview = URL.createObjectURL(previewUrl);
+    setPreviewImg(nextPreview);
+  }, [previewUrl]);
+
+  // 프로젝트 저장 URL 획득
+  const { mutate: uploadImg } = usePostProductImg();
+
+  useEffect(() => {
+    if (!previewUrl) return;
+
+    uploadImg(previewUrl, {
+      onSuccess: (data) => {
+        setImgFile(data);
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    });
+  }, [previewUrl, uploadImg, setImgFile]);
 
   const handlePreventionClick = (e: MouseEvent) => {
     if (imgFile) {
@@ -28,15 +55,9 @@ function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
 
   const handleDeleteClick = () => {
     setIsImgChk(false);
-    setImgFile(null);
-    setPreview("");
+    setImgFile("");
+    setPreviewImg("");
   };
-
-  useEffect(() => {
-    if (!imgFile) return;
-    const nextPreview = URL.createObjectURL(imgFile);
-    setPreview(nextPreview);
-  }, [imgFile]);
 
   return (
     <div className={`${styles.inputContainer} ${styles.fileBox}`}>
@@ -55,15 +76,15 @@ function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
             type="file"
             className={styles.btnImgUpload}
             accept=".jpg, .png"
-            onChange={handleChange}
+            onChange={handleGetImg}
             ref={inputRef}
             onClick={handlePreventionClick}
           />
         </div>
-        {preview && (
+        {previewImg && (
           <div className={`${styles.coverTile} ${styles.thumbnail}`}>
             <ImgPreview
-              preview={preview}
+              preview={previewImg}
               handleDeleteClick={handleDeleteClick}
             />
           </div>

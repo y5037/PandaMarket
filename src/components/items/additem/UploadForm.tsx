@@ -1,40 +1,48 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "./ChooseImgFile";
 import styles from "./additem.module.css";
+import { usePostProduct } from "@/src/hooks/usePostProduct";
+import { useRouter } from "next/router";
 
 function UploadForm() {
   const INITIAL_VALUES = {
-    title: "",
+    name: "",
     description: "",
     price: 0,
     tag: [],
   };
 
-  // file input 제외한 모든 input
   const [values, setValues] = useState<{
-    title: string;
+    name: string;
     description: string;
     price: number | string;
     tag: string[];
   }>(INITIAL_VALUES);
 
-  const [imgFile, setImgFile] = useState<Blob | MediaSource | null>(null);
+  const [imgFile, setImgFile] = useState("");
   const [isDisableChk, setIsDisableChk] = useState(true);
 
-  // 데이터 전송 구현 보류
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const { mutate: uploadProduct } = usePostProduct();
+
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("price", values.price as string | Blob);
-    formData.append("tag", values.tag as any as string);
+
+    uploadProduct(
+      { values, imgFile },
+      {
+        onSuccess: () => {
+          router.push("/items");
+        },
+      }
+    );
   };
 
   useEffect(() => {
     if (
-      values.title !== "" &&
+      values.name !== "" &&
       values.description !== "" &&
       Number(values.price) > 0 &&
       values.tag.length > 0
@@ -47,13 +55,14 @@ function UploadForm() {
 
   return (
     <div className={styles.pagiContainer}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className={styles.submitContainer}>
           <p className={styles.submitTitle}>상품 등록하기</p>
           <button
             type="button"
             className={styles.btnSubmit}
             disabled={isDisableChk ? true : false}
+            onClick={handleSubmit}
           >
             등록
           </button>

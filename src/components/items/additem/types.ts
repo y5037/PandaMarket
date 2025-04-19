@@ -6,15 +6,15 @@ export interface PreviewProps {
 
 // RegisterImgFile.tsx
 export interface ImgFileProps {
-  imgFile: Blob | MediaSource | null;
-  setImgFile: React.Dispatch<React.SetStateAction<Blob | MediaSource | null>>;
+  imgFile: string;
+  setImgFile: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // RegisterInput.tsx
 export interface InitialValues {
   setValues: React.Dispatch<
     React.SetStateAction<{
-      title: string;
+      name: string;
       description: string;
       price: number | string;
       tag: string[];
