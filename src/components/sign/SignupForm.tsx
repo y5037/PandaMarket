@@ -8,7 +8,7 @@ import VisibleImg from "@/public/assets/images/loginSignup/btn_visible.svg";
 import IconLoader from "@/public/assets/images/app/button/loader.gif";
 import { useSignup } from "@/src/utils/useSignup";
 import { useSignupProps } from "@/src/context/SignupProvider";
-import { Modal } from "../app/Modal";
+import { SignModal } from "../modal/SignModal";
 import styles from "./loginSignup.module.css";
 
 function SignUpForm() {
@@ -51,7 +51,7 @@ function SignUpForm() {
   return (
     <>
       {showModal && (
-        <Modal
+        <SignModal
           isSignup={isSignup}
           setIsSignup={setIsSignup}
           showModal={showModal}

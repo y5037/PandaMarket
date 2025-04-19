@@ -4,17 +4,10 @@ import searchImg from "@/public/assets/images/boards/ic_search.png";
 import SelectArrowImg from "@/public/assets/images/boards/select_down.svg";
 import AllPost from "./AllPost";
 import styles from "./postList.module.css";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Item } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
-import { useDropdown } from "@/src/utils/useDropdown";
+import { useClickOutside } from "@/src/utils/useClickOutside";
 
 type Destructuring = {
   list: Item[];
@@ -35,15 +28,7 @@ function AllPostsList({
   recentLoading,
 }: AllPostsListProps) {
   const [isFilter, setIsFilter] = useState("최신순");
-  const [isSelectbox, setIsSelectBox] = useState(false);
-  const outRef = useRef<HTMLDivElement | null>(null);
   const { list } = recentPost || {};
-
-  const { dropdown, setDropdown, dropdownRef } = useDropdown();
-
-  const handleSelectDropDown = () => {
-    setIsSelectBox((prev) => !prev);
-  };
 
   const handleOrderChange = (order: string) => {
     setOrder(order);
@@ -53,19 +38,7 @@ function AllPostsList({
     setKeyword(e.target.value);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e: { target: any }) => {
-      // 해당 이벤트가 영역 밖이라면 케밥 버튼 비활성화
-      if (outRef.current && !outRef.current.contains(e.target)) {
-        setIsSelectBox(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
+  const { outRef, selectbox, setSelectbox } = useClickOutside();
 
   return (
     <>
@@ -89,15 +62,15 @@ function AllPostsList({
                   />
                 </div>
               </div>
-              <div className={styles.selectBox} ref={dropdownRef}>
+              <div className={styles.selectBox} ref={outRef}>
                 <div
                   className={styles.option}
-                  onClick={() => setDropdown((prev) => !prev)}
+                  onClick={() => setSelectbox((prev) => !prev)}
                 >
                   <p className={styles.text}>{isFilter}</p>
-                  <SelectArrowImg className={dropdown ? styles.on : ""} />
+                  <SelectArrowImg className={selectbox ? styles.on : ""} />
                 </div>
-                {dropdown && (
+                {selectbox && (
                   <ul className={styles.optionChoose}>
                     <li
                       onClick={() => {

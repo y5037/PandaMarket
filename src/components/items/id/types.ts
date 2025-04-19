@@ -1,10 +1,15 @@
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import React from "react";
 
 // ProductDetail.tsx
 export interface CommentUIProps {
-  setShowEdit: (React.Dispatch<React.SetStateAction<number | null>>);
-  setShowSelect: (React.Dispatch<React.SetStateAction<number | null>>);
+  changedComment: string;
+  productId: string | string[];
+  commentId: number;
+  refetch: UseInfiniteQueryResult["refetch"];
+  setShowEdit: React.Dispatch<React.SetStateAction<number | null>>;
+  setShowSelect: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 interface ListWriter {

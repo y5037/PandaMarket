@@ -1,23 +1,20 @@
 import axiosInstance from "../api/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../utils/useAuth";
 
-export function useGetUser<T>() {
-  const { accessToken } = useAuth();
+const fetchUser = async () => {
+  try {
+    const response = await axiosInstance.get(`/users/me`);
 
-  const {
-    data: isUserData,
-    error,
-    isLoading,
-  } = useQuery({
+    return response.data;
+  } catch (err) {
+    console.error("API 요청 실패:", err);
+    throw err;
+  }
+};
+
+export function useGetUser() {
+  return useQuery({
     queryKey: ["user"],
-    queryFn: async () => {
-      const response = await axiosInstance.get("/users/me");
-      return response.data;
-    },
-    enabled: !!accessToken,
-    retry: false,
+    queryFn: fetchUser,
   });
-
-  return { isUserData, error, isLoading };
 }

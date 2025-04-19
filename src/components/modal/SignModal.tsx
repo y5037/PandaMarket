@@ -1,22 +1,19 @@
-import ModalContainer from "./ModalContainer";
+import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 interface Props {
   isLogout?: boolean;
   isSignup?: boolean;
-  effectiveData?: boolean;
   setIsSignup?: (value: boolean) => void;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
 }
 
-export const Modal = ({
+export const SignModal = ({
   isLogout,
   isSignup,
-  effectiveData,
   setIsSignup,
   showModal,
   setShowModal,
@@ -24,27 +21,32 @@ export const Modal = ({
 }: Props) => {
   const router = useRouter();
 
-  const handleCloseModal = () => {
+  const handleConfirmModal = () => {
     if (isSignup) {
-      router.push("/login");
-      setIsSignup?.(false);
+      handleSignup();
     } else if (isLogout) {
-      localStorage.removeItem("accessToken");
-      if (router.route === "/") {
-        window.location.reload();
-      } else {
-        router.push("/");
-      }
-    } else if (effectiveData) {
-      router.push("/login");
+      handleLogout();
     }
-
     setShowModal(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    if (router.route === "/") {
+      window.location.reload();
+    } else {
+      router.push("/");
+    }
+  };
+
+  const handleSignup = () => {
+    router.push("/login");
+    setIsSignup?.(false);
   };
 
   return (
     <>
-      <ModalContainer isOpen={showModal} onClose={handleCloseModal}>
+      <ModalContainer isOpen={showModal} onClose={() => setShowModal(false)}>
         <div className={styles.contents}>
           <div className={styles.message}>{isModalMessage}</div>
           <div className={styles.buttonContainer}>
@@ -58,7 +60,7 @@ export const Modal = ({
             )}
             <button
               type="submit"
-              onClick={handleCloseModal}
+              onClick={handleConfirmModal}
               autoFocus={!isLogout}
             >
               {isLogout ? "로그아웃" : "확인"}

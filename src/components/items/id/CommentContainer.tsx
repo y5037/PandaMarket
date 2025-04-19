@@ -1,20 +1,17 @@
 import Link from "next/link";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import { getTimeDiff } from "@/src/components/app/Dayjs";
+import React, { ChangeEvent, useState } from "react";
 import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
 import "dayjs/locale/ko";
-import { SelectBox, SelectButton } from "@/src/components/items/SelectBox";
-import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import BtnBackImg from "@/public/assets/images/app/button/btn_back.svg";
 import EmptyCommentImg from "@/public/assets/images/items/empty_comment.svg";
-import {
-  CommentDataProps,
-  CommentUIProps,
-} from "@/src/components/items/id/types";
+import SpinnerImg from "@/public/assets/images/app/loading/spinner.svg";
 import CommentSkeleton from "./CommentSkeleton";
-import Image from "next/image";
+import { ListComment } from "@/src/types/itemTypes";
+import CommentList from "./CommentList";
 import styles from "./productDetail.module.css";
+import usePostProductComments from "@/src/hooks/usePostProductComment";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 dayjs.extend(isLeapYear);
 dayjs.locale("ko");
@@ -27,69 +24,53 @@ function EmptyPlaceholder() {
   );
 }
 
-const CommentEditUI: React.FC<CommentUIProps> = ({
-  setShowEdit,
-  setShowSelect,
-}) => {
-  return (
-    <div className={styles.editContainer}>
-      <button
-        onClick={() => {
-          setShowEdit(null);
-          setShowSelect(null);
-        }}
-      >
-        취소
-      </button>
-      <button>수정 완료</button>
-    </div>
-  );
-};
-
 function CommentContainer({
+  productId,
   commentsData,
   loading,
+  isFetchingNextPage,
+  hasNextPage,
+  refetch,
 }: {
-  commentsData: CommentDataProps | undefined;
+  productId: string | string[];
+  commentsData: ListComment[];
   loading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
+  refetch: UseInfiniteQueryResult["refetch"];
 }) {
-  const { list } = commentsData || {};
-  const [showSelect, setShowSelect] = useState<number | null>(null);
-  const [showEdit, setShowEdit] = useState<number | null>(null);
-  const [submit, setSubmit] = useState<boolean>(false);
-  const [textarea, setTextarea] = useState("");
-  const [isImgError, setIsImgError] = useState(false);
-  const outRef = useRef<HTMLDivElement | null>(null);
+  const [comment, setComment] = useState("");
 
   const getWriteComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextarea(e.target.value);
+    setComment(e.target.value);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e: { target: any }) => {
-      // 해당 이벤트가 영역 밖이라면 셀렉트 비활성화
-      if (outRef.current && !outRef.current.contains(e.target)) {
-        setShowSelect(null);
-      }
-    };
-    window.addEventListener("mouseup", handleClickOutside, true);
-    return () => {
-      window.removeEventListener("mouseup", handleClickOutside, true);
-    };
-  }, []);
+  const { mutate: uploadComment } = usePostProductComments(productId);
 
-  useEffect(() => {
-    if (textarea !== "") {
-      setSubmit(true);
-    } else {
-      setSubmit(false);
-    }
-  }, [textarea]);
+  const handleUploadComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!comment) return;
+
+    uploadComment(
+      { productId, comment },
+      {
+        onSuccess: async () => {
+          setComment("");
+          await refetch();
+        },
+      }
+    );
+  };
+
+  const showBackButton =
+    !loading &&
+    hasNextPage === false &&
+    (!isFetchingNextPage || commentsData.length === 0);
 
   return (
     <div className={`${styles.pagiContainer} ${styles.commentContainer}`}>
       <div className={styles.section2}>
-        <form>
+        <form onSubmit={handleUploadComment}>
           <label htmlFor="inquiry" className={styles.subTitle}>
             문의하기
           </label>
@@ -97,10 +78,11 @@ function CommentContainer({
             name="inquiry"
             id="inquiry"
             className={styles.textarea}
+            value={comment}
             onChange={getWriteComment}
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           />
-          <button className={styles.btnSubmit} disabled={submit ? false : true}>
+          <button className={styles.btnSubmit} disabled={!comment}>
             등록
           </button>
         </form>
@@ -108,82 +90,36 @@ function CommentContainer({
           {loading ? (
             <CommentSkeleton />
           ) : (
-            /* length 속성을 읽을 수 없다는 오류가 발생되어 Optional Chaining 연산자 사용 */
             <>
-              {list?.length === 0 && <EmptyPlaceholder />}
+              {commentsData.length > 0 ? (
+                <>
+                  <CommentList
+                    commentsData={commentsData}
+                    productId={productId}
+                    refetch={refetch}
+                  />
 
-              {list &&
-                list.map((comment, i) => {
-                  const { writer } = comment;
-                  return (
-                    <div key={comment.id} className={styles.li}>
-                      <div className={styles.contentText}>
-                        {showEdit === i ? (
-                          <>
-                            <textarea
-                              defaultValue={comment.content}
-                              className={styles.textarea}
-                            />
-                            <CommentEditUI
-                              setShowEdit={setShowEdit}
-                              setShowSelect={setShowSelect}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <p>{comment.content}</p>
-                            <div className={styles.btnMore}>
-                              <OptionMenuImg onClick={() => setShowSelect(i)} />
-                              {showSelect === i && (
-                                <>
-                                  <SelectBox>
-                                    <SelectButton
-                                      onClick={() => setShowEdit(i)}
-                                      ref={outRef}
-                                    >
-                                      수정하기
-                                    </SelectButton>
-                                    <SelectButton>삭제하기</SelectButton>
-                                  </SelectBox>
-                                </>
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      <div className={styles.author}>
-                        <div className={styles.profileImg}>
-                          <Image
-                            src={
-                              isImgError || writer.image === null
-                                ? "/assets/images/items/default_profile.svg"
-                                : `${writer.image}`
-                            }
-                            onError={() => setIsImgError(true)}
-                            fill
-                            alt="프로필 이미지"
-                          />
-                        </div>
-                        <div className={styles.authorContent}>
-                          <p className={styles.nickName}>{writer.nickname}</p>
-                          <p className={styles.date}>
-                            {getTimeDiff(comment.updatedAt)}
-                          </p>
-                        </div>
-                      </div>
+                  {isFetchingNextPage && (
+                    <div className={styles.loading}>
+                      <SpinnerImg width={70} height={70} />
                     </div>
-                  );
-                })}
+                  )}
+                </>
+              ) : (
+                <EmptyPlaceholder />
+              )}
             </>
           )}
         </div>
-        <div className={styles.btnCover}>
-          <Link href="/items">
-            <button type="button" className={styles.btnBack}>
-              목록으로 돌아가기 <BtnBackImg />
-            </button>
-          </Link>
-        </div>
+        {showBackButton && (
+          <div className={styles.btnCover}>
+            <Link href="/items">
+              <button type="button" className={styles.btnBack}>
+                목록으로 돌아가기 <BtnBackImg />
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
