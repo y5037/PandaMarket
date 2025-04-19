@@ -7,7 +7,7 @@
 
 ## 🖥️ 데모
 
-👉 **배포 링크**: [link](https://panda-market-y5037.vercel.app/){:target="_blank"}
+👉 **배포 링크**: <a href="https://panda-market-y5037.vercel.app/" target="_blank">
 
 ---
 
