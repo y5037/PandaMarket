@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import FavoriteImg from "@/public/assets/images/items/favorite.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
@@ -7,6 +7,7 @@ import { SelectBox, SelectButton } from "../SelectBox";
 import { ProductDataProps } from "@/src/components/items/id/types";
 import ImgSkeleton from "./ImgSkeleton";
 import TextSkeleton from "@/src/components/items/id/TextSkeleton";
+import { useClickOutside } from "@/src/utils/useClickOutside";
 import styles from "./productDetail.module.css";
 
 function ProductDetail({
@@ -18,28 +19,9 @@ function ProductDetail({
 }) {
   const formattedPrice = Number(productData?.price).toLocaleString();
   const formattedDate = String(productData?.createdAt).slice(0, 10);
-
-  const [selectBox, setSelectBox] = useState(false);
   const [isImgError, setIsImgError] = useState(false);
-  const outRef = useRef<HTMLDivElement | null>(null);
 
-  const handleOptionClick = () => {
-    selectBox ? setSelectBox(false) : setSelectBox(true);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (e: { target: any }) => {
-      // 해당 이벤트가 영역 밖이라면 케밥 버튼 비활성화
-      if (outRef.current && !outRef.current.contains(e.target)) {
-        setSelectBox(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
+  const { outRef, selectbox, setSelectbox } = useClickOutside();
 
   return (
     <div className={`${styles.pagiContainer} ${styles.emptyTopBox}`}>
@@ -76,11 +58,11 @@ function ProductDetail({
                 <p className={styles.price}>{formattedPrice}원</p>
                 <div
                   className={styles.btnMore}
-                  onClick={handleOptionClick}
+                  onClick={() => setSelectbox((prev) => !prev)}
                   ref={outRef}
                 >
                   <OptionMenuImg />
-                  {selectBox && (
+                  {selectbox && (
                     <SelectBox>
                       {/* <SelectButton>수정하기</SelectButton> */}
                       <SelectButton>삭제하기</SelectButton>

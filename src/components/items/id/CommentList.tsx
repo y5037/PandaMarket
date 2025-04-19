@@ -4,12 +4,13 @@ import { getTimeDiff } from "../../app/Dayjs";
 import { SelectBox, SelectButton } from "../SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import styles from "./productDetail.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { CommentUIProps } from "./types";
 import { useGetUser } from "@/src/hooks/useGetUser";
 import { useModalController } from "@/src/utils/useModalController";
 import { DelCommentModal } from "@/src/components/modal/DelCommentModal";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import { useClickOutside } from "@/src/utils/useClickOutside";
 
 const CommentEditUI: React.FC<CommentUIProps> = ({
   setShowEdit,
@@ -38,11 +39,8 @@ interface Props {
 
 function CommentList({ commentsData, productId, refetch }: Props) {
   const [showEdit, setShowEdit] = useState<number | null>(null);
-  const [showSelect, setShowSelect] = useState<number | null>(null);
   const [isImgError, setIsImgError] = useState(false);
   const [commentId, setCommentId] = useState<number>();
-
-  const outRef = useRef<HTMLDivElement | null>(null);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     useModalController();
@@ -55,17 +53,7 @@ function CommentList({ commentsData, productId, refetch }: Props) {
 
   const { data: userData } = useGetUser();
 
-  useEffect(() => {
-    const handleClickOutside = (e: { target: any }) => {
-      if (outRef.current && !outRef.current.contains(e.target)) {
-        setShowSelect(null);
-      }
-    };
-    window.addEventListener("mouseup", handleClickOutside, true);
-    return () => {
-      window.removeEventListener("mouseup", handleClickOutside, true);
-    };
-  }, []);
+  const { outRef, showSelect, setShowSelect } = useClickOutside();
 
   return (
     <>
