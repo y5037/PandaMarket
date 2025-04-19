@@ -3,7 +3,7 @@ import axiosInstance from "../api/axiosInstance";
 
 const fetchProductImg = async (previewUrl: Blob) => {
   const formData = new FormData();
-  
+
   formData.append("image", previewUrl);
   try {
     const response = await axiosInstance.post(`/images/upload`, formData, {
@@ -12,7 +12,7 @@ const fetchProductImg = async (previewUrl: Blob) => {
       },
     });
 
-    return response.data;
+    return response.data.url;
   } catch (err) {
     console.error("API 요청 실패:", err);
     throw err;

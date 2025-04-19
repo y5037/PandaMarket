@@ -1,7 +1,9 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "./ChooseImgFile";
 import styles from "./additem.module.css";
+import { usePostProduct } from "@/src/hooks/usePostProduct";
+import { useRouter } from "next/router";
 
 function UploadForm() {
   const INITIAL_VALUES = {
@@ -11,7 +13,6 @@ function UploadForm() {
     tag: [],
   };
 
-  // file input 제외한 모든 input
   const [values, setValues] = useState<{
     name: string;
     description: string;
@@ -22,15 +23,21 @@ function UploadForm() {
   const [imgFile, setImgFile] = useState("");
   const [isDisableChk, setIsDisableChk] = useState(true);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData();
+  const router = useRouter();
 
-    formData.append("name", values.name);
-    formData.append("description", values.description);
-    formData.append("price", values.price as string);
-    formData.append("tag", values.tag as any as string);
-    formData.append("images", imgFile);
+  const { mutate: uploadProduct } = usePostProduct();
+
+  const handleSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    uploadProduct(
+      { values, imgFile },
+      {
+        onSuccess: () => {
+          router.push("/items");
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -48,13 +55,14 @@ function UploadForm() {
 
   return (
     <div className={styles.pagiContainer}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className={styles.submitContainer}>
           <p className={styles.submitTitle}>상품 등록하기</p>
           <button
             type="button"
             className={styles.btnSubmit}
             disabled={isDisableChk ? true : false}
+            onClick={handleSubmit}
           >
             등록
           </button>

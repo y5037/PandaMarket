@@ -54,7 +54,8 @@ function InputContainer({ setValues }: InitialValues) {
 
   // onKeyDown 이벤트 키가 Enter와 일치하면 실행
   const activeEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    const specialCharRegex = /[ \{\}\[\]\/?.,;:|\)*~`!^\+┼<>@\#$%&\'\"\\\(\=]/gi;
+    const specialCharRegex =
+      /[ \{\}\[\]\/?.,;:|\)*~`!^\+┼<>@\#$%&\'\"\\\(\=]/gi;
     // onKeyDown 이벤트의 한글 입력 시 이벤트가 두 번 호출 되는 버그 방지
     if (e.nativeEvent.isComposing) {
       return;
@@ -90,7 +91,7 @@ function InputContainer({ setValues }: InitialValues) {
       <div className={styles.inputContainer}>
         <p className={styles.inputTitle}>상품명</p>
         <input
-          name="title"
+          name="name"
           type="text"
           placeholder="상품명을 입력해주세요"
           onChange={handleInputChange}
