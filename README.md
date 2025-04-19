@@ -7,7 +7,7 @@
 
 ## 🖥️ 데모
 
-👉 **배포 링크**: https://pandamarket-nerimy.vercel.app/
+👉 **배포 링크**: https://panda-market-y5037.vercel.app/
 
 ---
 
