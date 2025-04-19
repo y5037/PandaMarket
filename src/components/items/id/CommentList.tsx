@@ -7,6 +7,9 @@ import styles from "./productDetail.module.css";
 import { useEffect, useRef, useState } from "react";
 import { CommentUIProps } from "./types";
 import { useGetUser } from "@/src/hooks/useGetUser";
+import { useModalController } from "@/src/utils/useModalController";
+import { DelCommentModal } from "@/src/components/modal/DelCommentModal";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 const CommentEditUI: React.FC<CommentUIProps> = ({
   setShowEdit,
@@ -29,14 +32,26 @@ const CommentEditUI: React.FC<CommentUIProps> = ({
 
 interface Props {
   commentsData: ListComment[] | undefined;
+  productId: string | string[];
+  refetch: UseInfiniteQueryResult["refetch"];
 }
 
-function CommentList({ commentsData }: Props) {
+function CommentList({ commentsData, productId, refetch }: Props) {
   const [showEdit, setShowEdit] = useState<number | null>(null);
   const [showSelect, setShowSelect] = useState<number | null>(null);
   const [isImgError, setIsImgError] = useState(false);
+  const [commentId, setCommentId] = useState<number>();
 
   const outRef = useRef<HTMLDivElement | null>(null);
+
+  const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
+    useModalController();
+
+  const handleDeleteComment = (id: number) => {
+    setIsModalMessage("댓글을 삭제하시겠습니까?");
+    setShowModal(true);
+    setCommentId(id);
+  };
 
   const { data: userData } = useGetUser();
 
@@ -52,67 +67,84 @@ function CommentList({ commentsData }: Props) {
     };
   }, []);
 
-  return commentsData?.map((comment, i) => {
-    const { writer } = comment;
-    return (
-      <div key={comment.id} className={styles.li}>
-        <div className={styles.contentText}>
-          {showEdit === i ? (
-            <>
-              <textarea
-                defaultValue={comment.content}
-                className={styles.textarea}
-              />
-              <CommentEditUI
-                setShowEdit={setShowEdit}
-                setShowSelect={setShowSelect}
-              />
-            </>
-          ) : (
-            <>
-              <p>{comment.content}</p>
-              {userData?.id === writer.id && (
-                <div className={styles.btnMore}>
-                  <OptionMenuImg onClick={() => setShowSelect(i)} />
-                  {showSelect === i && (
-                    <>
-                      <SelectBox>
-                        <SelectButton
-                          onClick={() => setShowEdit(i)}
-                          ref={outRef}
-                        >
-                          수정하기
-                        </SelectButton>
-                        <SelectButton>삭제하기</SelectButton>
-                      </SelectBox>
-                    </>
+  return (
+    <>
+      {showModal && (
+        <DelCommentModal
+          productId={productId}
+          commentId={commentId}
+          isDelProductComment
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage={isModalMessage}
+          refetch={refetch}
+        />
+      )}
+      {commentsData?.map((comment, i) => {
+        const { writer } = comment;
+        return (
+          <div key={comment.id} className={styles.li}>
+            <div className={styles.contentText}>
+              {showEdit === i ? (
+                <>
+                  <textarea
+                    defaultValue={comment.content}
+                    className={styles.textarea}
+                  />
+                  <CommentEditUI
+                    setShowEdit={setShowEdit}
+                    setShowSelect={setShowSelect}
+                  />
+                </>
+              ) : (
+                <>
+                  <p>{comment.content}</p>
+                  {userData?.id === writer.id && (
+                    <div className={styles.btnMore}>
+                      <OptionMenuImg onClick={() => setShowSelect(i)} />
+                      {showSelect === i && (
+                        <>
+                          <SelectBox>
+                            <SelectButton onClick={() => setShowEdit(i)}>
+                              수정하기
+                            </SelectButton>
+                            <SelectButton
+                              ref={outRef}
+                              onClick={() => handleDeleteComment(comment.id)}
+                            >
+                              삭제하기
+                            </SelectButton>
+                          </SelectBox>
+                        </>
+                      )}
+                    </div>
                   )}
-                </div>
+                </>
               )}
-            </>
-          )}
-        </div>
-        <div className={styles.author}>
-          <div className={styles.profileImg}>
-            <Image
-              src={
-                isImgError || writer.image === null
-                  ? "/assets/images/items/default_profile.svg"
-                  : `${writer.image}`
-              }
-              onError={() => setIsImgError(true)}
-              fill
-              alt="프로필 이미지"
-            />
+            </div>
+            <div className={styles.author}>
+              <div className={styles.profileImg}>
+                <Image
+                  src={
+                    isImgError || writer.image === null
+                      ? "/assets/images/items/default_profile.svg"
+                      : `${writer.image}`
+                  }
+                  onError={() => setIsImgError(true)}
+                  fill
+                  alt="프로필 이미지"
+                />
+              </div>
+              <div className={styles.authorContent}>
+                <p className={styles.nickName}>{writer.nickname}</p>
+                <p className={styles.date}>{getTimeDiff(comment.updatedAt)}</p>
+              </div>
+            </div>
           </div>
-          <div className={styles.authorContent}>
-            <p className={styles.nickName}>{writer.nickname}</p>
-            <p className={styles.date}>{getTimeDiff(comment.updatedAt)}</p>
-          </div>
-        </div>
-      </div>
-    );
-  });
+        );
+      })}
+    </>
+  );
 }
 
 export default CommentList;

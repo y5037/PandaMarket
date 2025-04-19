@@ -1,5 +1,5 @@
 import styles from "@/styles/app/navi.module.css";
-import { Modal } from "./Modal";
+import { SignModal } from "../modal/SignModal";
 import { useModalController } from "@/src/utils/useModalController";
 
 export function UserMenu() {
@@ -14,7 +14,7 @@ export function UserMenu() {
   return (
     <>
       {showModal && (
-        <Modal
+        <SignModal
           isLogout
           showModal={showModal}
           setShowModal={setShowModal}

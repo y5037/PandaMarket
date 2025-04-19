@@ -93,7 +93,11 @@ function CommentContainer({
             <>
               {commentsData.length > 0 ? (
                 <>
-                  <CommentList commentsData={commentsData} />
+                  <CommentList
+                    commentsData={commentsData}
+                    productId={productId}
+                    refetch={refetch}
+                  />
 
                   {isFetchingNextPage && (
                     <div className={styles.loading}>
