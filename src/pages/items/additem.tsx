@@ -3,7 +3,7 @@ import ItemsListNav from "../../components/app/NavBar";
 import UploadForm from "../../components/items/additem/UploadForm";
 import useProtectedPage from "@/src/utils/useProtectedPage";
 
-function addItemPage() {
+function AddItemPage() {
   useProtectedPage();
 
   return (
@@ -17,4 +17,4 @@ function addItemPage() {
   );
 }
 
-export default addItemPage;
+export default AddItemPage;

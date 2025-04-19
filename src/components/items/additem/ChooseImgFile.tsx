@@ -42,7 +42,7 @@ function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
         console.error(err);
       },
     });
-  }, [previewUrl]);
+  }, [previewUrl, uploadImg, setImgFile]);
 
   const handlePreventionClick = (e: MouseEvent) => {
     if (imgFile) {
