@@ -1,7 +1,7 @@
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
-import useDelProductComments from "@/src/hooks/useDelProductComments";
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import useDelProductComments from "@/src/hooks/useDelProductComment";
 
 interface Props {
   productId?: string | string[];
@@ -22,12 +22,12 @@ export const DelCommentModal = ({
   isModalMessage,
   refetch,
 }: Props) => {
-  const { mutate: DeleteComment } = useDelProductComments(productId!);
+  const { mutate: deleteComment } = useDelProductComments(productId!);
 
   const handleConfirmModal = () => {
     if (!commentId || !productId) return;
 
-    DeleteComment(
+    deleteComment(
       { commentId },
       {
         onSuccess: async () => {

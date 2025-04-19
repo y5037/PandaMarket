@@ -8,7 +8,7 @@ const fetchProductComments = async ({
   commentId: number;
 }) => {
   try {
-    const res = await axiosInstance.delete(`/comments/${commentId}`);
+    await axiosInstance.delete(`/comments/${commentId}`);
 
     return { success: true };
   } catch (err) {
@@ -34,8 +34,8 @@ const useDelProductComments = (productIdParam: string | string[]) => {
         queryKey: ["productComment", productId],
       });
     },
-    onError: (error) => {
-      console.error("삭제 중 오류 발생", error);
+    onError: (err) => {
+      console.error("삭제 중 오류 발생", err);
     },
   });
 };

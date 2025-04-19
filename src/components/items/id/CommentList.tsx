@@ -4,32 +4,13 @@ import { getTimeDiff } from "../../app/Dayjs";
 import { SelectBox, SelectButton } from "../SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import styles from "./productDetail.module.css";
-import { useState } from "react";
-import { CommentUIProps } from "./types";
+import { ChangeEvent, useState } from "react";
 import { useGetUser } from "@/src/hooks/useGetUser";
 import { useModalController } from "@/src/utils/useModalController";
 import { DelCommentModal } from "@/src/components/modal/DelCommentModal";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { useClickOutside } from "@/src/utils/useClickOutside";
-
-const CommentEditUI: React.FC<CommentUIProps> = ({
-  setShowEdit,
-  setShowSelect,
-}) => {
-  return (
-    <div className={styles.editContainer}>
-      <button
-        onClick={() => {
-          setShowEdit(null);
-          setShowSelect(null);
-        }}
-      >
-        취소
-      </button>
-      <button>수정 완료</button>
-    </div>
-  );
-};
+import { CommentEdit } from "./CommentEdit";
 
 interface Props {
   commentsData: ListComment[] | undefined;
@@ -41,9 +22,14 @@ function CommentList({ commentsData, productId, refetch }: Props) {
   const [showEdit, setShowEdit] = useState<number | null>(null);
   const [isImgError, setIsImgError] = useState(false);
   const [commentId, setCommentId] = useState<number>();
+  const [changedComment, setChangedComment] = useState("");
+
+  const { outRef, showSelect, setShowSelect } = useClickOutside();
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     useModalController();
+
+  const { data: userData } = useGetUser();
 
   const handleDeleteComment = (id: number) => {
     setIsModalMessage("댓글을 삭제하시겠습니까?");
@@ -51,9 +37,9 @@ function CommentList({ commentsData, productId, refetch }: Props) {
     setCommentId(id);
   };
 
-  const { data: userData } = useGetUser();
-
-  const { outRef, showSelect, setShowSelect } = useClickOutside();
+  const handleChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setChangedComment(e.target.value);
+  };
 
   return (
     <>
@@ -77,9 +63,14 @@ function CommentList({ commentsData, productId, refetch }: Props) {
                 <>
                   <textarea
                     defaultValue={comment.content}
+                    onChange={handleChangeComment}
                     className={styles.textarea}
                   />
-                  <CommentEditUI
+                  <CommentEdit
+                    changedComment={changedComment}
+                    productId={productId}
+                    commentId={comment.id}
+                    refetch={refetch}
                     setShowEdit={setShowEdit}
                     setShowSelect={setShowSelect}
                   />
@@ -88,7 +79,7 @@ function CommentList({ commentsData, productId, refetch }: Props) {
                 <>
                   <p>{comment.content}</p>
                   {userData?.id === writer.id && (
-                    <div className={styles.btnMore}>
+                    <div className={styles.btnMore} ref={outRef}>
                       <OptionMenuImg onClick={() => setShowSelect(i)} />
                       {showSelect === i && (
                         <>
@@ -97,7 +88,6 @@ function CommentList({ commentsData, productId, refetch }: Props) {
                               수정하기
                             </SelectButton>
                             <SelectButton
-                              ref={outRef}
                               onClick={() => handleDeleteComment(comment.id)}
                             >
                               삭제하기

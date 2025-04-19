@@ -2,28 +2,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axiosInstance";
 
 const fetchProductComments = async ({
-  productId,
-  comment,
+  commentId,
+  changedComment,
 }: {
-  productId: string | string[];
-  comment: string;
+  productId?: string | string[];
+  commentId: number;
+  changedComment: string;
 }) => {
   try {
-    const response = await axiosInstance.post(
-      `/products/${productId}/comments`,
-      {
-        content: comment,
-      }
-    );
-
-    return response.data;
+    await axiosInstance.patch(`/comments/${commentId}`, {
+      content: changedComment,
+    });
   } catch (err) {
     console.error("API 요청 실패:", err);
     throw err;
   }
 };
 
-const usePostProductComments = (productIdParam: string | string[]) => {
+const useEditProductComment = (productIdParam: string | string[]) => {
   const queryClient = useQueryClient();
   const productId = Array.isArray(productIdParam)
     ? productIdParam[0]
@@ -35,15 +31,14 @@ const usePostProductComments = (productIdParam: string | string[]) => {
       await queryClient.invalidateQueries({
         queryKey: ["productComment", productId],
       });
-
       await queryClient.refetchQueries({
         queryKey: ["productComment", productId],
       });
     },
-    onError: (error) => {
-      console.error("등록 중 오류 발생", error);
+    onError: (err) => {
+      console.error("삭제 중 오류 발생", err);
     },
   });
 };
 
-export default usePostProductComments;
+export default useEditProductComment;
