@@ -3,9 +3,6 @@ import styles from "@/styles/app/modal.module.css";
 import { useRouter } from "next/router";
 
 interface Props {
-  isLogout?: boolean;
-  isSignup?: boolean;
-  isDelProductComment?: boolean;
   effectiveData?: boolean;
   setIsSignup?: (value: boolean) => void;
   showModal: boolean;
