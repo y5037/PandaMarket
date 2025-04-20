@@ -3,18 +3,14 @@ import { useRouter } from "next/router";
 import ProductDetail from "@/src/components/items/id/ProductDetail";
 import NavBar from "@/src/components/app/NavBar";
 import CommentContainer from "@/src/components/items/id/CommentContainer";
-import { getProductId } from "@/src/api/productApi";
-import { ProductDataProps } from "@/src/types/itemTypes";
 import Head from "next/head";
 import useProtectedPage from "@/src/utils/useProtectedPage";
 import useGetProductComments from "@/src/hooks/useGetProductComments";
 import { useScrollPositioning } from "@/src/utils/useScrollPositioning";
 import { useScrollDetector } from "@/src/utils/useScrollDetector";
+import { useGetProductDetail } from "@/src/hooks/useGetProductDetail";
 
 function ProductDetailPage() {
-  const [productData, setProductData] = useState<ProductDataProps>();
-  const [loading, setLoading] = useState(true);
-
   useProtectedPage();
 
   const router = useRouter();
@@ -22,6 +18,8 @@ function ProductDetailPage() {
   const productId = Array.isArray(rawProductId)
     ? rawProductId[0]
     : rawProductId;
+
+  const { data: productData, isLoading:detailLoading } = useGetProductDetail(productId);
 
   const {
     data: comment,
@@ -52,20 +50,13 @@ function ProductDetailPage() {
     }
   });
 
-  // router.isReady 사용 이유: Next.js는 렌더링된 후 쿼리 객체를 채우기 때문에 라우터 필드가 클라리언트 측에서 업데이트 되고 사용할 준비가 되었는지 여부를 먼저 확인해야 한다.
-  // API
-  useEffect(() => {
-    if (!router.isReady) return;
-    getProductId(productId, setProductData, setLoading);
-  }, [router.isReady, productId]);
-
   return (
     <>
       <Head>
         <title>{productData?.name} - 판다마켓</title>
       </Head>
       <NavBar />
-      <ProductDetail productData={productData} loading={loading} />
+      <ProductDetail loading={detailLoading} productId={productId} productData={productData}/>
       <CommentContainer
         productId={productId}
         commentsData={commentsData}

@@ -1,27 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import FavoriteImg from "@/public/assets/images/items/favorite.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../SelectBox";
-import { ProductDataProps } from "@/src/components/items/id/types";
 import ImgSkeleton from "./ImgSkeleton";
 import TextSkeleton from "@/src/components/items/id/TextSkeleton";
 import { useClickOutside } from "@/src/utils/useClickOutside";
 import styles from "./productDetail.module.css";
+import { useToggleLike } from "@/src/hooks/usePostLikeProduct";
+import { ProductDataProps } from "./types";
 
 function ProductDetail({
+  productId,
   productData,
   loading,
 }: {
-  productData: ProductDataProps | undefined;
+  productId: string;
+  productData: ProductDataProps;
   loading: boolean;
 }) {
-  const formattedPrice = Number(productData?.price).toLocaleString();
-  const formattedDate = String(productData?.createdAt).slice(0, 10);
   const [isImgError, setIsImgError] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   const { outRef, selectbox, setSelectbox } = useClickOutside();
+
+  const formattedPrice = Number(productData?.price).toLocaleString();
+  const formattedDate = String(productData?.createdAt).slice(0, 10);
+
+  const { mutate: toggleLike } = useToggleLike(productId);
+
+  const handleLike = () => {
+    const nextLiked = !liked;
+    setLiked(nextLiked);
+    setFavoriteCount((prev) => prev + (nextLiked ? 1 : -1));
+    toggleLike(!nextLiked);
+  };
+
+  useEffect(() => {
+    if (productData) {
+      setLiked(productData.isFavorite);
+      setFavoriteCount(productData.favoriteCount);
+    }
+  }, [productData]);
 
   return (
     <div className={`${styles.pagiContainer} ${styles.emptyTopBox}`}>
@@ -77,14 +99,13 @@ function ProductDetail({
               <div className={styles.tagsCover}>
                 <p className={styles.subTitle}>상품 태그</p>
                 <ul>
-                  {productData?.tags &&
-                    productData.tags.map((tag, i) => {
-                      return (
-                        <li key={i} className={styles.tagName}>
-                          #{tag}
-                        </li>
-                      );
-                    })}
+                  {(productData?.tags as string[]).map((tag, i) => {
+                    return (
+                      <li key={i} className={styles.tagName}>
+                        #{tag}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
@@ -104,10 +125,15 @@ function ProductDetail({
                   <p className={styles.date}>{formattedDate}</p>
                 </div>
               </div>
-              <div className={styles.favoritCount}>
-                <FavoriteImg />
-                <p className={styles.count}>{productData?.favoriteCount}</p>
-              </div>
+              <button className={styles.favoritCount} onClick={handleLike}>
+                <FavoriteImg
+                  className={styles.heart}
+                  style={{
+                    fill: liked ? "#FF4747" : "white",
+                  }}
+                />
+                <p className={styles.count}>{favoriteCount}</p>
+              </button>
             </div>
           </div>
         )}
