@@ -123,7 +123,7 @@ function InputContainer({ setValues }: InitialValues) {
           name="price"
           placeholder="판매 가격을 입력해주세요"
           value={enteredNum}
-          maxLength={20}
+          maxLength={12}
           onChange={(e) => {
             changeEnteredNum(e);
             // setPrice(e.target.value);
