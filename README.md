@@ -25,11 +25,12 @@
 | --------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
 | **React**       | <img src="https://raw.githubusercontent.com/github/explore/main/topics/react/react.png" width="150"/>       | 19.0.0  |
 | **Next.js**     | <img src="https://raw.githubusercontent.com/github/explore/main/topics/nextjs/nextjs.png" width="150"/>     | 15.2.11 |
-| **CSS Modules** | <img src="https://github.com/user-attachments/assets/84408ff7-d779-4a54-95ec-8c51a22d39ac" width="150" />   | 6.7.1   |
+| **CSS Modules** | <img src="https://github.com/user-attachments/assets/92ac84d5-8736-4fc4-8cdb-15e0831038ce" width="150" />   | 6.7.1   |
 | **React Query** | <img src="https://github.com/user-attachments/assets/1826dc7f-eae2-4d82-92dc-23c352b6f0ba" width="150" />  | 5.67.3  |
 | **Vercel**      | <img src="https://github.com/user-attachments/assets/cba098d4-a1c7-45db-a080-be8c77f193ae" width="150"/> | 41.4.0  |
 
 ---
+
 
 ## 🧰 사용한 툴
 
