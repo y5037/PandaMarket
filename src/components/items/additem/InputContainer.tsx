@@ -107,17 +107,6 @@ function InputContainer({ setValues }: InitialValues) {
       </div>
       <div className={styles.inputContainer}>
         <p className={styles.inputTitle}>판매가격</p>
-        {/* NumericFormat 라이브러리 사용으로 Number input 콤마 처리 */}
-        {/* <NumericFormat
-          name="price"
-          placeholder="판매 가격을 입력해주세요"
-          onValueChange={(values) => {
-            setPrice(values.value);
-          }}
-          thousandSeparator={true}
-          prefix={""}
-          getInputRef={priceInput}
-        /> */}
         <input
           type="text"
           name="price"
@@ -126,7 +115,6 @@ function InputContainer({ setValues }: InitialValues) {
           maxLength={12}
           onChange={(e) => {
             changeEnteredNum(e);
-            // setPrice(e.target.value);
           }}
           ref={priceInput}
         />
