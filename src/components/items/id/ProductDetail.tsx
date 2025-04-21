@@ -10,6 +10,9 @@ import { useClickOutside } from "@/src/utils/useClickOutside";
 import styles from "./productDetail.module.css";
 import { useToggleLike } from "@/src/hooks/usePostLikeProduct";
 import { ProductDataProps } from "./types";
+import { useModalController } from "@/src/utils/useModalController";
+import { DeleteModal } from "../../modal/DeleteModal";
+import { useGetUser } from "@/src/hooks/useGetUser";
 
 function ProductDetail({
   productId,
@@ -26,9 +29,13 @@ function ProductDetail({
 
   const { outRef, selectbox, setSelectbox } = useClickOutside();
 
+  const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
+    useModalController();
+
   const formattedPrice = Number(productData?.price).toLocaleString();
   const formattedDate = String(productData?.createdAt).slice(0, 10);
 
+  const { data: userData } = useGetUser();
   const { mutate: toggleLike } = useToggleLike(productId);
 
   const handleLike = () => {
@@ -36,6 +43,11 @@ function ProductDetail({
     setLiked(nextLiked);
     setFavoriteCount((prev) => prev + (nextLiked ? 1 : -1));
     toggleLike(!nextLiked);
+  };
+
+  const handleDeleteProduct = () => {
+    setIsModalMessage("상품을 삭제하시겠습니까?");
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -46,99 +58,116 @@ function ProductDetail({
   }, [productData]);
 
   return (
-    <div className={`${styles.pagiContainer} ${styles.emptyTopBox}`}>
-      <div className={styles.section1}>
-        {loading ? (
-          <ImgSkeleton />
-        ) : (
-          <div className={styles.productImg}>
-            {`${productData?.images}`.length === 0 || isImgError ? (
-              <Image
-                src={NoImg}
-                onError={() => setIsImgError(true)}
-                fill
-                alt="상품 이미지"
-              />
-            ) : (
-              <Image
-                src={`${productData?.images}`}
-                onError={() => setIsImgError(true)}
-                fill
-                alt="상품 이미지"
-              />
-            )}
-          </div>
-        )}
+    <>
+      {showModal && (
+        <DeleteModal
+          productId={productId}
+          isDelProduct
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage={isModalMessage}
+        />
+      )}
+      <div className={`${styles.pagiContainer} ${styles.emptyTopBox}`}>
+        <div className={styles.section1}>
+          {loading ? (
+            <ImgSkeleton />
+          ) : (
+            <div className={styles.productImg}>
+              {`${productData?.images}`.length === 0 || isImgError ? (
+                <Image
+                  src={NoImg}
+                  onError={() => setIsImgError(true)}
+                  fill
+                  alt="상품 이미지"
+                />
+              ) : (
+                <Image
+                  src={`${productData?.images}`}
+                  onError={() => setIsImgError(true)}
+                  fill
+                  alt="상품 이미지"
+                />
+              )}
+            </div>
+          )}
 
-        {loading ? (
-          <TextSkeleton />
-        ) : (
-          <div className={styles.descriptionContainer}>
-            <div>
-              <div className={styles.titleCover}>
-                <p className={styles.title}>{productData?.name}</p>
-                <p className={styles.price}>{formattedPrice}원</p>
-                <div
-                  className={styles.btnMore}
-                  onClick={() => setSelectbox((prev) => !prev)}
-                  ref={outRef}
-                >
-                  <OptionMenuImg />
-                  {selectbox && (
-                    <SelectBox>
-                      {/* <SelectButton>수정하기</SelectButton> */}
-                      <SelectButton>삭제하기</SelectButton>
-                    </SelectBox>
+          {loading ? (
+            <TextSkeleton />
+          ) : (
+            <div className={styles.descriptionContainer}>
+              <div>
+                <div className={styles.titleCover}>
+                  <p className={styles.title}>{productData?.name}</p>
+                  <p className={styles.price}>{formattedPrice}원</p>
+                  {userData?.id === productData.ownerId && (
+                    <div
+                      className={styles.btnMore}
+                      onClick={() => setSelectbox((prev) => !prev)}
+                      ref={outRef}
+                    >
+                      <OptionMenuImg />
+                      {selectbox && (
+                        <SelectBox>
+                          {/* <SelectButton>수정하기</SelectButton> */}
+                          <SelectButton onClick={handleDeleteProduct}>
+                            삭제하기
+                          </SelectButton>
+                        </SelectBox>
+                      )}
+                    </div>
                   )}
                 </div>
-              </div>
-              <div className={styles.descriptionCover}>
-                <p className={styles.subTitle}>상품 소개</p>
-                <p className={styles.description}>{productData?.description}</p>
-              </div>
-              <div className={styles.tagsCover}>
-                <p className={styles.subTitle}>상품 태그</p>
-                <ul>
-                  {(productData?.tags as string[]).map((tag, i) => {
-                    return (
-                      <li key={i} className={styles.tagName}>
-                        #{tag}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-            <div className={styles.cover}>
-              <div className={styles.owner}>
-                <div className={styles.profileImg}>
-                  <Image
-                    src="/assets/images/items/default_profile.svg"
-                    alt="프로필 이미지"
-                    fill
-                  />
-                </div>
-                <div className={styles.postInfo}>
-                  <p className={styles.nickName}>
-                    {productData?.ownerNickname}
+                <div className={styles.descriptionCover}>
+                  <p className={styles.subTitle}>상품 소개</p>
+                  <p className={styles.description}>
+                    {productData?.description}
                   </p>
-                  <p className={styles.date}>{formattedDate}</p>
+                </div>
+                <div className={styles.tagsCover}>
+                  <p className={styles.subTitle}>상품 태그</p>
+                  <ul>
+                    {(productData?.tags as string[]).map((tag, i) => {
+                      return (
+                        <li key={i} className={styles.tagName}>
+                          #{tag}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
-              <button className={styles.favoritCount} onClick={handleLike}>
-                <FavoriteImg
-                  className={styles.heart}
-                  style={{
-                    fill: liked ? "#FF4747" : "white",
-                  }}
-                />
-                <p className={styles.count}>{favoriteCount}</p>
-              </button>
+              <div className={styles.cover}>
+                <div className={styles.owner}>
+                  <div className={styles.profileImg}>
+                    <Image
+                      src="/assets/images/items/default_profile.svg"
+                      alt="프로필 이미지"
+                      fill
+                    />
+                  </div>
+                  <div className={styles.postInfo}>
+                    <p className={styles.nickName}>
+                      {productData?.ownerNickname}
+                    </p>
+                    <p className={styles.date}>{formattedDate}</p>
+                  </div>
+                </div>
+                <button className={styles.favoritCount} onClick={handleLike}>
+                  <FavoriteImg
+                    className={styles.heart}
+                    style={{
+                      fill: liked ? "#FF4747" : "white",
+                    }}
+                  />
+                  <p className={styles.count}>{favoriteCount}</p>
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
