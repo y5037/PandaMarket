@@ -27,7 +27,11 @@ export const ConfirmationModal = ({
 
   return (
     <>
-      <ModalContainer isOpen={showModal} onClose={() => setShowModal(false)}>
+      <ModalContainer
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        effectiveData={effectiveData}
+      >
         <div className={styles.contents}>
           <div className={styles.message}>{isModalMessage}</div>
           <div className={styles.buttonContainer}>
