@@ -7,7 +7,7 @@ import styles from "./productDetail.module.css";
 import { ChangeEvent, useState } from "react";
 import { useGetUser } from "@/src/hooks/useGetUser";
 import { useModalController } from "@/src/utils/useModalController";
-import { DelCommentModal } from "@/src/components/modal/DelCommentModal";
+import { DeleteModal } from "@/src/components/modal/DeleteModal";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { useClickOutside } from "@/src/utils/useClickOutside";
 import { CommentEdit } from "./CommentEdit";
@@ -44,7 +44,7 @@ function CommentList({ commentsData, productId, refetch }: Props) {
   return (
     <>
       {showModal && (
-        <DelCommentModal
+        <DeleteModal
           productId={productId}
           commentId={commentId}
           isDelProductComment
