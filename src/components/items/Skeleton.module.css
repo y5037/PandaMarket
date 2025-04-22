@@ -108,20 +108,20 @@
 .section2Wrap .skeletonBox {
   min-width: 100%;
 }
-.section2Wrap .skeletonBox:nth-of-type(7),
-.section2Wrap .skeletonBox:nth-of-type(8),
-.section2Wrap .skeletonBox:nth-of-type(9),
-.section2Wrap .skeletonBox:nth-of-type(10) {
+.section2Wrap .wrap:nth-of-type(7),
+.section2Wrap .wrap:nth-of-type(8),
+.section2Wrap .wrap:nth-of-type(9),
+.section2Wrap .wrap:nth-of-type(10) {
   @media (max-width: 1200px) {
     display: none;
   }
 }
-.section2Wrap .skeletonBox:nth-of-type(5),
-.section2Wrap .skeletonBox:nth-of-type(6),
-.section2Wrap .skeletonBox:nth-of-type(7),
-.section2Wrap .skeletonBox:nth-of-type(8),
-.section2Wrap .skeletonBox:nth-of-type(9),
-.section2Wrap .skeletonBox:nth-of-type(10) {
+.section2Wrap .wrap:nth-of-type(5),
+.section2Wrap .wrap:nth-of-type(6),
+.section2Wrap .wrap:nth-of-type(7),
+.section2Wrap .wrap:nth-of-type(8),
+.section2Wrap .wrap:nth-of-type(9),
+.section2Wrap .wrap:nth-of-type(10) {
   @media (max-width: 768px) {
     display: none;
   }

@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
@@ -8,8 +8,6 @@ import { useDropdown } from "@/src/utils/useDropdown";
 import styles from "./productList.module.css";
 
 function AllItemsContainer({
-  isTablet,
-  isMobile,
   setPage,
   setIsDataCount,
   filter,
@@ -17,10 +15,7 @@ function AllItemsContainer({
   setKeyword,
   isItemCount,
   setOrderBy,
-  setIsItemCount,
 }: SearchForm) {
-  const [isResponsive, setIsResponsive] = useState(0);
-
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
   useEffect(() => {
@@ -41,29 +36,16 @@ function AllItemsContainer({
     setPage(1);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsResponsive(window.innerWidth);
-      isMobile
-        ? setIsItemCount(4)
-        : isTablet
-        ? setIsItemCount(6)
-        : setIsItemCount(10);
-      setIsDataCount(isItemCount);
-      setPage(1);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isItemCount, isResponsive, isMobile, isTablet, setIsDataCount, setPage]);
-
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setKeyword(e.target.value);
     setPage(1);
   };
+
+  useEffect(() => {
+    setIsDataCount(isItemCount);
+    setPage(1);
+  }, [isItemCount, setIsDataCount, setPage]);
   return (
     <>
       <div className={styles.filterCover}>
