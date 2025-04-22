@@ -12,7 +12,7 @@ function BestItemsList() {
   const [isItemCount, setIsItemCount] = useState(
     isMobile ? 1 : isTablet ? 2 : 4
   );
-  
+
   const orderBy = "favorite";
   const page = 1;
   const keyword = "";
@@ -32,12 +32,13 @@ function BestItemsList() {
     };
   }, [isResponsive, isMobile, isTablet]);
 
-  const { data: bestProduct, isLoading } = useGetProduct({
+  const { data, isLoading } = useGetProduct({
     page,
     orderBy,
     pageSize: isItemCount,
     keyword,
   });
+  const bestProduct = data?.list;
 
   return (
     <>

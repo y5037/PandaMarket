@@ -32,10 +32,14 @@ export type ItemsList = {
 
 // GeneralSearchForm.tsx
 export type SearchForm = {
-  setProductContainer: React.Dispatch<React.SetStateAction<List[]>>;
-  page: number;
+  isTablet: boolean;
+  isMobile: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setPageCount: React.Dispatch<React.SetStateAction<number>>;
   setIsDataCount: React.Dispatch<React.SetStateAction<number>>;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  filter: string;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  isItemCount: number;
+  setOrderBy: React.Dispatch<React.SetStateAction<string>>;
+  setIsItemCount: React.Dispatch<React.SetStateAction<number>>;
 };

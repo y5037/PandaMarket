@@ -18,9 +18,17 @@ export default function Section2Skeleton() {
     <ul className={styles.section2Wrap}>
       {repeat.map((item) => {
         return (
-          <li key={item.id} className={styles.skeletonBox}>
-            <div className={styles.skeletonLoading}></div>
-          </li>
+          <>
+            <li key={item.id} className={styles.wrap}>
+              <div className={styles.skeletonBox}>
+                <div className={styles.skeletonLoading}></div>
+              </div>
+              <div className={styles.skeletonLine}>
+                <div className={styles.line1}></div>
+                <div className={styles.line2}></div>
+              </div>
+            </li>
+          </>
         );
       })}
     </ul>
