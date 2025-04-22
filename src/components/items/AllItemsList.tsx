@@ -6,9 +6,9 @@ import AllItemsContainer from "./AllItemsContainer";
 import AllItem from "./AllItem";
 import { ItemsList } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
-import styles from "./productList.module.css";
 import { useGetProduct } from "@/src/hooks/useGetProduct";
 import { useListResize } from "@/src/utils/useListResize";
+import styles from "./productList.module.css";
 
 function EmptyPlaceholder() {
   return (
@@ -25,8 +25,7 @@ function AllItemsList({
   setPageCount,
   setIsDataCount,
 }: ItemsList) {
-
-  const {isItemCount} = useListResize("all");
+  const { isItemCount } = useListResize("all");
 
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
