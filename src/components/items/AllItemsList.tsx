@@ -42,7 +42,7 @@ function AllItemsList({
     if (data?.totalCount) {
       setPageCount(data.totalCount);
     }
-  }, [data?.totalCount, isItemCount]);
+  }, [data?.totalCount, isItemCount, setPageCount]);
 
   return (
     <div className={`${styles.productContents} ${styles.generalProduct}`}>

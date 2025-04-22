@@ -15,8 +15,7 @@ function AllItemsContainer({
   setKeyword,
   isItemCount,
   setOrderBy,
-}:
-SearchForm) {
+}: SearchForm) {
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
   useEffect(() => {
@@ -46,7 +45,7 @@ SearchForm) {
   useEffect(() => {
     setIsDataCount(isItemCount);
     setPage(1);
-  }, [isItemCount]);
+  }, [isItemCount, setIsDataCount, setPage]);
   return (
     <>
       <div className={styles.filterCover}>
