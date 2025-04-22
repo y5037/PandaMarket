@@ -3,34 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
 import productSearchImg from "@/public/assets/images/items/pd_search.png";
-import { getProductData } from "@/src/api/productApi";
-import useWindowSize from "../../utils/useWindowSize";
-import { ApiOptions, SearchForm } from "./types";
+import { SearchForm } from "./types";
 import { useDropdown } from "@/src/utils/useDropdown";
 import styles from "./productList.module.css";
 
 function AllItemsContainer({
-  setProductContainer,
-  page,
+  isTablet,
+  isMobile,
   setPage,
-  setPageCount,
   setIsDataCount,
-  setLoading,
+  filter,
+  setFilter,
+  setKeyword,
+  isItemCount,
+  setOrderBy,
+  setIsItemCount,
 }: SearchForm) {
-  const { isTablet, isMobile } = useWindowSize();
   const [isResponsive, setIsResponsive] = useState(0);
-  const [isItemCount, setIsItemCount] = useState(
-    isMobile ? 4 : isTablet ? 6 : 10
-  );
-
-  const [orderBy, setOrderBy] = useState("recent");
-  const [keyword, setKeyword] = useState("");
-  const [filter, setFilter] = useState("최신순");
-  const [toggle, setToggle] = useState(true);
 
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
-  // 첫 렌더링 시 현재 유저의 디바이스 크기를 계산해 페이지네이션 출력
   useEffect(() => {
     setIsDataCount(isItemCount);
   }, [isItemCount, setIsDataCount]);
@@ -38,7 +30,6 @@ function AllItemsContainer({
   const handleNewsetClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const filterText = (e?.target as HTMLLIElement).textContent!;
     setFilter(filterText);
-    setToggle(true);
     setOrderBy("recent");
     setPage(1);
   };
@@ -46,7 +37,6 @@ function AllItemsContainer({
   const handleBestClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const filterText = (e?.target as HTMLLIElement).textContent!;
     setFilter(filterText);
-    setToggle(true);
     setOrderBy("favorite");
     setPage(1);
   };
@@ -60,44 +50,14 @@ function AllItemsContainer({
         ? setIsItemCount(6)
         : setIsItemCount(10);
       setIsDataCount(isItemCount);
-      // 페이지 창 크기 조절 시 pagination 1로 초기화(추후 불필요하단 판단 시 아래 코드만 삭제)
       setPage(1);
     };
 
     window.addEventListener("resize", handleResize);
     return () => {
-      // cleanup
       window.removeEventListener("resize", handleResize);
     };
   }, [isItemCount, isResponsive, isMobile, isTablet, setIsDataCount, setPage]);
-
-  useEffect(() => {
-    const handleLoad = async (options: ApiOptions) => {
-      try {
-        const { list, totalCount } = await getProductData(options);
-        setProductContainer(list);
-        setPageCount(totalCount);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-
-    handleLoad({
-      page,
-      orderBy,
-      pageSize: isItemCount,
-      keyword: keyword,
-    });
-  }, [
-    orderBy,
-    keyword,
-    page,
-    isItemCount,
-    setLoading,
-    setPageCount,
-    setProductContainer,
-  ]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
