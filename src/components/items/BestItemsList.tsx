@@ -1,36 +1,16 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import BestItem from "./BestItem";
 import Section1Skeleton from "./Section1Skeleton";
 import styles from "./productList.module.css";
 import { useGetProduct } from "@/src/hooks/useGetProduct";
-import calculatorMediaQuery from "../../utils/useWindowSize";
+import { useListResize } from "@/src/utils/useListResize";
 
 function BestItemsList() {
-  const { isTablet, isMobile } = calculatorMediaQuery();
-  const [isResponsive, setIsResponsive] = useState(0);
-  const [isItemCount, setIsItemCount] = useState(
-    isMobile ? 1 : isTablet ? 2 : 4
-  );
-
   const orderBy = "favorite";
   const page = 1;
   const keyword = "";
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsResponsive(window.innerWidth);
-      isMobile
-        ? setIsItemCount(1)
-        : isTablet
-        ? setIsItemCount(2)
-        : setIsItemCount(4);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isResponsive, isMobile, isTablet]);
+  const { isItemCount } = useListResize("best");
 
   const { data, isLoading } = useGetProduct({
     page,

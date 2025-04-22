@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import notFoundImg from "@/public/assets/images/items/not_found.png";
@@ -8,7 +8,7 @@ import { ItemsList } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
 import styles from "./productList.module.css";
 import { useGetProduct } from "@/src/hooks/useGetProduct";
-import useWindowSize from "@/src/utils/useWindowSize";
+import { useListResize } from "@/src/utils/useListResize";
 
 function EmptyPlaceholder() {
   return (
@@ -25,10 +25,8 @@ function AllItemsList({
   setPageCount,
   setIsDataCount,
 }: ItemsList) {
-  const { isTablet, isMobile } = useWindowSize();
-  const [isItemCount, setIsItemCount] = useState(
-    isMobile ? 4 : isTablet ? 6 : 10
-  );
+
+  const {isItemCount} = useListResize("all");
 
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
@@ -50,8 +48,6 @@ function AllItemsList({
   return (
     <div className={`${styles.productContents} ${styles.generalProduct}`}>
       <AllItemsContainer
-        isTablet={isTablet}
-        isMobile={isMobile}
         setPage={setPage}
         setIsDataCount={setIsDataCount}
         filter={filter}
@@ -59,7 +55,6 @@ function AllItemsList({
         setKeyword={setKeyword}
         isItemCount={isItemCount}
         setOrderBy={setOrderBy}
-        setIsItemCount={setIsItemCount}
       />
       {isLoading ? (
         <Section2Skeleton />
