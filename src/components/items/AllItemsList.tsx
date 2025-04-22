@@ -4,7 +4,7 @@ import Image from "next/image";
 import notFoundImg from "@/public/assets/images/items/not_found.png";
 import AllItemsContainer from "./AllItemsContainer";
 import AllItem from "./AllItem";
-import { ItemsList, Props } from "./types";
+import { ItemsList, List } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
 import styles from "./productList.module.css";
 
@@ -23,7 +23,7 @@ function AllItemsList({
   setPageCount,
   setIsDataCount,
 }: ItemsList) {
-  const [productContainer, setProductContainer] = useState<Props[]>([]);
+  const [productContainer, setProductContainer] = useState<List[]>([]);
   const [loading, setLoading] = useState(true);
 
   return (

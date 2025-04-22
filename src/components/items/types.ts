@@ -1,7 +1,7 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 // BestItem.tsx
-export interface Props {
+export interface List {
   createAt: string;
   description: string;
   favoriteCount: number;
@@ -32,7 +32,7 @@ export type ItemsList = {
 
 // GeneralSearchForm.tsx
 export type SearchForm = {
-  setProductContainer: React.Dispatch<React.SetStateAction<Props[]>>;
+  setProductContainer: React.Dispatch<React.SetStateAction<List[]>>;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setPageCount: React.Dispatch<React.SetStateAction<number>>;
