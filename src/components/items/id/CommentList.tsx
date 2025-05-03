@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ListComment } from "@/src/types/itemTypes";
-import { getTimeDiff } from "../../app/Dayjs";
+import { getTimeDiff } from "../../../utils/dayjs";
 import { SelectBox, SelectButton } from "../SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import styles from "./productDetail.module.css";
