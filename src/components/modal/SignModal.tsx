@@ -1,4 +1,3 @@
-import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
 import { useRouter } from "next/router";
 
@@ -46,8 +45,8 @@ export const SignModal = ({
 
   return (
     <>
-      <ModalContainer isOpen={showModal} onClose={() => setShowModal(false)}>
-        <div className={styles.contents}>
+      <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
+        <div className={styles.modalContent}>
           <div className={styles.message}>{isModalMessage}</div>
           <div className={styles.buttonContainer}>
             {isLogout && (
@@ -67,7 +66,7 @@ export const SignModal = ({
             </button>
           </div>
         </div>
-      </ModalContainer>
+      </div>
     </>
   );
 };
