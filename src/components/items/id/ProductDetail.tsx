@@ -101,7 +101,7 @@ function ProductDetail({
                 <div className={styles.titleCover}>
                   <p className={styles.title}>{productData?.name}</p>
                   <p className={styles.price}>{formattedPrice}원</p>
-                  {userData?.id === productData.ownerId && (
+                  {userData?.id === productData?.ownerId && (
                     <div
                       className={styles.btnMore}
                       onClick={() => setSelectbox((prev) => !prev)}
@@ -110,9 +110,7 @@ function ProductDetail({
                       <OptionMenuImg />
                       {selectbox && (
                         <SelectBox>
-                          <SelectButton>
-                            수정하기
-                          </SelectButton>
+                          <SelectButton>수정하기</SelectButton>
                           <SelectButton onClick={handleDeleteProduct}>
                             삭제하기
                           </SelectButton>

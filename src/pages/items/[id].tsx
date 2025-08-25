@@ -19,7 +19,8 @@ function ProductDetailPage() {
     ? rawProductId[0]
     : rawProductId;
 
-  const { data: productData, isLoading:detailLoading } = useGetProductDetail(productId);
+  const { data: productData, isLoading: detailLoading } =
+    useGetProductDetail(productId);
 
   const {
     data: comment,
@@ -53,10 +54,14 @@ function ProductDetailPage() {
   return (
     <>
       <Head>
-        <title>{productData?.name} - 판다마켓</title>
+        <title>{productData?.name + " - 판다마켓"}</title>
       </Head>
       <NavBar />
-      <ProductDetail loading={detailLoading} productId={productId} productData={productData}/>
+      <ProductDetail
+        loading={detailLoading}
+        productId={productId}
+        productData={productData}
+      />
       <CommentContainer
         productId={productId}
         commentsData={commentsData}
