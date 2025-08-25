@@ -9,7 +9,7 @@ export interface ProductDataProps {
   description: string;
   favoriteCount: number;
   id: number;
-  images: string | StaticImport;
+  images: string[];
   isFavorite: boolean;
   name: string;
   ownerId: number;

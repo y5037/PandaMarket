@@ -10,7 +10,7 @@ import CommentSkeleton from "./CommentSkeleton";
 import { ListComment } from "@/src/types/itemTypes";
 import CommentList from "./CommentList";
 import styles from "./productDetail.module.css";
-import usePostProductComments from "@/src/hooks/usePostProductComment";
+import usePostProductComments from "@/src/hooks/react-query/usePostProductComment";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 dayjs.extend(isLeapYear);
@@ -45,7 +45,8 @@ function CommentContainer({
     setComment(e.target.value);
   };
 
-  const { mutate: uploadComment } = usePostProductComments(productId);
+  const { mutate: uploadComment, isPending: uploadLoading } =
+    usePostProductComments(productId);
 
   const handleUploadComment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,10 +80,14 @@ function CommentContainer({
             id="inquiry"
             className={styles.textarea}
             value={comment}
+            disabled={uploadLoading}
             onChange={getWriteComment}
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           />
-          <button className={styles.btnSubmit} disabled={!comment}>
+          <button
+            className={styles.btnSubmit}
+            disabled={!comment || uploadLoading}
+          >
             등록
           </button>
         </form>

@@ -399,6 +399,10 @@
   color: var(--white);
 }
 
+.btnSubmit:disabled {
+  cursor: default;
+}
+
 .loading {
   position: absolute;
   bottom: 0;

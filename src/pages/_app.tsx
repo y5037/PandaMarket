@@ -3,10 +3,10 @@ import type { AppProps } from "next/app";
 import Loading from "@/src/components/app/Loading";
 import ScrollToTop from "@/src/components/app/ScrollToTop";
 import Head from "next/head";
-import { useLoading } from "@/src/utils/useLoading";
 import { ConfirmationModal } from "../components/modal/ConfirmationModal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRefreshToken } from "../utils/useRefreshToken";
+import { useLoading } from "../hooks/use/useLoading";
+import { useRefreshToken } from "../hooks/use/useRefreshToken";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

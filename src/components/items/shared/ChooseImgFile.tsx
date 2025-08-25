@@ -2,8 +2,8 @@ import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import UploadImg from "@/public/assets/images/items/upload.svg";
 import ImgPreview from "./ImgPreview";
 import { ImgFileProps } from "./types";
-import styles from "./additem.module.css";
-import { usePostProductImg } from "@/src/hooks/usePostProductImg";
+import styles from "../shared/form.module.css";
+import { usePostProductImg } from "@/src/hooks/react-query/usePostProductImg";
 
 // 상품 이미지 등록
 function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
@@ -22,11 +22,13 @@ function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
 
   // 이미지 미리보기
   useEffect(() => {
-    if (!previewUrl) return;
-
-    const nextPreview = URL.createObjectURL(previewUrl);
-    setPreviewImg(nextPreview);
-  }, [previewUrl]);
+    if (imgFile.length > 0) {
+      setPreviewImg(imgFile);
+    } else if (previewUrl) {
+      const nextPreview = URL.createObjectURL(previewUrl);
+      setPreviewImg(nextPreview);
+    }
+  }, [previewUrl, imgFile]);
 
   // 프로젝트 저장 URL 획득
   const { mutate: uploadImg } = usePostProductImg();
@@ -57,6 +59,7 @@ function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {
     setIsImgChk(false);
     setImgFile("");
     setPreviewImg("");
+    setPreviewUrl(undefined);
   };
 
   return (

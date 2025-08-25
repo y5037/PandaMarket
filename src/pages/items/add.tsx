@@ -1,7 +1,7 @@
 import Head from "next/head";
 import ItemsListNav from "../../components/app/NavBar";
-import UploadForm from "../../components/items/additem/UploadForm";
-import useProtectedPage from "@/src/utils/useProtectedPage";
+import UploadForm from "../../components/items/add/UploadForm";
+import useProtectedPage from "@/src/hooks/use/useProtectedPage";
 
 function AddItemPage() {
   useProtectedPage();

@@ -1,5 +1,5 @@
+import axiosInstance from "@/src/api/axiosInstance";
 import { useEffect, useState } from "react";
-import axiosInstance from "../api/axiosInstance";
 
 type UseQueryProps = {
   queryUrl: string;
@@ -11,7 +11,7 @@ type useQueryResult<T> = {
   loading: boolean;
 };
 
-export const useQuery = <T>({
+export const useDataFetch = <T>({
   queryUrl,
   disabled = false,
 }: UseQueryProps): useQueryResult<T> => {

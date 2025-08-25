@@ -11,13 +11,15 @@ export interface ImgFileProps {
 }
 
 // RegisterInput.tsx
+export type ValuesItem = {
+  name: string;
+  description: string;
+  price: number | string;
+  tag: string[];
+};
+
 export interface InitialValues {
-  setValues: React.Dispatch<
-    React.SetStateAction<{
-      name: string;
-      description: string;
-      price: number | string;
-      tag: string[];
-    }>
-  >;
+  values?: ValuesItem;
+  setValues: React.Dispatch<React.SetStateAction<ValuesItem>>;
+  uploadLoading: boolean;
 }

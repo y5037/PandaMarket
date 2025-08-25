@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import FavoriteImg from "@/public/assets/images/items/favorite.svg";
+import FavoriteDefault from "@/public/assets/images/items/favorite.svg";
+import FavoriteActive from "@/public/assets/images/items/favorite_active.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../SelectBox";
 import ImgSkeleton from "./ImgSkeleton";
 import TextSkeleton from "@/src/components/items/id/TextSkeleton";
-import { useClickOutside } from "@/src/utils/useClickOutside";
 import styles from "./productDetail.module.css";
-import { useToggleLike } from "@/src/hooks/usePostLikeProduct";
+import { useToggleLike } from "@/src/hooks/react-query/usePostLikeProduct";
 import { ProductDataProps } from "./types";
-import { useModalController } from "@/src/utils/useModalController";
 import { DeleteModal } from "../../modal/DeleteModal";
-import { useGetUser } from "@/src/hooks/useGetUser";
+import { useGetUser } from "@/src/hooks/react-query/useGetUser";
+import Link from "next/link";
+import { useClickOutside } from "@/src/hooks/use/useClickOutside";
+import { useModalController } from "@/src/hooks/use/useModalController";
 
 function ProductDetail({
   productId,
@@ -100,7 +102,7 @@ function ProductDetail({
                 <div className={styles.titleCover}>
                   <p className={styles.title}>{productData?.name}</p>
                   <p className={styles.price}>{formattedPrice}원</p>
-                  {userData?.id === productData.ownerId && (
+                  {userData?.id === productData?.ownerId && (
                     <div
                       className={styles.btnMore}
                       onClick={() => setSelectbox((prev) => !prev)}
@@ -109,7 +111,9 @@ function ProductDetail({
                       <OptionMenuImg />
                       {selectbox && (
                         <SelectBox>
-                          {/* <SelectButton>수정하기</SelectButton> */}
+                          <Link href={`/items/${productId}/edit`}>
+                            <SelectButton>수정하기</SelectButton>
+                          </Link>
                           <SelectButton onClick={handleDeleteProduct}>
                             삭제하기
                           </SelectButton>
@@ -154,12 +158,7 @@ function ProductDetail({
                   </div>
                 </div>
                 <button className={styles.favoritCount} onClick={handleLike}>
-                  <FavoriteImg
-                    className={styles.heart}
-                    style={{
-                      fill: liked ? "#FF4747" : "white",
-                    }}
-                  />
+                  {liked ? <FavoriteActive /> : <FavoriteDefault />}
                   <p className={styles.count}>{favoriteCount}</p>
                 </button>
               </div>

@@ -1,6 +1,6 @@
 import styles from "@/styles/app/navi.module.css";
 import { SignModal } from "../modal/SignModal";
-import { useModalController } from "@/src/utils/useModalController";
+import { useModalController } from "@/src/hooks/use/useModalController";
 
 export function UserMenu() {
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =

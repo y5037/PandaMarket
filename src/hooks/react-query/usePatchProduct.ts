@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 interface Props {
   name: string;
@@ -11,11 +11,12 @@ interface Props {
 const fetchProduct = async ({
   values,
   imgFile,
+  productId,
 }: {
   values: Props;
   imgFile: string;
+  productId: string;
 }) => {
-
   const payload = {
     name: values.name,
     description: values.description,
@@ -25,7 +26,10 @@ const fetchProduct = async ({
   };
 
   try {
-    const response = await axiosInstance.post(`/products`, payload);
+    const response = await axiosInstance.patch(
+      `/products/${productId}`,
+      payload
+    );
 
     return response.data;
   } catch (err) {
@@ -34,13 +38,13 @@ const fetchProduct = async ({
   }
 };
 
-export const usePostProduct = () => {
+export const usePatchProduct = (productId: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: fetchProduct,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["product"],
+        queryKey: ["product", productId],
       });
     },
   });

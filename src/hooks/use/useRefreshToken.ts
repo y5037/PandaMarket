@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useAuth } from "./useAuth";
-import { setupInterceptors } from "../api/axiosInstance";
+import { setupInterceptors } from "@/src/api/axiosInstance";
 
 export function useRefreshToken() {
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =

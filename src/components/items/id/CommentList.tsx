@@ -5,12 +5,12 @@ import { SelectBox, SelectButton } from "../SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import styles from "./productDetail.module.css";
 import { ChangeEvent, useState } from "react";
-import { useGetUser } from "@/src/hooks/useGetUser";
-import { useModalController } from "@/src/utils/useModalController";
+import { useGetUser } from "@/src/hooks/react-query/useGetUser";
 import { DeleteModal } from "@/src/components/modal/DeleteModal";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
-import { useClickOutside } from "@/src/utils/useClickOutside";
 import { CommentEdit } from "./CommentEdit";
+import { useClickOutside } from "@/src/hooks/use/useClickOutside";
+import { useModalController } from "@/src/hooks/use/useModalController";
 
 interface Props {
   commentsData: ListComment[] | undefined;

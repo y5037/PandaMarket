@@ -1,6 +1,6 @@
+import { ListComment } from "@/src/types/itemTypes";
 import { InfiniteData } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
-import { ListComment } from "../types/itemTypes";
 
 export function useScrollPositioning(
   data:

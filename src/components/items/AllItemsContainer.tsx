@@ -4,8 +4,8 @@ import Image from "next/image";
 import ArrowDownImg from "@/public/assets/images/items/select_down.svg";
 import productSearchImg from "@/public/assets/images/items/pd_search.png";
 import { SearchForm } from "./types";
-import { useDropdown } from "@/src/utils/useDropdown";
 import styles from "./productList.module.css";
+import { useDropdown } from "@/src/hooks/use/useDropdown";
 
 function AllItemsContainer({
   setPage,
@@ -61,7 +61,7 @@ function AllItemsContainer({
                   onChange={handleSearch}
                 />
               </div>
-              <Link href="/items/additem">
+              <Link href="/items/add">
                 <button type="button">상품 등록하기</button>
               </Link>
             </div>

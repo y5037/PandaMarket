@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 const useDelProduct = (productIdParam: string | string[] | undefined) => {
   const queryClient = useQueryClient();
@@ -15,7 +15,10 @@ const useDelProduct = (productIdParam: string | string[] | undefined) => {
   return useMutation<void, Error, void>({
     mutationFn: deleteProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["product", productId] });
+      queryClient.invalidateQueries({
+        queryKey: ["product"],
+        exact: false,
+      });
     },
   });
 };

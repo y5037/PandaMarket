@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import banner1Img from "@/public/assets/images/app/home/Img_home_top.png";
-import { useAuth } from "@/src/utils/useAuth";
 import styles from "./home.module.css";
+import { useAuth } from "@/src/hooks/use/useAuth";
 
 export function Section1() {
   const { accessToken } = useAuth();

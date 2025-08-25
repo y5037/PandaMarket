@@ -4,11 +4,11 @@ import ProductDetail from "@/src/components/items/id/ProductDetail";
 import NavBar from "@/src/components/app/NavBar";
 import CommentContainer from "@/src/components/items/id/CommentContainer";
 import Head from "next/head";
-import useProtectedPage from "@/src/utils/useProtectedPage";
-import useGetProductComments from "@/src/hooks/useGetProductComments";
-import { useScrollPositioning } from "@/src/utils/useScrollPositioning";
-import { useScrollDetector } from "@/src/utils/useScrollDetector";
-import { useGetProductDetail } from "@/src/hooks/useGetProductDetail";
+import useGetProductComments from "@/src/hooks/react-query/useGetProductComments";
+import { useGetProductDetail } from "@/src/hooks/react-query/useGetProductDetail";
+import useProtectedPage from "@/src/hooks/use/useProtectedPage";
+import { useScrollPositioning } from "@/src/hooks/use/useScrollPositioning";
+import { useScrollDetector } from "@/src/hooks/use/useScrollDetector";
 
 function ProductDetailPage() {
   useProtectedPage();
@@ -19,7 +19,8 @@ function ProductDetailPage() {
     ? rawProductId[0]
     : rawProductId;
 
-  const { data: productData, isLoading:detailLoading } = useGetProductDetail(productId);
+  const { data: productData, isLoading: detailLoading } =
+    useGetProductDetail(productId);
 
   const {
     data: comment,
@@ -53,10 +54,14 @@ function ProductDetailPage() {
   return (
     <>
       <Head>
-        <title>{productData?.name} - 판다마켓</title>
+        <title>{productData?.name + " - 판다마켓"}</title>
       </Head>
       <NavBar />
-      <ProductDetail loading={detailLoading} productId={productId} productData={productData}/>
+      <ProductDetail
+        loading={detailLoading}
+        productId={productId}
+        productData={productData}
+      />
       <CommentContainer
         productId={productId}
         commentsData={commentsData}

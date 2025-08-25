@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import emailValidation from "@/src/utils/emailValidation";
-import { useSignupProps } from "../context/SignupProvider";
+import { useSignupProps } from "@/src/context/SignupProvider";
 
 export function useSignup() {
   const [getId, setGetId] = useState("");

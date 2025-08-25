@@ -7,7 +7,8 @@ import styles from "./postList.module.css";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Item } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
-import { useClickOutside } from "@/src/utils/useClickOutside";
+import { useClickOutside } from "@/src/hooks/use/useClickOutside";
+
 
 type Destructuring = {
   list: Item[];

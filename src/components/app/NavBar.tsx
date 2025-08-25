@@ -4,10 +4,10 @@ import Image from "next/image";
 import styles from "@/styles/app/navi.module.css";
 import NavLogoImg from "@/public/assets/images/app/navi/logo.svg";
 import profileDefaultImg from "@/public/assets/images/app/navi/profile_default.png";
-import { useAuth } from "@/src/utils/useAuth";
 import { UserMenu } from "./UserMenu";
-import { useDropdown } from "@/src/utils/useDropdown";
 import { useEffect, useState } from "react";
+import { useDropdown } from "@/src/hooks/use/useDropdown";
+import { useAuth } from "@/src/hooks/use/useAuth";
 
 const menuData = [
   { id: 1, name: "자유게시판", path: "/boards" },

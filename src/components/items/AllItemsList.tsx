@@ -6,9 +6,9 @@ import AllItemsContainer from "./AllItemsContainer";
 import AllItem from "./AllItem";
 import { ItemsList } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
-import { useGetProduct } from "@/src/hooks/useGetProduct";
-import { useListResize } from "@/src/utils/useListResize";
+import { useGetProduct } from "@/src/hooks/react-query/useGetProduct";
 import styles from "./productList.module.css";
+import { useListResize } from "@/src/hooks/use/useListResize";
 
 function EmptyPlaceholder() {
   return (

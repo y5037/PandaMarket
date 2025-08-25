@@ -1,6 +1,6 @@
 import { CommentUIProps } from "./types";
 import styles from "./productDetail.module.css";
-import useEditProductComment from "@/src/hooks/useEditProductComment";
+import useEditProductComment from "@/src/hooks/react-query/useEditProductComment";
 
 export const CommentEdit: React.FC<CommentUIProps> = ({
   changedComment,
@@ -10,7 +10,8 @@ export const CommentEdit: React.FC<CommentUIProps> = ({
   setShowEdit,
   setShowSelect,
 }) => {
-  const { mutate: updateComment } = useEditProductComment(productId);
+  const { mutate: updateComment, isPending: uploadLoading } =
+    useEditProductComment(productId);
 
   const handleUpdateComment = () => {
     if (!commentId || !productId) return;
@@ -37,7 +38,9 @@ export const CommentEdit: React.FC<CommentUIProps> = ({
       >
         취소
       </button>
-      <button onClick={handleUpdateComment}>수정 완료</button>
+      <button disabled={uploadLoading} onClick={handleUpdateComment}>
+        수정 완료
+      </button>
     </div>
   );
 };
