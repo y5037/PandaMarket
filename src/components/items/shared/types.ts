@@ -11,7 +11,7 @@ export interface ImgFileProps {
 }
 
 // RegisterInput.tsx
-type ValuesItem = {
+export type ValuesItem = {
   name: string;
   description: string;
   price: number | string;

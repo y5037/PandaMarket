@@ -6,15 +6,10 @@ import { useParams } from "next/navigation";
 import { useGetProductDetail } from "@/src/hooks/react-query/useGetProductDetail";
 import InputContainer from "./InputContainer";
 import { usePatchProduct } from "@/src/hooks/react-query/usePatchProduct";
+import { INITIAL_VALUES } from "@/src/constants/product";
+import { useProductFormActive } from "@/src/hooks/use/useProductFormActive";
 
 function UploadForm() {
-  const INITIAL_VALUES = {
-    name: "",
-    description: "",
-    price: 0,
-    tag: [],
-  };
-
   const [values, setValues] = useState<{
     name: string;
     description: string;
@@ -23,7 +18,6 @@ function UploadForm() {
   }>(INITIAL_VALUES);
 
   const [imgFile, setImgFile] = useState("");
-  const [isDisableChk, setIsDisableChk] = useState(true);
 
   const router = useRouter();
   const paramsId = useParams();
@@ -32,6 +26,8 @@ function UploadForm() {
   const { data: productData, isLoading: detailLoading } =
     useGetProductDetail(productId);
   const { mutate: uploadProduct } = usePatchProduct(productId);
+
+  const isDisabled = useProductFormActive(imgFile, values, productData, "edit");
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -59,47 +55,6 @@ function UploadForm() {
     }
   }, [productData]);
 
-  useEffect(() => {
-    const tagsChanged = (() => {
-      const original = productData?.tags || [];
-      const current = values.tag || [];
-
-      if (original.length !== current.length) return true;
-
-      const originalSet = new Set(original);
-      return current.some((tag) => !originalSet.has(tag));
-    })();
-
-    const isThumbnailChanged = imgFile !== productData?.images[0];
-    const isNameChanged = values.name !== productData?.name;
-    const isDescChanged = values.description !== productData?.description;
-    const isPriceChanged = Number(values.price) !== productData?.price;
-
-    if (
-      imgFile.length > 0 &&
-      values.name !== "" &&
-      values.description !== "" &&
-      Number(values.price) > 0 &&
-      values.tag?.length > 0 &&
-      (isThumbnailChanged ||
-        isNameChanged ||
-        isDescChanged ||
-        isPriceChanged ||
-        tagsChanged)
-    ) {
-      setIsDisableChk(false);
-    } else {
-      setIsDisableChk(true);
-    }
-  }, [
-    imgFile,
-    values.name,
-    values.description,
-    values.price,
-    values.tag,
-    productData,
-  ]);
-
   return (
     <div className={styles.pagiContainer}>
       <form>
@@ -108,7 +63,7 @@ function UploadForm() {
           <button
             type="button"
             className={styles.btnSubmit}
-            disabled={isDisableChk ? true : false}
+            disabled={isDisabled ? true : false}
             onClick={handleSubmit}
           >
             수정

@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "../shared/ChooseImgFile";
 import styles from "../shared/form.module.css";
 import { usePostProduct } from "@/src/hooks/react-query/usePostProduct";
 import { useRouter } from "next/router";
+import { INITIAL_VALUES } from "@/src/constants/product";
+import { useProductFormActive } from "@/src/hooks/use/useProductFormActive";
 
 function UploadForm() {
-  const INITIAL_VALUES = {
-    name: "",
-    description: "",
-    price: 0,
-    tag: [],
-  };
-
   const [values, setValues] = useState<{
     name: string;
     description: string;
@@ -21,11 +16,12 @@ function UploadForm() {
   }>(INITIAL_VALUES);
 
   const [imgFile, setImgFile] = useState("");
-  const [isDisableChk, setIsDisableChk] = useState(true);
 
   const router = useRouter();
 
   const { mutate: uploadProduct } = usePostProduct();
+
+  const isDisabled = useProductFormActive(imgFile, values, undefined, "add");
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -40,19 +36,6 @@ function UploadForm() {
     );
   };
 
-  useEffect(() => {
-    if (
-      values.name !== "" &&
-      values.description !== "" &&
-      Number(values.price) > 0 &&
-      values.tag.length > 0
-    ) {
-      setIsDisableChk(false);
-    } else {
-      setIsDisableChk(true);
-    }
-  }, [values]);
-
   return (
     <div className={styles.pagiContainer}>
       <form>
@@ -61,7 +44,7 @@ function UploadForm() {
           <button
             type="button"
             className={styles.btnSubmit}
-            disabled={isDisableChk ? true : false}
+            disabled={isDisabled ? true : false}
             onClick={handleSubmit}
           >
             등록
