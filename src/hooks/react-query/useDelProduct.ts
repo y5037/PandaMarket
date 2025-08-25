@@ -15,7 +15,10 @@ const useDelProduct = (productIdParam: string | string[] | undefined) => {
   return useMutation<void, Error, void>({
     mutationFn: deleteProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["product", productId] });
+      queryClient.invalidateQueries({
+        queryKey: ["product"],
+        exact: false,
+      });
     },
   });
 };
