@@ -71,3 +71,10 @@ sketch
 .next
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,git,react
+
+# env files (can opt-in for committing if needed)
+.env*
+!/.env.example
+
+# vercel
+.vercel
