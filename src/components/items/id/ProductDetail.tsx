@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import FavoriteImg from "@/public/assets/images/items/favorite.svg";
+import FavoriteDefault from "@/public/assets/images/items/favorite.svg";
+import FavoriteActive from "@/public/assets/images/items/favorite_active.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../SelectBox";
@@ -154,12 +155,7 @@ function ProductDetail({
                   </div>
                 </div>
                 <button className={styles.favoritCount} onClick={handleLike}>
-                  <FavoriteImg
-                    className={styles.heart}
-                    style={{
-                      fill: liked ? "#FF4747" : "white",
-                    }}
-                  />
+                  {liked ? <FavoriteActive /> : <FavoriteDefault />}
                   <p className={styles.count}>{favoriteCount}</p>
                 </button>
               </div>
