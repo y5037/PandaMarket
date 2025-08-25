@@ -14,6 +14,7 @@ import { ProductDataProps } from "./types";
 import { useModalController } from "@/src/utils/useModalController";
 import { DeleteModal } from "../../modal/DeleteModal";
 import { useGetUser } from "@/src/hooks/useGetUser";
+import Link from "next/link";
 
 function ProductDetail({
   productId,
@@ -110,7 +111,9 @@ function ProductDetail({
                       <OptionMenuImg />
                       {selectbox && (
                         <SelectBox>
-                          <SelectButton>수정하기</SelectButton>
+                          <Link href={`/items/${productId}/edit`}>
+                            <SelectButton>수정하기</SelectButton>
+                          </Link>
                           <SelectButton onClick={handleDeleteProduct}>
                             삭제하기
                           </SelectButton>

@@ -1,7 +1,7 @@
 import Head from "next/head";
-import ItemsListNav from "../../components/app/NavBar";
-import UploadForm from "../../components/items/additem/UploadForm";
+import ItemsListNav from "../../../components/app/NavBar";
 import useProtectedPage from "@/src/utils/useProtectedPage";
+import UploadForm from "@/src/components/items/id/edit/UploadForm";
 
 function AddItemPage() {
   useProtectedPage();
@@ -9,7 +9,7 @@ function AddItemPage() {
   return (
     <>
       <Head>
-        <title>상품 등록 - 판다마켓</title>
+        <title>상품 수정 - 판다마켓</title>
       </Head>
       <ItemsListNav />
       <UploadForm />

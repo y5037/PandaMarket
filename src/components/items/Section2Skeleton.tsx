@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Skeleton.module.css";
 
 const repeat = [
@@ -18,8 +19,8 @@ export default function Section2Skeleton() {
     <ul className={styles.section2Wrap}>
       {repeat.map((item) => {
         return (
-          <>
-            <li key={item.id} className={styles.wrap}>
+          <React.Fragment key={item.id}>
+            <li className={styles.wrap}>
               <div className={styles.skeletonBox}>
                 <div className={styles.skeletonLoading}></div>
               </div>
@@ -28,7 +29,7 @@ export default function Section2Skeleton() {
                 <div className={styles.line2}></div>
               </div>
             </li>
-          </>
+          </React.Fragment>
         );
       })}
     </ul>

@@ -1,10 +1,10 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import DeleteBtnImg from "@/public/assets/images/items/cancel.svg";
-import { InitialValues } from "./types";
-import styles from "./additem.module.css";
+import styles from "../../shared/form.module.css";
+import { InitialValues } from "../../shared/types";
 
 // 상품 정보 등록
-function InputContainer({ setValues }: InitialValues) {
+function InputContainer({ values, setValues }: InitialValues) {
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState<string[]>([]);
   const [enteredNum, setEnterdNum] = useState<string | number>("");
@@ -27,6 +27,10 @@ function InputContainer({ setValues }: InitialValues) {
     }));
   }, [enteredNum, price, setValues]);
 
+  useEffect(() => {
+    setTagList(values?.tag ?? []);
+  }, [values?.tag]);
+
   const handleChange = (name: string, value: string | number | string[]) => {
     setValues((prevValue) => ({
       ...prevValue,
@@ -43,7 +47,7 @@ function InputContainer({ setValues }: InitialValues) {
   };
 
   const changeEnteredNum = (e: ChangeEvent<HTMLInputElement>) => {
-    const value: string = e.target.value;
+    const value = e.target.value;
     const removedCommaValue = Number(value.replaceAll(",", ""));
     setEnterdNum(removedCommaValue.toLocaleString());
 
@@ -64,15 +68,14 @@ function InputContainer({ setValues }: InitialValues) {
     if (specialCharRegex.test(e.key)) {
       e.preventDefault();
     }
-    if (e.key === "Enter") {
-      if ((e.target as HTMLInputElement).value === "") {
-        // 빈 칸 엔터 방지
-        e.preventDefault();
-      } else {
-        handleChange("tag", tagList);
-        tagList.push(tag);
-        (e.target as HTMLInputElement).value = "";
-      }
+    if (e.key === "Enter" && tag) {
+      e.preventDefault(); // 빈칸 엔터 방지
+      
+      const newTags = [...tagList, tag]; // 새 배열 생성
+      setTagList(newTags);
+      handleChange("tag", newTags);
+      setTag(""); // 입력 초기화
+      (e.target as HTMLInputElement).value = "";
     }
   };
 
@@ -82,9 +85,10 @@ function InputContainer({ setValues }: InitialValues) {
 
   // 클릭한 태그 삭제
   const handleDeleteClick = (i: number) => {
-    tagList.splice(i, 1);
-    handleChange("tag", tagList);
-  };
+  const newTags = tagList.filter((_, idx) => idx !== i); // 새 배열 생성
+  setTagList(newTags);
+  handleChange("tag", newTags);
+};
 
   return (
     <>
@@ -93,6 +97,7 @@ function InputContainer({ setValues }: InitialValues) {
         <input
           name="name"
           type="text"
+          defaultValue={values?.name}
           placeholder="상품명을 입력해주세요"
           onChange={handleInputChange}
         />
@@ -101,6 +106,7 @@ function InputContainer({ setValues }: InitialValues) {
         <p className={styles.inputTitle}>상품 소개</p>
         <textarea
           name="description"
+          defaultValue={values?.description}
           placeholder="상품 소개를 입력해주세요"
           onChange={handleInputChange}
         />
@@ -111,7 +117,7 @@ function InputContainer({ setValues }: InitialValues) {
           type="text"
           name="price"
           placeholder="판매 가격을 입력해주세요"
-          value={enteredNum}
+          value={values?.price ? values.price.toLocaleString() : enteredNum}
           maxLength={12}
           onChange={(e) => {
             changeEnteredNum(e);
