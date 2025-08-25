@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import styles from "../../shared/form.module.css";
 import { useRouter } from "next/router";
 import ChooseImgFile from "../../shared/ChooseImgFile";
@@ -6,19 +5,10 @@ import { useParams } from "next/navigation";
 import { useGetProductDetail } from "@/src/hooks/react-query/useGetProductDetail";
 import InputContainer from "./InputContainer";
 import { usePatchProduct } from "@/src/hooks/react-query/usePatchProduct";
-import { INITIAL_VALUES } from "@/src/constants/product";
 import { useProductFormActive } from "@/src/hooks/use/useProductFormActive";
+import { useProductForm } from "@/src/hooks/use/useProductForm";
 
 function UploadForm() {
-  const [values, setValues] = useState<{
-    name: string;
-    description: string;
-    price: number | string;
-    tag: string[];
-  }>(INITIAL_VALUES);
-
-  const [imgFile, setImgFile] = useState("");
-
   const router = useRouter();
   const paramsId = useParams();
   const productId = String(paramsId?.id);
@@ -27,6 +17,8 @@ function UploadForm() {
     useGetProductDetail(productId);
   const { mutate: uploadProduct } = usePatchProduct(productId);
 
+  const { values, setValues, imgFile, setImgFile } =
+    useProductForm(productData);
   const isDisabled = useProductFormActive(imgFile, values, productData, "edit");
 
   const handleSubmit = async (e: React.MouseEvent) => {
@@ -41,19 +33,6 @@ function UploadForm() {
       }
     );
   };
-
-  useEffect(() => {
-    if (productData) {
-      setImgFile(productData?.images?.[0]);
-      setValues((prevValues) => ({
-        ...prevValues,
-        name: productData?.name,
-        description: productData?.description,
-        price: productData?.price,
-        tag: productData?.tags,
-      }));
-    }
-  }, [productData]);
 
   return (
     <div className={styles.pagiContainer}>

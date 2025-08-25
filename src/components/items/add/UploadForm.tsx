@@ -1,26 +1,17 @@
-import { useState } from "react";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "../shared/ChooseImgFile";
 import styles from "../shared/form.module.css";
 import { usePostProduct } from "@/src/hooks/react-query/usePostProduct";
 import { useRouter } from "next/router";
-import { INITIAL_VALUES } from "@/src/constants/product";
 import { useProductFormActive } from "@/src/hooks/use/useProductFormActive";
+import { useProductForm } from "@/src/hooks/use/useProductForm";
 
 function UploadForm() {
-  const [values, setValues] = useState<{
-    name: string;
-    description: string;
-    price: number | string;
-    tag: string[];
-  }>(INITIAL_VALUES);
-
-  const [imgFile, setImgFile] = useState("");
-
   const router = useRouter();
 
   const { mutate: uploadProduct } = usePostProduct();
 
+  const { values, setValues, imgFile, setImgFile } = useProductForm();
   const isDisabled = useProductFormActive(imgFile, values, undefined, "add");
 
   const handleSubmit = async (e: React.MouseEvent) => {
