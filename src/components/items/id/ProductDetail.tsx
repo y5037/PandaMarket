@@ -110,7 +110,9 @@ function ProductDetail({
                       <OptionMenuImg />
                       {selectbox && (
                         <SelectBox>
-                          {/* <SelectButton>수정하기</SelectButton> */}
+                          <SelectButton>
+                            수정하기
+                          </SelectButton>
                           <SelectButton onClick={handleDeleteProduct}>
                             삭제하기
                           </SelectButton>
