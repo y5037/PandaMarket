@@ -9,7 +9,7 @@ import { useProductForm } from "@/src/hooks/use/useProductForm";
 function UploadForm() {
   const router = useRouter();
 
-  const { mutate: uploadProduct } = usePostProduct();
+  const { mutate: uploadProduct, isPending: uploadLoading } = usePostProduct();
 
   const { values, setValues, imgFile, setImgFile } = useProductForm();
   const isDisabled = useProductFormActive(imgFile, values, undefined, "add");
@@ -35,14 +35,14 @@ function UploadForm() {
           <button
             type="button"
             className={styles.btnSubmit}
-            disabled={isDisabled ? true : false}
+            disabled={isDisabled || uploadLoading ? true : false}
             onClick={handleSubmit}
           >
             등록
           </button>
         </div>
         <ChooseImgFile imgFile={imgFile} setImgFile={setImgFile} />
-        <InputContainer setValues={setValues} />
+        <InputContainer setValues={setValues} uploadLoading={uploadLoading} />
       </form>
     </div>
   );

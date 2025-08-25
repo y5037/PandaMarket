@@ -13,9 +13,10 @@ function UploadForm() {
   const paramsId = useParams();
   const productId = String(paramsId?.id);
 
-  const { data: productData, isLoading: detailLoading } =
-    useGetProductDetail(productId);
-  const { mutate: uploadProduct } = usePatchProduct(productId);
+  const { data: productData, isLoading } = useGetProductDetail(productId);
+  const { mutate: uploadProduct, isPending } = usePatchProduct(productId);
+
+  const uploadLoading = isLoading || isPending;
 
   const { values, setValues, imgFile, setImgFile } =
     useProductForm(productData);
@@ -42,14 +43,18 @@ function UploadForm() {
           <button
             type="button"
             className={styles.btnSubmit}
-            disabled={isDisabled ? true : false}
+            disabled={isDisabled || uploadLoading ? true : false}
             onClick={handleSubmit}
           >
             수정
           </button>
         </div>
         <ChooseImgFile imgFile={imgFile} setImgFile={setImgFile} />
-        <InputContainer values={values} setValues={setValues} />
+        <InputContainer
+          uploadLoading={uploadLoading}
+          values={values}
+          setValues={setValues}
+        />
       </form>
     </div>
   );

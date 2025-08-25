@@ -21,4 +21,5 @@ export type ValuesItem = {
 export interface InitialValues {
   values?: ValuesItem;
   setValues: React.Dispatch<React.SetStateAction<ValuesItem>>;
+  uploadLoading: boolean;
 }
