@@ -8,7 +8,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Item } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
 import { useClickOutside } from "@/src/hooks/use/useClickOutside";
-
+import EmptySearchList from "../app/EmptySearchList";
 
 type Destructuring = {
   list: Item[];
@@ -51,55 +51,55 @@ function AllPostsList({
               <button type="button">글쓰기</button>
             </Link>
           </div>
-          <form>
-            <div className={styles.formCover}>
-              <div className={styles.searchCover}>
-                <div className={styles.inputBox}>
-                  <Image src={searchImg} alt="검색하기" />
-                  <input
-                    name="search"
-                    onChange={handleValueChange}
-                    placeholder="검색어를 입력해주세요"
-                  />
-                </div>
-              </div>
-              <div className={styles.selectBox} ref={outRef}>
-                <div
-                  className={styles.option}
-                  onClick={() => setSelectbox((prev) => !prev)}
-                >
-                  <p className={styles.text}>{isFilter}</p>
-                  <SelectArrowImg className={selectbox ? styles.on : ""} />
-                </div>
-                {selectbox && (
-                  <ul className={styles.optionChoose}>
-                    <li
-                      onClick={() => {
-                        handleOrderChange("recent");
-                        setIsFilter("최신순");
-                      }}
-                    >
-                      최신순
-                    </li>
-                    <li
-                      onClick={() => {
-                        handleOrderChange("like");
-                        setIsFilter("좋아요순");
-                      }}
-                    >
-                      좋아요순
-                    </li>
-                  </ul>
-                )}
+
+          <div className={styles.formCover}>
+            <div className={styles.searchCover}>
+              <div className={styles.inputBox}>
+                <Image src={searchImg} alt="검색하기" />
+                <input
+                  name="search"
+                  onChange={handleValueChange}
+                  placeholder="검색어를 입력해주세요"
+                />
               </div>
             </div>
-          </form>
+            <div className={styles.selectBox} ref={outRef}>
+              <div
+                className={styles.option}
+                onClick={() => setSelectbox((prev) => !prev)}
+              >
+                <p className={styles.text}>{isFilter}</p>
+                <SelectArrowImg className={selectbox ? styles.on : ""} />
+              </div>
+              {selectbox && (
+                <ul className={styles.optionChoose}>
+                  <li
+                    onClick={() => {
+                      handleOrderChange("recent");
+                      setIsFilter("최신순");
+                    }}
+                  >
+                    최신순
+                  </li>
+                  <li
+                    onClick={() => {
+                      handleOrderChange("like");
+                      setIsFilter("좋아요순");
+                    }}
+                  >
+                    좋아요순
+                  </li>
+                </ul>
+              )}
+            </div>
+          </div>
         </div>
         {/* 무한스크롤 기능 필요. 현재는 최대 10개만 불러오고 있음 */}
         {recentLoading ? (
           <Section2Skeleton />
         ) : (
           <ul className={styles.postCover}>
+            {list && list.length === 0 && <EmptySearchList />}
             {list &&
               list.map((item) => {
                 return (

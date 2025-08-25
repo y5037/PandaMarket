@@ -51,21 +51,19 @@ function AllItemsContainer({
       <div className={styles.filterCover}>
         <p className={styles.listTitle}>전체 상품</p>
         <div className={styles.searchContainer}>
-          <form>
-            <div className={styles.formCover}>
-              <div className={styles.inputBox}>
-                <Image src={productSearchImg} alt="상품검색" />
-                <input
-                  name="search"
-                  placeholder="검색할 상품을 입력해주세요"
-                  onChange={handleSearch}
-                />
-              </div>
-              <Link href="/items/add">
-                <button type="button">상품 등록하기</button>
-              </Link>
+          <div className={styles.formCover}>
+            <div className={styles.inputBox}>
+              <Image src={productSearchImg} alt="상품검색" />
+              <input
+                name="search"
+                placeholder="검색할 상품을 입력해주세요"
+                onChange={handleSearch}
+              />
             </div>
-          </form>
+            <Link href="/items/add">
+              <button type="button">상품 등록하기</button>
+            </Link>
+          </div>
           <div className={styles.selectBox} ref={dropdownRef}>
             <div
               className={styles.btnSelectBox}

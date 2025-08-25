@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import notFoundImg from "@/public/assets/images/items/not_found.png";
+
 import AllItemsContainer from "./AllItemsContainer";
 import AllItem from "./AllItem";
 import { ItemsList } from "./types";
@@ -9,15 +8,7 @@ import Section2Skeleton from "./Section2Skeleton";
 import { useGetProduct } from "@/src/hooks/react-query/useGetProduct";
 import styles from "./productList.module.css";
 import { useListResize } from "@/src/hooks/use/useListResize";
-
-function EmptyPlaceholder() {
-  return (
-    <div className={styles.emptyList}>
-      <Image src={notFoundImg} alt="Not Found" />
-      <p>검색 결과가 없습니다</p>
-    </div>
-  );
-}
+import EmptySearchList from "../app/EmptySearchList";
 
 function AllItemsList({
   page,
@@ -59,7 +50,7 @@ function AllItemsList({
         <Section2Skeleton />
       ) : (
         <ul className={styles.productCover}>
-          {allProduct && allProduct.length === 0 && <EmptyPlaceholder />}
+          {allProduct && allProduct.length === 0 && <EmptySearchList />}
           {allProduct &&
             allProduct.length > 0 &&
             allProduct.map((item) => {

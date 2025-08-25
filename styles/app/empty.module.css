@@ -1,0 +1,28 @@
+.emptyList {
+  -webkit-display: flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vw * (100 / 640));
+  text-align: center;
+  font-size: 1.6em;
+  color: var(--gray-500);
+
+  /* Tablet */
+  @media (max-width: 1199px) {
+    height: calc(100vw * (300 / 640));
+  }
+  /* Mobile */
+  @media (max-width: 767px) {
+    height: calc(100vw * (400 / 640));
+  }
+}
+
+.emptyList > img {
+  width: 40px;
+  height: auto;
+  margin-bottom: 20px;
+}
