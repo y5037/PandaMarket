@@ -2,7 +2,7 @@ import Head from "next/head";
 import SignupForm from "../../components/sign/SignupForm";
 import { SignupProvider } from "@/src/context/SignupProvider";
 import ErrorPage from "../_error";
-import { useAuth } from "@/src/utils/useAuth";
+import { useAuth } from "@/src/hooks/use/useAuth";
 
 function RegistrationPage() {
   const { accessToken } = useAuth();

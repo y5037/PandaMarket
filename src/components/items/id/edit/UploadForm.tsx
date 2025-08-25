@@ -3,9 +3,9 @@ import styles from "../../shared/form.module.css";
 import { useRouter } from "next/router";
 import ChooseImgFile from "../../shared/ChooseImgFile";
 import { useParams } from "next/navigation";
-import { useGetProductDetail } from "@/src/hooks/useGetProductDetail";
+import { useGetProductDetail } from "@/src/hooks/react-query/useGetProductDetail";
 import InputContainer from "./InputContainer";
-import { usePatchProduct } from "@/src/hooks/usePatchProduct";
+import { usePatchProduct } from "@/src/hooks/react-query/usePatchProduct";
 
 function UploadForm() {
   const INITIAL_VALUES = {

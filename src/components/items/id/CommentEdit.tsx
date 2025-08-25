@@ -1,6 +1,6 @@
 import { CommentUIProps } from "./types";
 import styles from "./productDetail.module.css";
-import useEditProductComment from "@/src/hooks/useEditProductComment";
+import useEditProductComment from "@/src/hooks/react-query/useEditProductComment";
 
 export const CommentEdit: React.FC<CommentUIProps> = ({
   changedComment,

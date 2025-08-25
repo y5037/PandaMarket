@@ -2,7 +2,7 @@ import Head from "next/head";
 import LoginForm from "@/src/components/sign/LoginForm";
 import { LoginProvider } from "@/src/context/LoginProvider";
 import ErrorPage from "../_error";
-import { useAuth } from "@/src/utils/useAuth";
+import { useAuth } from "@/src/hooks/use/useAuth";
 
 function LoginPage() {
   const { accessToken } = useAuth();

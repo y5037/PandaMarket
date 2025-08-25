@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 const postLike = async (productId: string) => {
   return await axiosInstance.post(`/products/${productId}/favorite`);

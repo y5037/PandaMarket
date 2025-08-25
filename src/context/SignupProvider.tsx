@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { useModalController } from "../utils/useModalController";
 import axiosInstance from "../api/axiosInstance";
 import axios from "axios";
 import { ContextType } from "./types";
+import { useModalController } from "../hooks/use/useModalController";
 
 const SignupContext = createContext<ContextType | null>(null);
 

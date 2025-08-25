@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import emailValidation from "./emailValidation";
 import { useLoginProps } from "@/src/context/LoginProvider";
+import emailCheck from "@/src/utils/emailValidation";
 
 export function useLogin() {
   const [getId, setGetId] = useState("");
@@ -49,10 +49,10 @@ export function useLogin() {
         if (isEmail === "") {
           emailErrorContext("이메일을 입력해주세요", true);
           setEmailErrorChk(true);
-        } else if (isEmail !== "" && !emailValidation(isEmail)) {
+        } else if (isEmail !== "" && !emailCheck(isEmail)) {
           emailErrorContext("잘못된 이메일 형식입니다", true);
           setEmailErrorChk(true);
-        } else if (emailValidation(isEmail)) {
+        } else if (emailCheck(isEmail)) {
           emailErrorContext("", false);
           setEmailErrorChk(false);
         }

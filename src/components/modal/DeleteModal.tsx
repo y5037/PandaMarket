@@ -1,8 +1,8 @@
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
-import useDelProductComments from "@/src/hooks/useDelProductComment";
-import useDelProduct from "@/src/hooks/useDelProduct";
+import useDelProductComments from "@/src/hooks/react-query/useDelProductComment";
+import useDelProduct from "@/src/hooks/react-query/useDelProduct";
 import { useRouter } from "next/router";
 
 interface Props {

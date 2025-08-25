@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import InputContainer from "./InputContainer";
 import ChooseImgFile from "../shared/ChooseImgFile";
 import styles from "../shared/form.module.css";
-import { usePostProduct } from "@/src/hooks/usePostProduct";
+import { usePostProduct } from "@/src/hooks/react-query/usePostProduct";
 import { useRouter } from "next/router";
 
 function UploadForm() {

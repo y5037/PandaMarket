@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 interface Props {
   name: string;
@@ -15,7 +15,6 @@ const fetchProduct = async ({
   values: Props;
   imgFile: string;
 }) => {
-
   const payload = {
     name: values.name,
     description: values.description,

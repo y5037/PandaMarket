@@ -7,14 +7,14 @@ import NoImg from "@/public/assets/images/app/common/no_img.jpg";
 import { SelectBox, SelectButton } from "../SelectBox";
 import ImgSkeleton from "./ImgSkeleton";
 import TextSkeleton from "@/src/components/items/id/TextSkeleton";
-import { useClickOutside } from "@/src/utils/useClickOutside";
 import styles from "./productDetail.module.css";
-import { useToggleLike } from "@/src/hooks/usePostLikeProduct";
+import { useToggleLike } from "@/src/hooks/react-query/usePostLikeProduct";
 import { ProductDataProps } from "./types";
-import { useModalController } from "@/src/utils/useModalController";
 import { DeleteModal } from "../../modal/DeleteModal";
-import { useGetUser } from "@/src/hooks/useGetUser";
+import { useGetUser } from "@/src/hooks/react-query/useGetUser";
 import Link from "next/link";
+import { useClickOutside } from "@/src/hooks/use/useClickOutside";
+import { useModalController } from "@/src/hooks/use/useModalController";
 
 function ProductDetail({
   productId,

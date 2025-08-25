@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { ListComment } from "../types/itemTypes";
-import axiosInstance from "../api/axiosInstance";
+import { ListComment } from "../../types/itemTypes";
+import axiosInstance from "../../api/axiosInstance";
 
 const fetchProductComments = async ({
   pageParam = 1,

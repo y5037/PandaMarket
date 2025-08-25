@@ -3,7 +3,7 @@ import UploadImg from "@/public/assets/images/items/upload.svg";
 import ImgPreview from "./ImgPreview";
 import { ImgFileProps } from "./types";
 import styles from "../shared/form.module.css";
-import { usePostProductImg } from "@/src/hooks/usePostProductImg";
+import { usePostProductImg } from "@/src/hooks/react-query/usePostProductImg";
 
 // 상품 이미지 등록
 function ChooseImgFile({ imgFile, setImgFile }: ImgFileProps) {

@@ -5,8 +5,8 @@ import PaginationComponents from "@/src/components/app/Pagination";
 import AllItemsList from "@/src/components/items/AllItemsList";
 import Head from "next/head";
 import Footer from "@/src/components/app/Footer";
-import useProtectedPage from "@/src/utils/useProtectedPage";
 import styles from "@/src/components/items/productList.module.css";
+import useProtectedPage from "@/src/hooks/use/useProtectedPage";
 
 function ProductListPage() {
   const [page, setPage] = useState<number>(1);

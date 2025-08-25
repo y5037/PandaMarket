@@ -3,21 +3,21 @@ import Head from "next/head";
 import NavBar from "@/src/components/app/NavBar";
 import BestPostsList from "@/src/components/boards/BestPostsList";
 import AllPostsList from "@/src/components/boards/AllPostsList";
-import { useQuery } from "@/src/utils/useQuery";
 import { Item } from "@/src/types/boardTypes";
-import useProtectedPage from "@/src/utils/useProtectedPage";
 import styles from "@/src/components/boards/postList.module.css";
+import useProtectedPage from "@/src/hooks/use/useProtectedPage";
+import { useDataFetch } from "@/src/hooks/use/useQuery";
 
 function PostListPage() {
   const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
-  const { data: likePost, loading: likeLoading } = useQuery<{
+  const { data: likePost, loading: likeLoading } = useDataFetch<{
     list: Item[];
     totalCount: number;
   }>({
     queryUrl: "articles?orderBy=like&pageSize=3",
   });
-  const { data: recentPost, loading: recentLoading } = useQuery<{
+  const { data: recentPost, loading: recentLoading } = useDataFetch<{
     list: Item[];
     totalCount: number;
   }>({

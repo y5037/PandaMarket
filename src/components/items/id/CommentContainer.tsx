@@ -10,7 +10,7 @@ import CommentSkeleton from "./CommentSkeleton";
 import { ListComment } from "@/src/types/itemTypes";
 import CommentList from "./CommentList";
 import styles from "./productDetail.module.css";
-import usePostProductComments from "@/src/hooks/usePostProductComment";
+import usePostProductComments from "@/src/hooks/react-query/usePostProductComment";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 dayjs.extend(isLeapYear);
