@@ -201,10 +201,6 @@
   overflow: hidden;
 }
 
-.allPost {
-  padding: 16px 0 calc(env(safe-area-inset-bottom) + 100px);
-}
-
 .allPost .titleCover {
   -webkit-display: flex;
   display: flex;
