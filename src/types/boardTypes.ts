@@ -5,7 +5,7 @@ interface ItemWriter {
   nickname: string;
 }
 
-export interface Item {
+export interface BoardList {
   id: number;
   title: string;
   content: string;

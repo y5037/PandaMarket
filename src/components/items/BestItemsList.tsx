@@ -10,7 +10,7 @@ function BestItemsList() {
   const page = 1;
   const keyword = "";
 
-  const { isItemCount } = useListResize("best");
+  const { isItemCount } = useListResize("product", "best");
 
   const { data, isLoading } = useGetProduct({
     page,

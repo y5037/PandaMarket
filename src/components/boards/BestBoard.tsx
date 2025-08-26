@@ -1,15 +1,20 @@
 import Image from "next/image";
 import noImg from "@/public/assets/images/app/common/no_img.jpg";
+import BestBadgeImg from "@/public/assets/images/boards/ic_medal.svg";
 import WishHeartImg from "@/public/assets/images/boards/ic_heart.svg";
 import { useState } from "react";
 import { Item } from "./types";
-import styles from "./postList.module.css";
+import styles from "./boardList.module.css";
 
-function AllPost({ item }: { item: Item }) {
+function BestBoard({ item }: { item: Item }) {
   const [isImgError, setIsImgError] = useState(false);
 
   return (
     <>
+      <div className={styles.bestBadge}>
+        <BestBadgeImg />
+        Best
+      </div>
       <div className={styles.contentsCover}>
         <p className={styles.title}>{item.title}</p>
         <div className={styles.thumbnailImg}>
@@ -33,23 +38,18 @@ function AllPost({ item }: { item: Item }) {
       </div>
       <div className={styles.infoCover}>
         <div className={styles.leftLine}>
-          <div className={styles.profileImg}>
-            <Image
-              src="/assets/images/items/default_profile.svg"
-              alt="프로필 이미지"
-              fill
-            />
-          </div>
           <p className={styles.nickName}>{item.writer.nickname}</p>
-          <p className={styles.date}>{item.createdAt.slice(0, 10)}</p>
+          <div className={styles.wishCover}>
+            <WishHeartImg width={16} height={16} />
+            <p className={styles.num}>{item.likeCount}+</p>
+          </div>
         </div>
         <div className={styles.rightLine}>
-          <WishHeartImg width={24} height={24} />
-          <p className={styles.num}>{item.likeCount}+</p>
+          <p className={styles.date}>{item.createdAt.slice(0, 10)}</p>
         </div>
       </div>
     </>
   );
 }
 
-export default AllPost;
+export default BestBoard;

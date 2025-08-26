@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-import AllItemsContainer from "./AllItemsContainer";
+import ItemsFilterContainer from "./ItemsFilterContainer";
 import AllItem from "./AllItem";
 import { ItemsList } from "./types";
 import Section2Skeleton from "./Section2Skeleton";
@@ -16,7 +15,7 @@ function AllItemsList({
   setPageCount,
   setIsDataCount,
 }: ItemsList) {
-  const { isItemCount } = useListResize("all");
+  const { isItemCount } = useListResize("product", "all");
 
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
@@ -37,11 +36,12 @@ function AllItemsList({
 
   return (
     <div className={`${styles.productContents} ${styles.generalProduct}`}>
-      <AllItemsContainer
+      <ItemsFilterContainer
         setPage={setPage}
         setIsDataCount={setIsDataCount}
         filter={filter}
         setFilter={setFilter}
+        keyword={keyword}
         setKeyword={setKeyword}
         isItemCount={isItemCount}
         setOrderBy={setOrderBy}

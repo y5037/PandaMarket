@@ -7,32 +7,21 @@ import { SearchForm } from "./types";
 import styles from "./productList.module.css";
 import { useDropdown } from "@/src/hooks/use/useDropdown";
 
-function AllItemsContainer({
+function ItemsFilterContainer({
   setPage,
   setIsDataCount,
   filter,
   setFilter,
+  keyword,
   setKeyword,
   isItemCount,
   setOrderBy,
 }: SearchForm) {
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
-  useEffect(() => {
-    setIsDataCount(isItemCount);
-  }, [isItemCount, setIsDataCount]);
-
-  const handleNewsetClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const filterText = (e?.target as HTMLLIElement).textContent!;
-    setFilter(filterText);
-    setOrderBy("recent");
-    setPage(1);
-  };
-
-  const handleBestClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const filterText = (e?.target as HTMLLIElement).textContent!;
-    setFilter(filterText);
-    setOrderBy("favorite");
+  const handleSortFilter = (sort: string) => {
+    setFilter(sort);
+    setOrderBy(sort === "최신순" ? "recent" : "favorite");
     setPage(1);
   };
 
@@ -45,7 +34,8 @@ function AllItemsContainer({
   useEffect(() => {
     setIsDataCount(isItemCount);
     setPage(1);
-  }, [isItemCount, setIsDataCount, setPage]);
+  }, [keyword, filter, isItemCount, setIsDataCount, setPage]);
+
   return (
     <>
       <div className={styles.filterCover}>
@@ -74,8 +64,8 @@ function AllItemsContainer({
             </div>
             {dropdown && (
               <ul className={styles.btnChoose}>
-                <li onClick={handleNewsetClick}>최신순</li>
-                <li onClick={handleBestClick}>좋아요순</li>
+                <li onClick={() => handleSortFilter("최신순")}>최신순</li>
+                <li onClick={() => handleSortFilter("좋아요순")}>좋아요순</li>
               </ul>
             )}
           </div>
@@ -85,4 +75,4 @@ function AllItemsContainer({
   );
 }
 
-export default AllItemsContainer;
+export default ItemsFilterContainer;

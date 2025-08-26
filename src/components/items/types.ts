@@ -36,6 +36,7 @@ export type SearchForm = {
   setIsDataCount: React.Dispatch<React.SetStateAction<number>>;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   isItemCount: number;
   setOrderBy: React.Dispatch<React.SetStateAction<string>>;

@@ -1,20 +1,29 @@
 import { useCallback, useEffect, useState } from "react";
 import calculatorMediaQuery from "./useWindowSize";
 
-export const useListResize = (type: "all" | "best") => {
+export const useListResize = (
+  type: "product" | "board",
+  mode: "all" | "best"
+) => {
   const { isTablet, isMobile } = calculatorMediaQuery();
 
   const getItemCount = useCallback(() => {
-    if (type === "all") {
+    if (type === "product" && mode === "all") {
       if (isMobile) return 4;
       if (isTablet) return 6;
       return 10;
-    } else {
+    } else if (type === "product" && mode === "best") {
       if (isMobile) return 1;
       if (isTablet) return 2;
       return 4;
+    } else if (type === "board" && mode === "best") {
+      if (isMobile) return 1;
+      if (isTablet) return 2;
+      return 3;
     }
-  }, [type, isMobile, isTablet]);
+
+    return 0;
+  }, [type, mode, isMobile, isTablet]);
   const [isItemCount, setIsItemCount] = useState(getItemCount);
 
   useEffect(() => {
