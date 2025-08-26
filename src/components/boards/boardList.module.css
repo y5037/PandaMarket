@@ -70,8 +70,8 @@
   }
 }
 
-.postCover .item:nth-of-type(2),
-.postCover .item:nth-of-type(3) {
+.bestPost .postCover .item:nth-of-type(2),
+.bestPost .postCover .item:nth-of-type(3) {
   /* Mobile */
   @media (max-width: 768px) {
     display: none;
