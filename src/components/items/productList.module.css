@@ -190,6 +190,10 @@
   -webkit-flex-direction: row;
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: 480px) {
+    margin-right: 15px;
+  }
 }
 
 .generalProduct .inputBox {
@@ -209,6 +213,11 @@
   @media (max-width: 768px) {
     flex: 1;
     margin-right: 15px;
+    min-width: calc(100vw * (450 / 1110));
+  }
+
+  @media (max-width: 480px) {
+    min-width: 100%;
   }
 }
 
@@ -224,6 +233,11 @@
   font-weight: 400;
   color: var(--gray-800);
   background: var(--gray-100);
+
+  @media (max-width: 480px) {
+    min-width: auto;
+    width: 100%;
+  }
 }
 
 .generalProduct input[name="search"]:focus {

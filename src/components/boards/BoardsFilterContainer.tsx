@@ -9,6 +9,8 @@ import { SearchForm } from "./types";
 
 function BoardsFilterContainer({
   setPage,
+  setPageCount,
+  totalCount,
   setIsDataCount,
   filter,
   setFilter,
@@ -33,8 +35,9 @@ function BoardsFilterContainer({
 
   useEffect(() => {
     setIsDataCount(isItemCount);
+    setPageCount(totalCount);
     setPage(1);
-  }, [keyword, filter, isItemCount, setIsDataCount, setPage]);
+  }, [keyword, isItemCount, setIsDataCount, setPage]);
 
   return (
     <>

@@ -38,6 +38,8 @@ function AllItemsList({
     <div className={`${styles.productContents} ${styles.generalProduct}`}>
       <ItemsFilterContainer
         setPage={setPage}
+        setPageCount={setPageCount}
+        totalCount={data?.totalCount ?? 0}
         setIsDataCount={setIsDataCount}
         filter={filter}
         setFilter={setFilter}

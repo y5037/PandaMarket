@@ -37,6 +37,8 @@ function AllBoardsList({
         <div className={styles.headContainer}>
           <BoardsFilterContainer
             setPage={setPage}
+            setPageCount={setPageCount}
+            totalCount={data?.totalCount ?? 0}
             setIsDataCount={setIsDataCount}
             filter={filter}
             setFilter={setFilter}

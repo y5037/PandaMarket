@@ -6,18 +6,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(100vw * (100 / 640));
+  min-height: calc(100vw * (130 / 640));
   text-align: center;
   font-size: 1.6em;
   color: var(--gray-500);
 
   /* Tablet */
   @media (max-width: 1199px) {
-    height: calc(100vw * (300 / 640));
+    min-height: calc(100vw * (300 / 640));
   }
   /* Mobile */
   @media (max-width: 767px) {
-    height: calc(100vw * (400 / 640));
+    min-height: calc(100vw * (400 / 640));
   }
 }
 

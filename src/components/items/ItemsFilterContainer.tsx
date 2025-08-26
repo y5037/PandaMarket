@@ -9,6 +9,8 @@ import { useDropdown } from "@/src/hooks/use/useDropdown";
 
 function ItemsFilterContainer({
   setPage,
+  setPageCount,
+  totalCount,
   setIsDataCount,
   filter,
   setFilter,
@@ -33,8 +35,9 @@ function ItemsFilterContainer({
 
   useEffect(() => {
     setIsDataCount(isItemCount);
+    setPageCount(totalCount);
     setPage(1);
-  }, [keyword, filter, isItemCount, setIsDataCount, setPage]);
+  }, [keyword, isItemCount, setIsDataCount, setPage]);
 
   return (
     <>
