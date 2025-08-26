@@ -1,17 +1,17 @@
 .pagiContainer {
   margin-top: 69px;
   /* Default */
-  padding: 0 200px;
+  padding: 0 200px 100px;
 
   /* 1920 이상 */
   @media (min-width: 1920px) {
-    padding: 0;
+    padding: 0 0 100px;
     max-width: 1110px;
     margin: 69px auto 0;
   }
   /* Tablet, Mobile */
   @media (max-width: 1199px) {
-    padding: 0 24px;
+    padding: 0 24px 100px;
   }
 }
 
