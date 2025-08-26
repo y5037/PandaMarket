@@ -7,32 +7,23 @@ import { SearchForm } from "./types";
 import styles from "./productList.module.css";
 import { useDropdown } from "@/src/hooks/use/useDropdown";
 
-function AllItemsContainer({
+function ItemsFilterContainer({
   setPage,
+  setPageCount,
+  totalCount,
   setIsDataCount,
   filter,
   setFilter,
+  keyword,
   setKeyword,
   isItemCount,
   setOrderBy,
 }: SearchForm) {
   const { dropdown, setDropdown, dropdownRef } = useDropdown();
 
-  useEffect(() => {
-    setIsDataCount(isItemCount);
-  }, [isItemCount, setIsDataCount]);
-
-  const handleNewsetClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const filterText = (e?.target as HTMLLIElement).textContent!;
-    setFilter(filterText);
-    setOrderBy("recent");
-    setPage(1);
-  };
-
-  const handleBestClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const filterText = (e?.target as HTMLLIElement).textContent!;
-    setFilter(filterText);
-    setOrderBy("favorite");
+  const handleSortFilter = (sort: string) => {
+    setFilter(sort);
+    setOrderBy(sort === "최신순" ? "recent" : "favorite");
     setPage(1);
   };
 
@@ -44,28 +35,28 @@ function AllItemsContainer({
 
   useEffect(() => {
     setIsDataCount(isItemCount);
+    setPageCount(totalCount);
     setPage(1);
-  }, [isItemCount, setIsDataCount, setPage]);
+  }, [keyword, isItemCount, setIsDataCount, setPage]);
+
   return (
     <>
       <div className={styles.filterCover}>
         <p className={styles.listTitle}>전체 상품</p>
         <div className={styles.searchContainer}>
-          <form>
-            <div className={styles.formCover}>
-              <div className={styles.inputBox}>
-                <Image src={productSearchImg} alt="상품검색" />
-                <input
-                  name="search"
-                  placeholder="검색할 상품을 입력해주세요"
-                  onChange={handleSearch}
-                />
-              </div>
-              <Link href="/items/add">
-                <button type="button">상품 등록하기</button>
-              </Link>
+          <div className={styles.formCover}>
+            <div className={styles.inputBox}>
+              <Image src={productSearchImg} alt="상품검색" />
+              <input
+                name="search"
+                placeholder="검색할 상품을 입력해주세요"
+                onChange={handleSearch}
+              />
             </div>
-          </form>
+            <Link href="/items/add">
+              <button type="button">상품 등록하기</button>
+            </Link>
+          </div>
           <div className={styles.selectBox} ref={dropdownRef}>
             <div
               className={styles.btnSelectBox}
@@ -76,8 +67,8 @@ function AllItemsContainer({
             </div>
             {dropdown && (
               <ul className={styles.btnChoose}>
-                <li onClick={handleNewsetClick}>최신순</li>
-                <li onClick={handleBestClick}>좋아요순</li>
+                <li onClick={() => handleSortFilter("최신순")}>최신순</li>
+                <li onClick={() => handleSortFilter("좋아요순")}>좋아요순</li>
               </ul>
             )}
           </div>
@@ -87,4 +78,4 @@ function AllItemsContainer({
   );
 }
 
-export default AllItemsContainer;
+export default ItemsFilterContainer;

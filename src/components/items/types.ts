@@ -33,9 +33,12 @@ export type ItemsList = {
 // GeneralSearchForm.tsx
 export type SearchForm = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPageCount: React.Dispatch<React.SetStateAction<number>>;
+  totalCount: number;
   setIsDataCount: React.Dispatch<React.SetStateAction<number>>;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   isItemCount: number;
   setOrderBy: React.Dispatch<React.SetStateAction<string>>;

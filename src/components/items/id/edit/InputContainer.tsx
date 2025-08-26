@@ -20,7 +20,7 @@ function InputContainer({ values, setValues, uploadLoading }: InitialValues) {
 
   useEffect(() => {
     setTagList(values?.tag ?? []);
-  }, [values?.tag]);
+  }, [values?.tag, setTagList]);
 
   return (
     <fieldset disabled={uploadLoading}>

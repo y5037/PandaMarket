@@ -190,6 +190,10 @@
   -webkit-flex-direction: row;
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: 480px) {
+    margin-right: 15px;
+  }
 }
 
 .generalProduct .inputBox {
@@ -209,6 +213,11 @@
   @media (max-width: 768px) {
     flex: 1;
     margin-right: 15px;
+    min-width: calc(100vw * (450 / 1110));
+  }
+
+  @media (max-width: 480px) {
+    min-width: 100%;
   }
 }
 
@@ -224,6 +233,11 @@
   font-weight: 400;
   color: var(--gray-800);
   background: var(--gray-100);
+
+  @media (max-width: 480px) {
+    min-width: auto;
+    width: 100%;
+  }
 }
 
 .generalProduct input[name="search"]:focus {
@@ -317,33 +331,4 @@
 
 .generalProduct .btnChoose li:first-child {
   border-bottom: 1px solid var(--gray-200);
-}
-
-.emptyList {
-  -webkit-display: flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: calc(100vw * (100 / 640));
-  text-align: center;
-  font-size: 1.6em;
-  color: var(--gray-500);
-
-  /* Tablet */
-  @media (max-width: 1199px) {
-    height: calc(100vw * (300 / 640));
-  }
-  /* Mobile */
-  @media (max-width: 767px) {
-    height: calc(100vw * (400 / 640));
-  }
-}
-
-.emptyList > img {
-  width: 40px;
-  height: auto;
-  margin-bottom: 20px;
 }

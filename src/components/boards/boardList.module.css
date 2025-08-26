@@ -300,7 +300,7 @@
   transition: 0.3s;
 }
 
-.optionChoose {
+.btnChoose {
   border-radius: 12px;
   border: 1px solid var(--gray-200);
   min-width: 125px;
@@ -316,16 +316,16 @@
   overflow: hidden;
 }
 
-.optionChoose li {
+.btnChoose li {
   padding: 13px 15px;
   transition: 0.2s;
 }
 
-.optionChoose li:hover {
+.btnChoose li:hover {
   background: var(--gray-50);
 }
 
-.optionChoose li:first-child {
+.btnChoose li:first-child {
   border-bottom: 1px solid var(--gray-200);
 }
 
