@@ -1,6 +1,15 @@
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+export interface BoardDataProps {
+  id: number;
+  title: string;
+  content: string;
+  image: string;
+  writer: boardWriter[];
+  likeCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
-interface ItemWriter {
+interface boardWriter {
   id: number;
   nickname: string;
 }
@@ -9,9 +18,5 @@ export interface BoardList {
   id: number;
   title: string;
   content: string;
-  createdAt: string;
-  updatedAt: string;
-  image: string | StaticImport;
-  likeCount: number;
-  writer: ItemWriter;
+  image: string;
 }

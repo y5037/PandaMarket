@@ -43,7 +43,7 @@ function BoardsFilterContainer({
     <>
       <div className={styles.titleCover}>
         <p className={styles.listTitle}>게시글</p>
-        <Link href={""}>
+        <Link href={"/boards/add"}>
           <button type="button">글쓰기</button>
         </Link>
       </div>
