@@ -1,5 +1,5 @@
 import axiosInstance from "@/src/api/axiosInstance";
-import { BoardList } from "@/src/types/boardTypes";
+import { BoardDataProps, BoardList } from "@/src/types/boardTypes";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchBoard = async (params = {}) => {
@@ -15,7 +15,7 @@ const fetchBoard = async (params = {}) => {
 };
 
 export const useGetBoard = (params = {}) => {
-  return useQuery<{ list: BoardList[]; totalCount: number }>({
+  return useQuery<{ list: BoardDataProps[]; totalCount: number }>({
     queryKey: ["board", params],
     queryFn: () => fetchBoard(params),
   });

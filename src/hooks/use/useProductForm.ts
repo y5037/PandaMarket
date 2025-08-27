@@ -1,4 +1,4 @@
-import { INITIAL_VALUES } from "@/src/constants/product";
+import { PRODUCT_INITIAL_VALUES } from "@/src/constants/product";
 import { ProductDataProps } from "@/src/types/itemTypes";
 import { useEffect, useState } from "react";
 
@@ -8,7 +8,7 @@ export const useProductForm = (productData?: ProductDataProps) => {
     description: string;
     price: number | string;
     tag: string[];
-  }>(INITIAL_VALUES);
+  }>(PRODUCT_INITIAL_VALUES);
 
   const [imgFile, setImgFile] = useState("");
 
