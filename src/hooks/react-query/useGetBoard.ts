@@ -15,9 +15,8 @@ const fetchBoard = async (params = {}) => {
 };
 
 export const useGetBoard = (params = {}) => {
-  const key = ["board", JSON.stringify(params)];
   return useQuery<{ list: BoardDataProps[]; totalCount: number }>({
-    queryKey: key,
+    queryKey: ["board", params],
     queryFn: () => fetchBoard(params),
   });
 };

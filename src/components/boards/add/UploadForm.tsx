@@ -27,8 +27,6 @@ function UploadForm() {
     );
   };
 
-  console.log(imgFile);
-
   return (
     <div className={styles.pagiContainer}>
       <form>

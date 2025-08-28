@@ -1,4 +1,4 @@
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import { UseInfiniteQueryResult, useQueryClient } from "@tanstack/react-query";
 import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
 import useDelComments from "@/src/hooks/react-query/useDelComment";
@@ -34,24 +34,27 @@ export const DeleteModal = ({
   refetch,
 }: Props) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { mutate: deleteProduct } = useDelProduct(productId);
-  const { mutate: deleteBoard } = useDelBoard(boardId);
+  const { mutateAsync: deleteProductAsync } = useDelProduct(productId);
+  const { mutateAsync: deleteBoardAsync } = useDelBoard(boardId);
   const { mutate: deleteComment } = useDelComments(
     isDelProductComment ? "product" : "board"
   );
 
-  const handleConfirmModal = () => {
+  const handleConfirmModal = async () => {
     if (isDelProduct) {
       if (!productId) return;
 
-      deleteProduct();
-      router.replace("/items");
+      await deleteProductAsync();
+      await queryClient.removeQueries({ queryKey: ["product"], exact: false });
+      await router.replace("/items");
     } else if (isDelBoard) {
       if (!boardId) return;
 
-      deleteBoard();
-      router.replace("/boards");
+      await deleteBoardAsync();
+      await queryClient.removeQueries({ queryKey: ["board"], exact: false });
+      await router.replace("/boards");
     }
 
     if (isDelProductComment || isDelBoardComment) {

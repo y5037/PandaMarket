@@ -18,5 +18,8 @@ export const useGetProduct = (params = {}) => {
   return useQuery<{ list: ProductList[]; totalCount: number }>({
     queryKey: ["product", params],
     queryFn: () => fetchProduct(params),
+    refetchOnMount: "always",
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
   });
 };
