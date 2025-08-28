@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ListComment } from "@/src/types/itemTypes";
 import { getTimeDiff } from "../../../utils/dayjs";
-import { SelectBox, SelectButton } from "../SelectBox";
+import { SelectBox, SelectButton } from "../detailContent/SelectBox";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
-import styles from "./productDetail.module.css";
+import styles from "./comment.module.css";
 import { ChangeEvent, useState } from "react";
 import { useGetUser } from "@/src/hooks/react-query/useGetUser";
 import { DeleteModal } from "@/src/components/modal/DeleteModal";
@@ -67,8 +67,9 @@ function CommentList({ commentsData, productId, refetch }: Props) {
                     className={styles.textarea}
                   />
                   <CommentEdit
+                    isEditProductComment
                     changedComment={changedComment}
-                    productId={productId}
+                    postId={productId}
                     commentId={comment.id}
                     refetch={refetch}
                     setShowEdit={setShowEdit}

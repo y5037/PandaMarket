@@ -21,6 +21,7 @@ function InputContainer({ setValues, uploadLoading }: InitialValues) {
       <div className={styles.inputContainer}>
         <p className={styles.inputTitle}>상품명</p>
         <input
+          maxLength={30}
           name="name"
           type="text"
           placeholder="상품명을 입력해주세요"

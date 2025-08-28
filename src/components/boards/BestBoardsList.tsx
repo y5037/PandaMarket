@@ -3,6 +3,7 @@ import BestBoard from "./BestBoard";
 import Section1Skeleton from "./Section1Skeleton";
 import styles from "./boardList.module.css";
 import { useGetBoard } from "@/src/hooks/react-query/useGetBoard";
+import Link from "next/link";
 
 function BestBoardList() {
   const orderBy = "like";
@@ -31,7 +32,9 @@ function BestBoardList() {
             {bestBoard?.map((item) => {
               return (
                 <li key={item.id} className={styles.item}>
-                  <BestBoard item={item} />
+                  <Link href={`/boards/${item.id}`}>
+                    <BestBoard item={item} />
+                  </Link>
                 </li>
               );
             })}

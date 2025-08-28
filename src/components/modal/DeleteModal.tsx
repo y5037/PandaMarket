@@ -1,15 +1,19 @@
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
-import useDelProductComments from "@/src/hooks/react-query/useDelProductComment";
+import useDelComments from "@/src/hooks/react-query/useDelComment";
 import useDelProduct from "@/src/hooks/react-query/useDelProduct";
 import { useRouter } from "next/router";
+import useDelBoard from "@/src/hooks/react-query/useDelBoard";
 
 interface Props {
   productId?: string | string[];
+  boardId?: string | string[];
   commentId?: number;
   isDelProduct?: boolean;
+  isDelBoard?: boolean;
   isDelProductComment?: boolean;
+  isDelBoardComment?: boolean;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
@@ -18,9 +22,12 @@ interface Props {
 
 export const DeleteModal = ({
   productId,
+  boardId,
   commentId,
   isDelProduct,
+  isDelBoard,
   isDelProductComment,
+  isDelBoardComment,
   showModal,
   setShowModal,
   isModalMessage,
@@ -29,7 +36,10 @@ export const DeleteModal = ({
   const router = useRouter();
 
   const { mutate: deleteProduct } = useDelProduct(productId);
-  const { mutate: deleteComment } = useDelProductComments(productId!);
+  const { mutate: deleteBoard } = useDelBoard(boardId);
+  const { mutate: deleteComment } = useDelComments(
+    isDelProductComment ? "product" : "board"
+  );
 
   const handleConfirmModal = () => {
     if (isDelProduct) {
@@ -37,10 +47,15 @@ export const DeleteModal = ({
 
       deleteProduct();
       router.replace("/items");
+    } else if (isDelBoard) {
+      if (!boardId) return;
+
+      deleteBoard();
+      router.replace("/boards");
     }
 
-    if (isDelProductComment) {
-      if (!commentId || !productId) return;
+    if (isDelProductComment || isDelBoardComment) {
+      if (!commentId) return;
 
       deleteComment(
         { commentId },

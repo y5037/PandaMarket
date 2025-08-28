@@ -4,9 +4,9 @@ import FavoriteDefault from "@/public/assets/images/items/favorite.svg";
 import FavoriteActive from "@/public/assets/images/items/favorite_active.svg";
 import OptionMenuImg from "@/public/assets/images/items/option_menu.svg";
 import NoImg from "@/public/assets/images/app/common/no_img.jpg";
-import { SelectBox, SelectButton } from "../SelectBox";
+import { SelectBox, SelectButton } from "../../shared/detailContent/SelectBox";
 import ImgSkeleton from "./ImgSkeleton";
-import TextSkeleton from "@/src/components/items/id/TextSkeleton";
+import TextSkeleton from "@/src/components/shared/detailComments/TextSkeleton";
 import styles from "./productDetail.module.css";
 import { useToggleLike } from "@/src/hooks/react-query/usePostLikeProduct";
 import { ProductDataProps } from "./types";
@@ -17,11 +17,11 @@ import { useClickOutside } from "@/src/hooks/use/useClickOutside";
 import { useModalController } from "@/src/hooks/use/useModalController";
 
 function ProductDetail({
-  productId,
+  id,
   productData,
   loading,
 }: {
-  productId: string;
+  id: string;
   productData: ProductDataProps;
   loading: boolean;
 }) {
@@ -38,7 +38,7 @@ function ProductDetail({
   const formattedDate = String(productData?.createdAt).slice(0, 10);
 
   const { data: userData } = useGetUser();
-  const { mutate: toggleLike } = useToggleLike(productId);
+  const { mutate: toggleLike } = useToggleLike(id);
 
   const handleLike = () => {
     const nextLiked = !liked;
@@ -63,7 +63,7 @@ function ProductDetail({
     <>
       {showModal && (
         <DeleteModal
-          productId={productId}
+          productId={id}
           isDelProduct
           showModal={showModal}
           setShowModal={setShowModal}
@@ -111,7 +111,7 @@ function ProductDetail({
                       <OptionMenuImg />
                       {selectbox && (
                         <SelectBox>
-                          <Link href={`/items/${productId}/edit`}>
+                          <Link href={`/items/${id}/edit`}>
                             <SelectButton>수정하기</SelectButton>
                           </Link>
                           <SelectButton onClick={handleDeleteProduct}>

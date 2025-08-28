@@ -10,6 +10,7 @@ function InputContainer({ setValues, uploadLoading }: InitialValues) {
       <div className={styles.inputContainer}>
         <p className={styles.inputTitle}>제목</p>
         <input
+          maxLength={50}
           name="title"
           type="text"
           placeholder="제목을 입력해주세요"
