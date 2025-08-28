@@ -32,8 +32,6 @@ function AllBoardsList({
     }
   }, [data?.totalCount, isItemCount, setPageCount]);
 
-  console.log(allBoard);
-
   return (
     <>
       <div className={`${styles.postContents} ${styles.allPost}`}>
