@@ -4,35 +4,43 @@ import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
 import "dayjs/locale/ko";
 import BtnBackImg from "@/public/assets/images/app/button/btn_back.svg";
-import EmptyCommentImg from "@/public/assets/images/items/empty_comment.svg";
+import EmptyProductCommentImg from "@/public/assets/images/items/empty_product_comment.svg";
+import EmptyBoardCommentImg from "@/public/assets/images/boards/empty_board_comment.svg";
 import SpinnerImg from "@/public/assets/images/app/loading/spinner.svg";
-import CommentSkeleton from "./CommentSkeleton";
+import CommentSkeleton from "../../items/id/CommentSkeleton";
 import { ListComment } from "@/src/types/itemTypes";
 import CommentList from "./CommentList";
-import styles from "./productDetail.module.css";
+import styles from "./comment.module.css";
 import usePostProductComments from "@/src/hooks/react-query/usePostProductComment";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import usePostBoardComments from "@/src/hooks/react-query/usePostBoardComment";
 
 dayjs.extend(isLeapYear);
 dayjs.locale("ko");
 
-function EmptyPlaceholder() {
+function EmptyPlaceholder({ type }: { type: "product" | "board" }) {
   return (
     <div className={styles.emptyComment}>
-      <EmptyCommentImg />
+      {type === "product" ? (
+        <EmptyProductCommentImg />
+      ) : (
+        <EmptyBoardCommentImg />
+      )}
     </div>
   );
 }
 
 function CommentContainer({
-  productId,
+  type,
+  id,
   commentsData,
   loading,
   isFetchingNextPage,
   hasNextPage,
   refetch,
 }: {
-  productId: string | string[];
+  type: "product" | "board";
+  id: string | string[];
   commentsData: ListComment[];
   loading: boolean;
   isFetchingNextPage: boolean;
@@ -45,22 +53,36 @@ function CommentContainer({
     setComment(e.target.value);
   };
 
-  const { mutate: uploadComment, isPending: uploadLoading } =
-    usePostProductComments(productId);
+  const { mutate: uploadProductComment, isPending: productUploading } =
+    usePostProductComments(id);
+  const { mutate: uploadBoardComment, isPending: boardUploading } =
+    usePostBoardComments(id);
+
+  const uploadLoading = productUploading || boardUploading;
 
   const handleUploadComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment) return;
 
-    uploadComment(
-      { productId, comment },
-      {
-        onSuccess: async () => {
-          setComment("");
-          await refetch();
-        },
-      }
-    );
+    type === "product"
+      ? uploadProductComment(
+          { id, comment },
+          {
+            onSuccess: async () => {
+              setComment("");
+              await refetch();
+            },
+          }
+        )
+      : uploadBoardComment(
+          { id, comment },
+          {
+            onSuccess: async () => {
+              setComment("");
+              await refetch();
+            },
+          }
+        );
   };
 
   const showBackButton =
@@ -73,7 +95,7 @@ function CommentContainer({
       <div className={styles.section2}>
         <form onSubmit={handleUploadComment}>
           <label htmlFor="inquiry" className={styles.subTitle}>
-            문의하기
+            {type === "product" ? "문의하기" : "댓글달기"}
           </label>
           <textarea
             name="inquiry"
@@ -82,7 +104,11 @@ function CommentContainer({
             value={comment}
             disabled={uploadLoading}
             onChange={getWriteComment}
-            placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+            placeholder={
+              type === "product"
+                ? "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+                : "댓글을 입력해주세요"
+            }
           />
           <button
             className={styles.btnSubmit}
@@ -100,7 +126,7 @@ function CommentContainer({
                 <>
                   <CommentList
                     commentsData={commentsData}
-                    productId={productId}
+                    productId={id}
                     refetch={refetch}
                   />
 
@@ -111,14 +137,14 @@ function CommentContainer({
                   )}
                 </>
               ) : (
-                <EmptyPlaceholder />
+                <EmptyPlaceholder type={type} />
               )}
             </>
           )}
         </div>
         {showBackButton && (
           <div className={styles.btnCover}>
-            <Link href="/items">
+            <Link href={type === "product" ? "/items" : "/boards"}>
               <button type="button" className={styles.btnBack}>
                 목록으로 돌아가기 <BtnBackImg />
               </button>

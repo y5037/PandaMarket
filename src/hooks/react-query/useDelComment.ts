@@ -1,12 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../api/axiosInstance";
 
-const fetchProductComments = async ({
-  commentId,
-}: {
-  productId?: string | string[];
-  commentId: number;
-}) => {
+const fetchComments = async ({ commentId }: { commentId: number }) => {
   try {
     await axiosInstance.delete(`/comments/${commentId}`);
 
@@ -17,21 +12,20 @@ const fetchProductComments = async ({
   }
 };
 
-const useDelProductComments = (productIdParam: string | string[]) => {
+const useDelComments = (
+  type: "product" | "board",
+) => {
   const queryClient = useQueryClient();
-  const productId = Array.isArray(productIdParam)
-    ? productIdParam[0]
-    : productIdParam;
 
   return useMutation({
-    mutationFn: fetchProductComments,
+    mutationFn: fetchComments,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["productComment", productId],
+        queryKey: [`${type === "product" ? "productComment" : "boardComment"}`],
       });
 
       await queryClient.refetchQueries({
-        queryKey: ["productComment", productId],
+        queryKey: [`${type === "product" ? "productComment" : "boardComment"}`],
       });
     },
     onError: (err) => {
@@ -40,4 +34,4 @@ const useDelProductComments = (productIdParam: string | string[]) => {
   });
 };
 
-export default useDelProductComments;
+export default useDelComments;

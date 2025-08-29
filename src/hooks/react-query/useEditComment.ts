@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../api/axiosInstance";
 
-const fetchProductComments = async ({
+const fetchComments = async ({
   commentId,
   changedComment,
 }: {
-  productId?: string | string[];
   commentId: number;
   changedComment: string;
 }) => {
@@ -19,20 +18,27 @@ const fetchProductComments = async ({
   }
 };
 
-const useEditProductComment = (productIdParam: string | string[]) => {
+const useEditComment = (
+  type: "product" | "board",
+  postId: string | string[]
+) => {
   const queryClient = useQueryClient();
-  const productId = Array.isArray(productIdParam)
-    ? productIdParam[0]
-    : productIdParam;
+  const id = Array.isArray(postId) ? postId[0] : postId;
 
   return useMutation({
-    mutationFn: fetchProductComments,
+    mutationFn: fetchComments,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["productComment", productId],
+        queryKey: [
+          `${type === "product" ? "productComment" : "boardComment"}`,
+          id,
+        ],
       });
       await queryClient.refetchQueries({
-        queryKey: ["productComment", productId],
+        queryKey: [
+          `${type === "product" ? "productComment" : "boardComment"}`,
+          id,
+        ],
       });
     },
     onError: (err) => {
@@ -41,4 +47,4 @@ const useEditProductComment = (productIdParam: string | string[]) => {
   });
 };
 
-export default useEditProductComment;
+export default useEditComment;

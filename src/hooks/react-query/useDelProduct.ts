@@ -1,19 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../api/axiosInstance";
 
-const useDelProduct = (productIdParam: string | string[] | undefined) => {
+const useDelProduct = (productId: string | string[] | undefined) => {
   const queryClient = useQueryClient();
 
-  const productId = Array.isArray(productIdParam)
-    ? productIdParam[0]
-    : productIdParam;
+  const id = Array.isArray(productId)
+    ? productId[0]
+    : productId;
 
-  const deleteProduct = async (): Promise<void> => {
-    await axiosInstance.delete(`/products/${productId}`);
+  const fetchProduct = async (): Promise<void> => {
+    await axiosInstance.delete(`/products/${id}`);
   };
 
   return useMutation<void, Error, void>({
-    mutationFn: deleteProduct,
+    mutationFn: fetchProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["product"],

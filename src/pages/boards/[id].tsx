@@ -1,24 +1,24 @@
 import { MutableRefObject, RefObject } from "react";
 import { useRouter } from "next/router";
-import ProductDetail from "@/src/components/items/id/ProductDetail";
 import NavBar from "@/src/components/app/NavBar";
 import CommentContainer from "@/src/components/shared/detailComments/CommentContainer";
 import Head from "next/head";
-import useGetProductComments from "@/src/hooks/react-query/useGetProductComments";
-import { useGetProductDetail } from "@/src/hooks/react-query/useGetProductDetail";
 import useProtectedPage from "@/src/hooks/use/useProtectedPage";
 import { useScrollPositioning } from "@/src/hooks/use/useScrollPositioning";
 import { useScrollDetector } from "@/src/hooks/use/useScrollDetector";
+import { useGetBoardDetail } from "@/src/hooks/react-query/useGetBoardDetail";
+import useGetBoardComments from "@/src/hooks/react-query/useGetBoardComments";
+import BoardDetail from "@/src/components/boards/id/BoardDetail";
 
-function ProductDetailPage() {
+function BoardDetailPage() {
   useProtectedPage();
 
   const router = useRouter();
   const paramId = router.query.id!;
-  const productId = Array.isArray(paramId) ? paramId[0] : paramId;
+  const boardId = Array.isArray(paramId) ? paramId[0] : paramId;
 
-  const { data: productData, isLoading: detailLoading } =
-    useGetProductDetail(productId);
+  const { data: boardData, isLoading: detailLoading } =
+    useGetBoardDetail(boardId);
 
   const {
     data: comment,
@@ -27,7 +27,7 @@ function ProductDetailPage() {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = useGetProductComments(productId);
+  } = useGetBoardComments(boardId);
 
   const commentsData = comment?.pages.flatMap((page) => page.comments) ?? [];
 
@@ -53,18 +53,14 @@ function ProductDetailPage() {
     <>
       <Head>
         <title>
-          {productData?.name ? productData?.name + " - 판다마켓" : "판다마켓"}
+          {boardData ? boardData?.title + " - 판다마켓" : "판다마켓"}
         </title>
       </Head>
       <NavBar />
-      <ProductDetail
-        loading={detailLoading}
-        id={productId}
-        productData={productData}
-      />
+      <BoardDetail loading={detailLoading} id={boardId} boardData={boardData} />
       <CommentContainer
-        type="product"
-        id={productId}
+        type="board"
+        id={boardId}
         commentsData={commentsData}
         loading={isLoading}
         isFetchingNextPage={isFetchingNextPage}
@@ -75,4 +71,4 @@ function ProductDetailPage() {
   );
 }
 
-export default ProductDetailPage;
+export default BoardDetailPage;

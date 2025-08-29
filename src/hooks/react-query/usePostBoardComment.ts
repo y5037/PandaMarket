@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../api/axiosInstance";
 
-const fetchProductComments = async ({
+const fetchBoardComments = async ({
   id,
   comment,
 }: {
@@ -9,12 +9,9 @@ const fetchProductComments = async ({
   comment: string;
 }) => {
   try {
-    const response = await axiosInstance.post(
-      `/products/${id}/comments`,
-      {
-        content: comment,
-      }
-    );
+    const response = await axiosInstance.post(`/articles/${id}/comments`, {
+      content: comment,
+    });
 
     return response.data;
   } catch (err) {
@@ -23,21 +20,21 @@ const fetchProductComments = async ({
   }
 };
 
-const usePostProductComments = (productIdParam: string | string[]) => {
+const usePostBoardComments = (boardIdParam: string | string[]) => {
   const queryClient = useQueryClient();
-  const productId = Array.isArray(productIdParam)
-    ? productIdParam[0]
-    : productIdParam;
+  const boardId = Array.isArray(boardIdParam)
+    ? boardIdParam[0]
+    : boardIdParam;
 
   return useMutation({
-    mutationFn: fetchProductComments,
+    mutationFn: fetchBoardComments,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["productComment", productId],
+        queryKey: ["boardComment", boardId],
       });
 
       await queryClient.refetchQueries({
-        queryKey: ["productComment", productId],
+        queryKey: ["boardComment", boardId],
       });
     },
     onError: (err) => {
@@ -46,4 +43,4 @@ const usePostProductComments = (productIdParam: string | string[]) => {
   });
 };
 
-export default usePostProductComments;
+export default usePostBoardComments;

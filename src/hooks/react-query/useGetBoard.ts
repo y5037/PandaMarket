@@ -1,5 +1,5 @@
 import axiosInstance from "@/src/api/axiosInstance";
-import { BoardDataProps, BoardList } from "@/src/types/boardTypes";
+import { BoardDataProps } from "@/src/types/boardTypes";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchBoard = async (params = {}) => {

@@ -1,15 +1,19 @@
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import { UseInfiniteQueryResult, useQueryClient } from "@tanstack/react-query";
 import ModalContainer from "../app/ModalContainer";
 import styles from "@/styles/app/modal.module.css";
-import useDelProductComments from "@/src/hooks/react-query/useDelProductComment";
+import useDelComments from "@/src/hooks/react-query/useDelComment";
 import useDelProduct from "@/src/hooks/react-query/useDelProduct";
 import { useRouter } from "next/router";
+import useDelBoard from "@/src/hooks/react-query/useDelBoard";
 
 interface Props {
   productId?: string | string[];
+  boardId?: string | string[];
   commentId?: number;
   isDelProduct?: boolean;
+  isDelBoard?: boolean;
   isDelProductComment?: boolean;
+  isDelBoardComment?: boolean;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
@@ -18,29 +22,43 @@ interface Props {
 
 export const DeleteModal = ({
   productId,
+  boardId,
   commentId,
   isDelProduct,
+  isDelBoard,
   isDelProductComment,
+  isDelBoardComment,
   showModal,
   setShowModal,
   isModalMessage,
   refetch,
 }: Props) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { mutate: deleteProduct } = useDelProduct(productId);
-  const { mutate: deleteComment } = useDelProductComments(productId!);
+  const { mutateAsync: deleteProductAsync } = useDelProduct(productId);
+  const { mutateAsync: deleteBoardAsync } = useDelBoard(boardId);
+  const { mutate: deleteComment } = useDelComments(
+    isDelProductComment ? "product" : "board"
+  );
 
-  const handleConfirmModal = () => {
+  const handleConfirmModal = async () => {
     if (isDelProduct) {
       if (!productId) return;
 
-      deleteProduct();
-      router.replace("/items");
+      await deleteProductAsync();
+      await queryClient.removeQueries({ queryKey: ["product"], exact: false });
+      await router.replace("/items");
+    } else if (isDelBoard) {
+      if (!boardId) return;
+
+      await deleteBoardAsync();
+      await queryClient.removeQueries({ queryKey: ["board"], exact: false });
+      await router.replace("/boards");
     }
 
-    if (isDelProductComment) {
-      if (!commentId || !productId) return;
+    if (isDelProductComment || isDelBoardComment) {
+      if (!commentId) return;
 
       deleteComment(
         { commentId },

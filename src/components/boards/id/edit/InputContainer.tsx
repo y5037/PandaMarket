@@ -1,9 +1,11 @@
-import { InitialValues } from "../shared/types";
-import styles from "../shared/form.module.css";
+import { InitialValues } from "../../shared/types";
+import styles from "../../shared/form.module.css";
 import { useBoardFormState } from "@/src/hooks/use/useBoardFormState";
 
-function InputContainer({ setValues, uploadLoading }: InitialValues) {
+function InputContainer({ values, setValues, uploadLoading }: InitialValues) {
   const { handleInputChange } = useBoardFormState(setValues);
+
+  console.log(values);
 
   return (
     <fieldset disabled={uploadLoading}>
@@ -13,6 +15,7 @@ function InputContainer({ setValues, uploadLoading }: InitialValues) {
           maxLength={50}
           name="title"
           type="text"
+          defaultValue={values?.title}
           placeholder="제목을 입력해주세요"
           onChange={handleInputChange}
         />
@@ -21,6 +24,7 @@ function InputContainer({ setValues, uploadLoading }: InitialValues) {
         <p className={styles.inputTitle}>내용</p>
         <textarea
           name="content"
+          defaultValue={values?.content}
           placeholder="내용을 입력해주세요"
           onChange={handleInputChange}
         />

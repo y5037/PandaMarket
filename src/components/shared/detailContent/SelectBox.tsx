@@ -15,8 +15,4 @@ export const SelectButton = styled.div`
   color: var(--gray-500);
   font-size: 1.6em;
   cursor: pointer;
-
-  /* &:first-child {
-    border-bottom: 1px solid var(--gray-300);
-  } */
 `;

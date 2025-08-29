@@ -1,6 +1,5 @@
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import React from "react";
 
 export interface CommentUIProps {
   isEditProductComment?: boolean;
@@ -32,17 +31,13 @@ export interface CommentDataProps {
   nextCursor: number;
 }
 
-export interface ProductDataProps {
-  createdAt: string;
-  description: string;
-  favoriteCount: number;
+export interface BoardDataProps {
   id: number;
-  images: string | StaticImport;
-  isFavorite: boolean;
-  name: string;
-  ownerId: number;
-  ownerNickname: string;
-  price: number;
-  tags: string[];
+  title: string;
+  content: string;
+  image: string;
+  writer: ListWriter;
+  likeCount: number;
+  createdAt: string;
   updatedAt: string;
 }

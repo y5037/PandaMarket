@@ -2,7 +2,6 @@ import Image from "next/image";
 import noImg from "@/public/assets/images/app/common/no_img.jpg";
 import WishHeartImg from "@/public/assets/images/boards/ic_heart.svg";
 import { useState } from "react";
-import { Item } from "./types";
 import styles from "./boardList.module.css";
 import { BoardDataProps } from "@/src/types/boardTypes";
 

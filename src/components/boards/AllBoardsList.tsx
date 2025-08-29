@@ -6,6 +6,7 @@ import { useGetBoard } from "@/src/hooks/react-query/useGetBoard";
 import Section2Skeleton from "./Section2Skeleton";
 import EmptySearchList from "../app/EmptySearchList";
 import AllBoard from "./AllBoard";
+import Link from "next/link";
 
 function AllBoardsList({
   page,
@@ -30,8 +31,6 @@ function AllBoardsList({
       setPageCount(data.totalCount);
     }
   }, [data?.totalCount, isItemCount, setPageCount]);
-
-  console.log(allBoard);
 
   return (
     <>
@@ -59,7 +58,9 @@ function AllBoardsList({
               allBoard.map((item) => {
                 return (
                   <li key={item.id} className={styles.item}>
-                    <AllBoard item={item} />
+                    <Link href={`/boards/${item.id}`}>
+                      <AllBoard item={item} />
+                    </Link>
                   </li>
                 );
               })}
