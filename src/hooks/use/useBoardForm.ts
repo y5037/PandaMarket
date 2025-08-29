@@ -17,8 +17,8 @@ export const useBoardForm = (boardData?: BoardDataProps) => {
       setImgFile(boardData?.image);
       setValues((prevValues) => ({
         ...prevValues,
-        name: boardData?.title,
-        description: boardData?.content,
+        title: boardData?.title,
+        content: boardData?.content,
       }));
     }
   }, [boardData]);

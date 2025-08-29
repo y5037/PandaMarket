@@ -94,7 +94,7 @@ function BoardDetail({
                     <OptionMenuImg />
                     {selectbox && (
                       <SelectBox>
-                        <Link href={`/items/${id}/edit`}>
+                        <Link href={`/boards/${id}/edit`}>
                           <SelectButton>수정하기</SelectButton>
                         </Link>
                         <SelectButton onClick={handleDeleteProduct}>

@@ -27,6 +27,7 @@ function InputContainer({ values, setValues, uploadLoading }: InitialValues) {
       <div className={styles.inputContainer}>
         <p className={styles.inputTitle}>상품명</p>
         <input
+          maxLength={30}
           name="name"
           type="text"
           defaultValue={values?.name}
