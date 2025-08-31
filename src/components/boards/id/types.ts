@@ -37,6 +37,7 @@ export interface BoardDataProps {
   content: string;
   image: string;
   writer: ListWriter;
+  isLiked: boolean;
   likeCount: number;
   createdAt: string;
   updatedAt: string;

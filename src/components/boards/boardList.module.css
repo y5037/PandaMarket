@@ -329,6 +329,7 @@
   -webkit-flex-direction: column;
   flex-direction: column;
   gap: 24px;
+  min-height: calc(100vw * (130 / 640));
 }
 
 .allPost .postCover .item {

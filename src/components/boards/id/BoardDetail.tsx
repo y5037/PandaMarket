@@ -51,8 +51,7 @@ function BoardDetail({
 
   useEffect(() => {
     if (boardData) {
-      // 해당 유저의 좋아요 여부를 확인할 수 있는 리스폰스 값이 없음
-      // setLiked(boardData.isLike);
+      setLiked(boardData.isLiked);
       setFavoriteCount(boardData.likeCount);
     }
   }, [boardData]);
